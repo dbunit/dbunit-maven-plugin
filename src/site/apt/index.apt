@@ -30,10 +30,14 @@ DbUnit Maven Plugin
    
 * Examples
 
+  For the full list of examples refer to the menu bar on the left top.
+
   * {{{examples/clean-insert.html}Clear database and insert a dataset before test phase.}}
 
-  * {{{examples/export-full.html}Export entired database to a dataset file after test.}}
+  * {{{examples/export-full.html}Export entire database to a dataset file after test.}}
   
+  * {{{examples/export-custom-query.html}Export a database using a custom query.}}
+
   * {{{examples/settings.html}Hide username/password in settings.xml.}}
 
   []

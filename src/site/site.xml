@@ -30,8 +30,9 @@
          <item name="FAQ" href="faq.html"/>
       </menu>
       <menu name="Examples">
-         <item name="clean-insert" href="examples/clean-insert.html"/>
-         <item name="export database" href="examples/export-full.html"/>
+         <item name="Clean insert" href="examples/clean-insert.html"/>
+         <item name="Export full database" href="examples/export-full.html"/>
+         <item name="Export with custom query" href="examples/export-custom-query.html"/>
          <item name="settings" href="examples/settings.html"/>
       </menu>
    </body>
