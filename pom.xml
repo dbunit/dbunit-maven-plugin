@@ -11,15 +11,15 @@
   <packaging>maven-plugin</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>DbUnit Maven Plugin</name>
-  <url>http://mojo.codehaus.org/dbunit-maven-plugin/</url>
+  <url>http://dbunit.sourceforge.net/</url>
   <inceptionYear>2006</inceptionYear>
   <description>
      Use this plugin to invoke DbUnit utilities
   </description>
   <scm>
-    <connection>scm:svn:https://dbunit.svn.sourceforge.net/svnroot/dbunit/trunk</connection>
-    <developerConnection>scm:svn:https://dbunit.svn.sourceforge.net/svnroot/dbunit/trunk</developerConnection>
-    <url>http://dbunit.svn.sourceforge.net/svnroot/dbunit/trunk</url>
+    <connection>scm:svn:https://dbunit.svn.sourceforge.net/svnroot/dbunit/trunk/dbunit-maven-plugin</connection>
+    <developerConnection>scm:svn:https://dbunit.svn.sourceforge.net/svnroot/dbunit/trunk/dbunit-maven-plugin</developerConnection>
+    <url>http://dbunit.svn.sourceforge.net/svnroot/dbunit/trunk/dbunit-maven-plugin</url>
   </scm>
   <issueManagement>
     <system>SourceForge</system>
@@ -185,16 +185,46 @@
         <artifactId>maven-changes-plugin</artifactId>
         <version>2.1</version>
         <configuration>
-          <urlDownload>${project.url}</urlDownload>
-          <columnNames>Key,Summary,Status,Resolution,Assignee,Type,Version,Fix Version</columnNames>
-          <generateJiraAnnouncement>true</generateJiraAnnouncement>
+          <smtpHost>localhost</smtpHost>
+          <smtpPort implementation="java.lang.Integer">25</smtpPort>
+          <introduction>If you are reading this, the maintainer forgot to describe what's the purpose of this release!!!</introduction>
           <toAddresses>
+            <toAddress implementation="java.lang.String">dbunit-developer@lists.sourceforge.net</toAddress>
+            <toAddress implementation="java.lang.String">dbunit-user@lists.sourceforge.net</toAddress>
             <toAddress>dev@mojo.codehaus.org</toAddress>
             <toAddress>user@mojo.codehaus.org</toAddress>
             <toAddress>users@maven.apache.org</toAddress>
           </toAddresses>
+          <urlDownload>http://sourceforge.net/project/showfiles.php?group_id=47439</urlDownload>
+          <issueLinkTemplate><![CDATA[http://sourceforge.net/support/tracker.php?aid=%ISSUE%]]></issueLinkTemplate>
         </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+              <report>license</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
     </plugins>
   </reporting>
+  
+  <distributionManagement>
+    <snapshotRepository>
+      <id>sourceforge</id>
+      <name>SourceForge Snapshots Repo</name>
+      <url>scp://shell.sourceforge.net/home/groups/d/db/dbunit/htdocs/repo/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>sourceforge</id>
+      <name>SourceForge Releases Repo</name>
+      <url>scp://shell.sourceforge.net/home/groups/d/db/dbunit/htdocs/repo/official</url>
+    </repository>
+    <site>
+      <id>sourceforge</id>
+      <url>scp://shell.sourceforge.net/home/groups/d/db/dbunit/htdocs/dbunit-maven-plugin</url>
+    </site>
+  </distributionManagement>
+  
 </project>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<document>
+  <properties>
+    <title>Changes</title>
+    <!-- Commented out as recent versions of maven-changes-plugin generate
+         errors parsing multiple author tags
+    <author email="epugh@upstate.com">Eric Pugh</author>
+    <author email="mlaflamm@users.sourceforge.net">Manuel Laflamme</author>
+    <author email="dbunit@felipeal.net">Felipe Leme</author>  -->
+  </properties>
+
+  <body>
+    <release version="1.0-SNAPSHOT" date="TBD" description="(no description)">
+      <action dev="gommma" type="add" issue="2215029" due-to="danttran">Move dbunit-maven-plugin from codehaus to DBUnit</action>
+    </release>
+  </body>
+</document>
