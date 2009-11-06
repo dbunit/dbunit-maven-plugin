@@ -16,6 +16,13 @@
   <description>
      Use this plugin to invoke DbUnit utilities
   </description>
+  <licenses>
+    <license>
+      <name>GNU Lesser General Public License, Version 2.1</name>
+      <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   <scm>
     <connection>scm:svn:https://dbunit.svn.sourceforge.net/svnroot/dbunit/trunk/dbunit-maven-plugin</connection>
     <developerConnection>scm:svn:https://dbunit.svn.sourceforge.net/svnroot/dbunit/trunk/dbunit-maven-plugin</developerConnection>
@@ -82,13 +89,6 @@
       <url>http://www.davidkarlsen.com</url>
     </developer>
   </developers>
-  <licenses>
-    <license>
-      <name>The MIT License</name>
-      <url>LICENSE.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
