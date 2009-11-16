@@ -77,3 +77,37 @@ Usage
 </project>
 
 ---------------------------
+
+  The <configuration> element can contain all properties and features that are known to the 
+  DatabaseConfig class (see {{http://www.dbunit.org/properties.html}} ).
+  It allows to specify the short name of the properties in the same way it works for the ant
+  task: {{http://www.dbunit.org/anttask.html}}
+  Note that there are still the old and deprecated configuration elements (not nested in the 
+  <dbconfig> element but specified explicitly beneath the configuration). If you specify
+  your properties in both ways then the <dbconfig> value will always have precedence over the
+  old ones.
+  
+---------------------------
+
+[...]
+<configuration>
+  <dbconfig>
+      <property>
+        <name>datatypeFactory</name>
+        <value>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</value>
+      </property>
+      <property>
+        <name>tableType</name>
+        <value>TABLE,SYNONYM</value>
+      </property>
+      <property>
+        <name>batchedStatements</name>
+        <value>true</value>
+      </property>
+      <property>
+        <name>caseSensitiveTableNames</name>
+        <value>true</value>
+      </property>
+  </dbconfig>
+</configuration>
+[...]

@@ -35,7 +35,7 @@ import org.dbunit.database.IDatabaseConnection;
  * @goal compare
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
- * 
+ * @since 1.0
  */
 public class CompareMojo
     extends AbstractDbUnitMojo

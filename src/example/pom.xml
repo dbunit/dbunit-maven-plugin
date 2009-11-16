@@ -60,9 +60,9 @@
       </plugin>
       
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
+        <groupId>org.dbunit</groupId>
         <artifactId>dbunit-maven-plugin</artifactId>
-        <version>@project.version@</version>
+        <version>1.0-SNAPSHOT</version>
         <dependencies>
           <dependency>
             <groupId>hsqldb</groupId>
@@ -147,6 +147,40 @@
               <goal>compare</goal>
             </goals>
             <configuration>
+              <src>${originalDataSetFile}</src>
+              <queries>
+                <query>
+                  <name>person</name>
+                  <sql>select * from person</sql>
+                </query>
+              </queries>
+            </configuration>
+          </execution>
+          <execution>
+            <id>compare-queries-with-original-dataset-using-dbconfig</id>
+            <phase>test</phase>
+            <goals>
+              <goal>compare</goal>
+            </goals>
+            <configuration>
+              <dbconfig>
+                  <property>
+                    <name>datatypeFactory</name>
+                    <value>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</value>
+                  </property>
+                  <property>
+                    <name>tableType</name>
+                    <value>TABLE,SYNONYM</value>
+                  </property>
+                  <property>
+                    <name>batchedStatements</name>
+                    <value>true</value>
+                  </property>
+                  <property>
+                    <name>caseSensitiveTableNames</name>
+                    <value>true</value>
+                  </property>
+              </dbconfig>
               <src>${originalDataSetFile}</src>
               <queries>
                 <query>

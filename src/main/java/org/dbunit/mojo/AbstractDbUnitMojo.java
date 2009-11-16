@@ -30,6 +30,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.settings.Server;
 import org.apache.maven.settings.Settings;
+import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.ForwardOnlyResultSetTableFactory;
@@ -43,6 +44,7 @@ import org.dbunit.dataset.datatype.IDataTypeFactory;
  * @author <a href="mailto:topping@codehaus.org">Brian Topping</a>
  * @version $Id$
  * @requiresDependencyResolution compile
+ * @since 1.0
  */
 public abstract class AbstractDbUnitMojo
     extends AbstractMojo
@@ -73,8 +75,8 @@ public abstract class AbstractDbUnitMojo
     /**
      * The JDBC URL for the database to access, e.g. jdbc:db2:SAMPLE.
      * 
-     * @parameter
-     * @required expression="${url}" 
+     * @parameter expression="${url}" 
+     * @required
      */
     protected String url;
 
@@ -86,15 +88,26 @@ public abstract class AbstractDbUnitMojo
     protected String schema;
 
     /**
+     * DB configuration child element to configure {@link DatabaseConfig} properties
+     * in a generic way. This makes the many attributes/properties in this class obsolete and
+     * sets the value directly where it should go into which is the {@link DatabaseConfig}.
+     * @parameter expression="${dbconfig}" 
+     * @since 1.0
+     */
+    protected Properties dbconfig;
+
+    /**
      * Set the DataType factory to add support for non-standard database vendor data types.
      * 
      * @parameter expression="${dataTypeFactoryName}" default-value="org.dbunit.dataset.datatype.DefaultDataTypeFactory"
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
      */
     protected String dataTypeFactoryName = "org.dbunit.dataset.datatype.DefaultDataTypeFactory";
 
     /**
      * Enable or disable usage of JDBC batched statement by DbUnit
      * @parameter expression="${supportBatchStatement}" default-value="false"
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
      */
     protected boolean supportBatchStatement;
 
@@ -102,12 +115,14 @@ public abstract class AbstractDbUnitMojo
      * Enable or disable multiple schemas support by prefixing table names with the schema name.
      * 
      * @parameter expression="${useQualifiedTableNames}" default-value="false"
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
      */
     protected boolean useQualifiedTableNames;
 
     /**
      * Enable or disable the warning message displayed when DbUnit encounter an unsupported data type.
      * @parameter expression="${datatypeWarning}" default-value="false"
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
      */
     protected boolean datatypeWarning;
 
@@ -115,6 +130,7 @@ public abstract class AbstractDbUnitMojo
      * escapePattern
      * 
      * @parameter expression="${escapePattern}" 
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
      */
     protected String escapePattern;
 
@@ -123,6 +139,7 @@ public abstract class AbstractDbUnitMojo
      * 
      * @parameter expression="${escapePattern}" default-value="false"
      * @since 1.0-beta-2
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
      */
     protected boolean skipOracleRecycleBinTables;
     
@@ -151,6 +168,7 @@ public abstract class AbstractDbUnitMojo
      * Class name of metadata handler.
      * @parameter expression="${metadataHandlerName}" default-value="org.dbunit.database.DefaultMetadataHandler"
      * @since 1.0-beta-3
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
      */
     protected String metadataHandlerName;
 
@@ -159,6 +177,7 @@ public abstract class AbstractDbUnitMojo
      * @see http://www.dbunit.org/properties.html#casesensitivetablenames
      * 
      * @parameter default-value="false"
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
      */
     private boolean caseSensitiveTableNames;
 
@@ -198,6 +217,39 @@ public abstract class AbstractDbUnitMojo
 
         IDatabaseConnection connection = new DatabaseConnection( conn, schema );
         DatabaseConfig config = connection.getConfig();
+        
+        //TODO this method is only here for backwards compatibility and should not be used anymore. Should be removed in the next major release.
+        initializeDbConfigWithOldProps(config);
+        
+        if(this.dbconfig != null){
+            getLog().debug("Setting dbconfig properties on the database config. " + dbconfig);
+            try {
+                config.setPropertiesByString(this.dbconfig);
+            }
+            catch(DatabaseUnitException e)
+            {
+                throw new MojoExecutionException("Could not populate dbunit config object", e);
+            }
+        }
+        else {
+            getLog().debug("No dbconfig element specified");
+        }
+        
+        return connection;
+    }
+
+    /**
+     * Initializes the given {@link DatabaseConfig} instance using field values of this mojo.
+     * TODO this method is only here for backwards compatibility and should not be used anymore. Should be removed in the next major release. 
+     * @param config
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws ClassNotFoundException
+     * @deprecated since 1.0 - prefer the generic {@link #dbconfig} properties
+     */
+    private void initializeDbConfigWithOldProps(DatabaseConfig config) 
+    throws InstantiationException, IllegalAccessException, ClassNotFoundException 
+    {
         config.setFeature( DatabaseConfig.FEATURE_BATCHED_STATEMENTS, supportBatchStatement );
         config.setFeature( DatabaseConfig.FEATURE_QUALIFIED_TABLE_NAMES, useQualifiedTableNames );
         config.setFeature( DatabaseConfig.FEATURE_DATATYPE_WARNING, datatypeWarning );
@@ -214,8 +266,6 @@ public abstract class AbstractDbUnitMojo
         // Setup metadata handler
         IMetadataHandler metadataHandler = (IMetadataHandler) Class.forName( metadataHandlerName ).newInstance();
         config.setProperty( DatabaseConfig.PROPERTY_METADATA_HANDLER, metadataHandler );
-
-        return connection;
     }
 
     /**

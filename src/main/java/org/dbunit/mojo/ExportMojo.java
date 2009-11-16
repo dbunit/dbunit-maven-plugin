@@ -37,7 +37,7 @@ import org.dbunit.database.IDatabaseConnection;
  * @author <a href="mailto:topping@codehaus.org">Brian Topping</a>
  * @author <a href="mailto:david@codehaus.org">David J. M. Karlsen</a>
  * @version $Id$
- * 
+ * @since 1.0
  */
 public class ExportMojo
     extends AbstractDbUnitMojo

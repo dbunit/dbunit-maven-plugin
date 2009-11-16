@@ -12,6 +12,7 @@
   <body>
     <release version="1.0-SNAPSHOT" date="TBD" description="(no description)">
       <action dev="gommma" type="add" issue="2215029" due-to="danttran">Move dbunit-maven-plugin from codehaus to DBUnit</action>
+      <action dev="gommma" type="add" issue="2894096" due-to="gommma">maven plugin to support the generic dbConfig like for ant</action>
     </release>
   </body>
 </document>
