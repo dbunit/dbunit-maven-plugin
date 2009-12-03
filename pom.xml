@@ -11,7 +11,7 @@
   <packaging>maven-plugin</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>DbUnit Maven Plugin</name>
-  <url>http://dbunit.sourceforge.net/</url>
+  <url>http://dbunit.sourceforge.net/dbunit-maven-plugin/</url>
   <inceptionYear>2006</inceptionYear>
   <description>
      Use this plugin to invoke DbUnit utilities

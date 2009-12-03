@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/DECORATION/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+
+   <bannerLeft>
+      <name>DbUnit</name>
+      <src>/images/dbunit-logo.jpg</src>
+      <href>http://www.dbunit.org</href>
+   </bannerLeft>
+
+   <bannerRight>
+      <name>DbUnit.org</name>
+      <src>http://sourceforge.net/sflogo.php?group_id=47439&amp;type=5</src>
+      <href>http://www.sourceforge.net/projects/dbunit</href>
+   </bannerRight>
+
+  <!-- position can be
+       right, left, navigation-top, navigation-bottom, bottom
+    -->
+   <publishDate format="dd-MMM-yyyy" position="navigation-bottom" />
+
+
    <body>
+      <head>
+         <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+      </head>
+
       <links>
         <item name="DbUnit" href="http://dbunit.sourceforge.net"/>
       </links>
