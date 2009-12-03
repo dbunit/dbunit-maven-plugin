@@ -7,10 +7,10 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.codehaus.mojo</groupId>
+  <groupId>org.dbunit</groupId>
   <artifactId>dbunit-maven-plugin-example</artifactId>
   <name>Maven DbUnit Plugin - Example</name>
-  <version>1.0-beta-1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
     
   <description>
     This runnable example execises operation, export, and compare goals.
@@ -19,7 +19,7 @@
     import the exported dataset file back to database, finally compare database 
     with orignal dataset file.
     
-    svn co http://svn.codehaus.org/mojo/trunk/mojo/dbunit-maven-plugin/src/example and run "mvn" 
+    svn co https://dbunit.svn.sourceforge.net/svnroot/dbunit/trunk/dbunit-maven-plugin/src/example and run "mvn" 
     
   </description>
   
