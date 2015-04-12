@@ -79,9 +79,9 @@ Usage
 ---------------------------
 
   The <configuration> element can contain all properties and features that are known to the 
-  DatabaseConfig class (see {{http://www.dbunit.org/properties.html}} ).
+  DatabaseConfig class (see {{http://dbunit.sourceforge.net/properties.html}} ).
   It allows to specify the short name of the properties in the same way it works for the ant
-  task: {{http://www.dbunit.org/anttask.html}}
+  task: {{http://dbunit.sourceforge.net//anttask.html}}
   Note that there are still the old and deprecated configuration elements (not nested in the 
   <dbconfig> element but specified explicitly beneath the configuration). If you specify
   your properties in both ways then the <dbconfig> value will always have precedence over the

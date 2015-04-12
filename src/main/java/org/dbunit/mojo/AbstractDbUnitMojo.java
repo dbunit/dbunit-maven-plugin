@@ -174,7 +174,7 @@ public abstract class AbstractDbUnitMojo
 
     /**
      * Be case sensitive when handling tables.
-     * @see http://www.dbunit.org/properties.html#casesensitivetablenames
+     * @see http://dbunit.sourceforge.net/properties.html#casesensitivetablenames
      * 
      * @parameter default-value="false"
      * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
