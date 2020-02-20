@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+  <table name='person'>
+    <column>id</column>
+    <column>first_name</column>
+    <column>last_name</column>
+    <row>
+      <value>3</value>
+      <value>Björn</value>
+      <value>Beskow</value>
+    </row>
+  </table>
+</dataset>

@@ -43,7 +43,8 @@
     <antVersion>1.6.5</antVersion>
     <!-- TODO this needed for plugin? -->
     <commonsCollectionsVersion>3.2.2</commonsCollectionsVersion>
-    <dbunitVersion>2.7.2</dbunitVersion>
+    <!-- always set to minimum version this plugin needs for its features -->
+    <dbunitVersion>2.7.3-SNAPSHOT</dbunitVersion>
     <junitVersion>4.12</junitVersion>
     <mavenPluginApiVersion>3.3.9</mavenPluginApiVersion>
     <mavenSettingsVersion>3.3.9</mavenSettingsVersion>

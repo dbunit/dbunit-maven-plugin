@@ -34,6 +34,8 @@ DbUnit Maven Plugin
 
   * {{{./examples/clean-insert.html}Clear database and insert a dataset before test phase.}}
 
+  * {{{./examples/clean-insert-composite-dataset.html}Use multiple source files to create a composite dataset.}}
+
   * {{{./examples/export-full.html}Export entire database to a dataset file after test.}}
   
   * {{{./examples/export-custom-query.html}Export a database using a custom query.}}

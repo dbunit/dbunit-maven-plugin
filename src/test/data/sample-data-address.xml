@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+  <table name='address'>
+    <column>id</column>
+    <column>street</column>
+    <row>
+      <value>1</value>
+      <value>10 Downing Street</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>1600 Pennsylvania Ave NW</value>
+    </row>
+  </table>
+</dataset>

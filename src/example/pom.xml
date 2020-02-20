@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<project 
-  xmlns="http://maven.apache.org/POM/4.0.0" 
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
@@ -16,7 +16,7 @@
     This runnable example execises operation, export, and compare goals.
     It uses sql-maven-plugin to create database, then have dbunit-maven-plugin
     to initialize database with some data, export initial data to an external file,
-    import the exported dataset file back to database, finally compare database 
+    import the exported dataset file back to database, finally compare database
     with orignal dataset file.
   </description>
 
@@ -59,7 +59,8 @@
       <plugin>
         <groupId>org.dbunit</groupId>
         <artifactId>dbunit-maven-plugin</artifactId>
-        <version>1.1.0</version>
+        <!-- always set to committed plugin version for build testing it -->
+        <version>1.1.1-SNAPSHOT</version>
         <dependencies>
           <dependency>
             <groupId>hsqldb</groupId>
@@ -97,6 +98,7 @@
             </goals>
             <configuration>
                <dest>${exportedDataSetFile}</dest>
+              <ordered>true</ordered>
             </configuration>
           </execution>
           <execution>
@@ -187,6 +189,31 @@
               </queries>
             </configuration>
           </execution>
+          <execution>
+            <id>clean-insert-from-multiple-files</id>
+            <phase>test</phase>
+            <goals>
+              <goal>operation</goal>
+            </goals>
+            <configuration>
+              <type>CLEAN_INSERT</type>
+              <sources>
+                <source>${dataSetFilePerson}</source>
+                <source>${dataSetFileAddress}</source>
+              </sources>
+              <composite>true</composite>
+            </configuration>
+          </execution>
+          <execution>
+            <id>compare-database-from-multiple-files-with-original-dataset</id>
+            <phase>test</phase>
+            <goals>
+              <goal>compare</goal>
+            </goals>
+            <configuration>
+              <src>${originalDataSetFile}</src>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
@@ -198,6 +225,8 @@
     <username>sa</username>
     <password></password>
     <originalDataSetFile>../../src/test/data/sample-data.xml</originalDataSetFile>
+    <dataSetFilePerson>../../src/test/data/sample-data-person.xml</dataSetFilePerson>
+    <dataSetFileAddress>../../src/test/data/sample-data-address.xml</dataSetFileAddress>
     <exportedDataSetFile>${project.build.directory}/dbunit/exported-dataset.xml</exportedDataSetFile>
   </properties>
 

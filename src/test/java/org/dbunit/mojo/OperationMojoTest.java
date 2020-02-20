@@ -21,8 +21,11 @@
 package org.dbunit.mojo;
 
 
+import org.apache.maven.plugin.MojoExecutionException;
+
 import java.io.File;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -56,6 +59,7 @@ public class OperationMojoTest
         this.populateMojoCommonConfiguration( export );
         export.dest = exportFile;
         export.format = "xml";
+        export.ordered = true;
         export.execute();
         
         //then import the exported dataset file back to DB
@@ -75,6 +79,95 @@ public class OperationMojoTest
         compare.format = "xml";
         compare.sort =  false ;
         compare.execute();
+    }
+
+    public void testCleanInsertOperationCompositeDataset()
+            throws Exception
+    {
+        //Insert some pre-existing data, to force integrity checks
+        Statement st = c.createStatement();
+        st.executeUpdate( "insert into person ( id, first_name, last_name) values (1, 'First', 'Last')" );
+        st.executeUpdate( "insert into address ( id, street) values (1, 'Street')" );
+
+        //init database with single dataset from two separate files
+        OperationMojo operation = new OperationMojo();
+        this.populateMojoCommonConfiguration( operation );
+        operation.sources = new File[] {
+                new File( p.getProperty( "xmlDataSourcePerson" ) ),
+                new File( p.getProperty( "xmlDataSourceAddress" ) ),
+        };
+        operation.format = "xml";
+        operation.type = "CLEAN_INSERT";
+        operation.composite = true;
+        operation.execute();
+
+        //compare the current contents of the DB with the single dataset file
+        CompareMojo compare = new CompareMojo();
+        this.populateMojoCommonConfiguration( compare );
+        compare.src = new File( p.getProperty( "xmlDataSource" ) );
+        compare.format = "xml";
+        compare.sort =  false ;
+        compare.execute();
+    }
+
+    public void testCleanInsertOperationCompositeCombineDataset()
+            throws Exception
+    {
+        //Insert some pre-existing data, to force integrity checks
+        Statement st = c.createStatement();
+        st.executeUpdate( "insert into person ( id, first_name, last_name) values (1, 'First', 'Last')" );
+        st.executeUpdate( "insert into address ( id, street) values (1, 'Street')" );
+
+        //init database with single dataset from three separate files, where two of the files
+        //define rows for the same table 'Person'
+        OperationMojo operation = new OperationMojo();
+        this.populateMojoCommonConfiguration( operation );
+        operation.sources = new File[] {
+                new File( p.getProperty( "xmlDataSourcePerson" ) ),
+                new File( p.getProperty( "xmlDataSourceAddress" ) ),
+                new File( p.getProperty( "xmlDataSourceAdditionalPerson" ) ),
+        };
+        operation.format = "xml";
+        operation.type = "CLEAN_INSERT";
+        operation.composite = true;
+        operation.combine = true;
+        operation.execute();
+
+        //check to make sure we have 3 rows
+        ResultSet rs = st.executeQuery( "select count(*) from person" );
+        rs.next();
+        assertEquals( 3, rs.getInt(1) );
+    }
+
+    public void testCleanInsertOperationMultipleDatasetsCauseIntegrityConstraintViolation()
+            throws Exception
+    {
+        //Insert some pre-existing data, to force integrity checks
+        Statement st = c.createStatement();
+        st.executeUpdate( "insert into person ( id, first_name, last_name) values (1, 'First', 'Last')" );
+        st.executeUpdate( "insert into address ( id, street) values (1, 'Street')" );
+
+        //init database with two datasets from two separate files
+        OperationMojo operation = new OperationMojo();
+        this.populateMojoCommonConfiguration( operation );
+        operation.sources = new File[] {
+                new File( p.getProperty( "xmlDataSourcePerson" ) ),
+                new File( p.getProperty( "xmlDataSourceAddress" ) ),
+        };
+        operation.format = "xml";
+        operation.type = "CLEAN_INSERT";
+        operation.composite = false;
+        try
+        {
+            operation.execute();
+            fail("MojoExecutionException expected");
+        }
+        catch (MojoExecutionException expected)
+        {
+            Throwable rootCause = expected.getCause().getCause();
+            assertTrue("SQLException expected", rootCause instanceof SQLException);
+            assertTrue("Integrity constraint violation expected", rootCause.getMessage().contains("Integrity constraint violation"));
+        }
     }
 
     public void testSkip()

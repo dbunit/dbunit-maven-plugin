@@ -72,9 +72,33 @@ public class OperationMojo extends AbstractDbUnitMojo
     /**
      * DataSet files.
      *
-     * @parameter
+     * @parameter property="sources"
      */
     protected File[] sources;
+
+    /**
+     * When true, merge all source files into a single composite dataset.
+     *
+     * @parameter property="composite" default-value="false"
+     */
+    protected boolean composite;
+
+    /**
+     * When true, table rows from multiple sources having the same name are
+     * combined into one table.<br>
+     * Only relevant when composite is true.
+     *
+     * @parameter property="combine" default-value="false"
+     */
+    protected boolean combine;
+
+    /**
+     * Set to true to order tables according to integrity constraints defined in
+     * DB.
+     *
+     * @parameter property="ordered" default-value="false"
+     */
+    protected boolean ordered;
 
     /**
      * Dataset file format type. Valid types are: flat, xml, csv, and dtd
@@ -109,16 +133,32 @@ public class OperationMojo extends AbstractDbUnitMojo
 
             try
             {
-                for (final Iterator i = concatenatedSources.iterator(); i
-                        .hasNext();)
+                if (composite)
                 {
-                    final File source = (File) i.next();
                     final Operation op = new Operation();
                     op.setFormat(format);
-                    op.setSrc(source);
+                    final File[] srcFile =
+                            (File[]) concatenatedSources.toArray(new File[] {});
+                    op.setSrc(srcFile);
+                    op.setOrdered(ordered);
+                    op.setCombine(combine);
                     op.setTransaction(transaction);
                     op.setType(type);
                     op.execute(connection);
+                } else
+                {
+                    for (final Iterator i = concatenatedSources.iterator(); i
+                            .hasNext();)
+                    {
+                        final File source = (File) i.next();
+                        final Operation op = new Operation();
+                        op.setFormat(format);
+                        op.setSrc(source);
+                        op.setOrdered(ordered);
+                        op.setTransaction(transaction);
+                        op.setType(type);
+                        op.execute(connection);
+                    }
                 }
             } finally
             {

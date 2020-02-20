@@ -94,8 +94,10 @@ public abstract class AbstractDbUnitMojoTest
         c = getConnection();
 
         Statement st = c.createStatement();
+        st.executeUpdate( "drop table address if exists" );
         st.executeUpdate( "drop table person if exists" );
-        st.executeUpdate( "create table person ( id integer, first_name varchar, last_name varchar)" );        
+        st.executeUpdate( "create table person ( id integer, first_name varchar, last_name varchar, primary key (id))" );
+        st.executeUpdate( "create table address ( id integer, street varchar, foreign key (id) references person(id))" );
     }
     
     protected void populateMojoCommonConfiguration( AbstractDbUnitMojo mojo )

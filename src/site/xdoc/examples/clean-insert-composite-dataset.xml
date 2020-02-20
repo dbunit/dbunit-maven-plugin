@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+  <properties>
+    <title>DbUnit Maven2 Integration</title>
+  </properties>
+  <body>
+  <section>
+    <h4><a name="cleanInsertCompositeDataset">CLEAN_INSERT with multiple source files in composite dataset</a></h4>
+    <source>
+      <![CDATA[
+<executions>
+  <execution>
+    <phase>test-compile</phase>
+    <goals>
+      <goal>operation</goal>
+    </goals>
+    <configuration>
+      <type>CLEAN_INSERT</type>
+      <sources>
+        <src>src/test/data/partOne.xml</src>
+        <src>src/test/data/partTwo.xml</src>
+      </sources>
+      <composite>true</composite>
+    </configuration>
+  </execution>
+  [...]
+</executions>
+]]>
+    </source>
+  </section>
+  </body>
+</document>

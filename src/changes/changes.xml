@@ -12,7 +12,8 @@
   </properties>
 
   <body>
-    <release version="1.1.1-SNAPSHOT" date="TBD" description="">
+    <release version="1.1.1-SNAPSHOT" date="TBD" description="Composite dataset">
+      <action dev="jeffjensen" type="add" issue="5" system="sftickets" due-to="bjornbeskow">Create composite dataset from multiple source files.</action>
     </release>
     <release version="1.1.0" date="Aug 4, 2021" description="Update POMs and make first release">
       <action dev="jeffjensen" type="add" issue="7" system="sftickets" due-to="jeffjensen">Migrate to Sonatype oss-parent</action>
