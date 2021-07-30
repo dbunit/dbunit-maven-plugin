@@ -1,20 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>mojo-parent</artifactId>
     <version>22</version>
+    <relativePath />
   </parent>
+
   <groupId>org.dbunit</groupId>
   <artifactId>dbunit-maven-plugin</artifactId>
+  <version>1.1.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-  <version>1.0-SNAPSHOT</version>
   <name>DbUnit Maven Plugin</name>
   <url>http://dbunit.sourceforge.net/dbunit-maven-plugin/</url>
   <inceptionYear>2006</inceptionYear>
   <description>
-     Use this plugin to invoke DbUnit utilities
+     Use this plugin to invoke DbUnit utilities.
   </description>
   <licenses>
     <license>
@@ -24,14 +27,19 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:svn:https://dbunit.svn.sourceforge.net/svnroot/dbunit/trunk/dbunit-maven-plugin</connection>
-    <developerConnection>scm:svn:https://dbunit.svn.sourceforge.net/svnroot/dbunit/trunk/dbunit-maven-plugin</developerConnection>
-    <url>http://dbunit.svn.sourceforge.net/svnroot/dbunit/trunk/dbunit-maven-plugin</url>
+    <connection>scm:git:http://git.code.sf.net/p/dbunit/code.git</connection>
+    <developerConnection>scm:git:https://git.code.sf.net/p/dbunit/code.git</developerConnection>
+    <url>https://sourceforge.net/p/dbunit/code.git/ci/master/tree/dbunit-maven-plugin/</url>
+    <tag>HEAD</tag>
   </scm>
   <issueManagement>
-    <system>SourceForge</system>
-    <url>http://sourceforge.net/tracker/?group_id=47439</url>
+    <system>SourceForge2</system>
+    <url>http://sourceforge.net/p/dbunit/bugs/</url>
   </issueManagement>
+  <ciManagement>
+    <system>travisci</system>
+    <url>https://travis-ci.com/dbunit/dbunit-mirror</url>
+  </ciManagement>
 
   <mailingLists>
     <mailingList>
@@ -47,7 +55,7 @@
       <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=dbunit-developer</archive>
     </mailingList>
     <mailingList>
-      <name>DbUnit SVN Commit List</name>
+      <name>DbUnit Commit List</name>
       <subscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-commit</subscribe>
       <unsubscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-commit</unsubscribe>
       <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=dbunit-commit</archive>
@@ -89,6 +97,7 @@
       <url>http://www.davidkarlsen.com</url>
     </developer>
   </developers>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -105,7 +114,7 @@
     <dependency>
       <groupId>org.dbunit</groupId>
       <artifactId>dbunit</artifactId>
-      <version>2.5.2</version>
+      <version>2.7.2</version>
     </dependency>
     <!-- dbunit depends on slf4j -->
     <dependency>
@@ -139,13 +148,13 @@
       <groupId>commons-collections</groupId>
       <artifactId>commons-collections</artifactId>
       <version>3.2.2</version>
-    </dependency> 
+    </dependency>
   </dependencies>
-    
+
   <build>
     <defaultGoal>install</defaultGoal>
     <plugins>
-      <!-- 
+      <!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-docck-plugin</artifactId>
@@ -158,12 +167,12 @@
         </executions>
       </plugin>
        -->
-       
+
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       <plugin>
@@ -187,7 +196,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>      
+      </plugin>
     </plugins>
   </build>
   <reporting>
@@ -221,7 +230,7 @@
       </plugin>
     </plugins>
   </reporting>
-  
+
   <distributionManagement>
     <snapshotRepository>
       <id>sourceforge</id>
@@ -238,5 +247,5 @@
       <url>scp://shell.sourceforge.net/home/groups/d/db/dbunit/htdocs/dbunit-maven-plugin</url>
     </site>
   </distributionManagement>
-  
+
 </project>
