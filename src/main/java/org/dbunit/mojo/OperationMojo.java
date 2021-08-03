@@ -20,7 +20,6 @@
  */
 package org.dbunit.mojo;
 
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,96 +34,91 @@ import org.dbunit.database.IDatabaseConnection;
 
 /**
  * Execute DbUnit's Database Operation with an external dataset file.
- * 
+ *
  * @goal operation
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @author <a href="mailto:topping@codehaus.org">Brian Topping</a>
  * @version $Id$
  * @since 1.0
  */
-public class OperationMojo
-    extends AbstractDbUnitMojo
-{
+public class OperationMojo extends AbstractDbUnitMojo {
     /**
-     * Type of Database operation to perform. Supported types are UPDATE, 
-     * INSERT, DELETE, DELETE_ALL, REFRESH, CLEAN_INSERT, MSSQL_INSERT, 
+     * Type of Database operation to perform. Supported types are UPDATE,
+     * INSERT, DELETE, DELETE_ALL, REFRESH, CLEAN_INSERT, MSSQL_INSERT,
      * MSSQL_REFRESH, MSSQL_CLEAN_INSERT
-     * 
-     * @parameter expression="${type}" 
+     *
+     * @parameter property="type"
      * @required
      */
     protected String type;
 
     /**
-     * When true, place the entired operation in one transaction
-     * @parameter expression="${transaction}" default-value="false"
+     * When true, place the entired operation in one transaction.
+     *
+     * @parameter property="transaction" default-value="false"
      */
     protected boolean transaction;
 
     /**
-     * DataSet file
-     * Please use sources instead.
-     * @parameter expression="${src}"
+     * DataSet file Please use sources instead.
+     *
+     * @parameter property="src"
      * @deprecated 1.0
      */
+    @Deprecated
     protected File src;
-    
+
     /**
      * DataSet files.
-     * @parameter 
+     *
+     * @parameter
      */
     protected File[] sources;
 
     /**
      * Dataset file format type. Valid types are: flat, xml, csv, and dtd
-     * 
-     * @parameter expression="${format}" default-value="xml";
+     *
+     * @parameter property="format" default-value="xml";
      * @required
      */
     protected String format;
 
-    public void execute()
-        throws MojoExecutionException, MojoFailureException
-    {
-        if ( skip )
-        {
-            this.getLog().info( "Skip operation: " + type + " execution" );
-            
+    @Override
+    public void execute() throws MojoExecutionException, MojoFailureException {
+        if (skip) {
+            this.getLog().info("Skip operation: " + type + " execution");
+
             return;
         }
 
         super.execute();
-        
-        List concatenatedSources = new ArrayList();
-        CollectionUtils.addIgnoreNull( concatenatedSources, src );
-        if ( sources != null ) {
-            concatenatedSources.addAll( Arrays.asList( sources ) );
+
+        final List concatenatedSources = new ArrayList();
+        CollectionUtils.addIgnoreNull(concatenatedSources, src);
+        if (sources != null) {
+            concatenatedSources.addAll(Arrays.asList(sources));
         }
-        
-        try
-        {
-            IDatabaseConnection connection = createConnection();
-            
-            try
-            {
-                for ( Iterator i = concatenatedSources.iterator(); i.hasNext(); ) {
-                    File source = (File) i.next();
-                    Operation op = new Operation();
-                    op.setFormat( format );
-                    op.setSrc( source );
-                    op.setTransaction( transaction );
-                    op.setType( type );
-                    op.execute( connection );
+
+        try {
+            final IDatabaseConnection connection = createConnection();
+
+            try {
+                for (final Iterator i = concatenatedSources.iterator(); i
+                        .hasNext();) {
+                    final File source = (File) i.next();
+                    final Operation op = new Operation();
+                    op.setFormat(format);
+                    op.setSrc(source);
+                    op.setTransaction(transaction);
+                    op.setType(type);
+                    op.execute(connection);
                 }
-            }
-            finally
-            {
+            } finally {
                 connection.close();
             }
-        }
-        catch ( Exception e )
-        {
-            throw new MojoExecutionException( "Error executing database operation: " + type, e );
+        } catch (final Exception e) {
+            throw new MojoExecutionException(
+                    "Error executing database operation: " + type, e);
         }
     }
 }

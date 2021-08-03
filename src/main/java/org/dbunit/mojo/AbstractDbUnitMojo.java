@@ -39,276 +39,308 @@ import org.dbunit.database.IMetadataHandler;
 import org.dbunit.dataset.datatype.IDataTypeFactory;
 
 /**
- * Common configurations for all DBUnit operations
+ * Common configurations for all DBUnit operations.
+ *
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @author <a href="mailto:topping@codehaus.org">Brian Topping</a>
  * @version $Id$
  * @requiresDependencyResolution compile
  * @since 1.0
  */
-public abstract class AbstractDbUnitMojo
-    extends AbstractMojo
-{
+public abstract class AbstractDbUnitMojo extends AbstractMojo {
 
     /**
      * The class name of the JDBC driver to be used.
-     * 
-     * @parameter expression="${driver}" 
+     *
+     * @parameter property="driver"
      * @required
      */
     protected String driver;
 
     /**
-     * Database username.  If not given, it will be looked up through 
-     * settings.xml's server with ${settingsKey} as key
-     * @parameter expression="${username}" 
+     * Database username. If not given, it will be looked up through
+     * settings.xml's server with ${settingsKey} as key.
+     *
+     * @parameter property="username"
      */
     protected String username;
 
     /**
-     * Database password. If not given, it will be looked up through settings.xml's 
-     * server with ${settingsKey} as key
-     * @parameter expression="${password}" 
+     * Database password. If not given, it will be looked up through
+     * settings.xml's server with ${settingsKey} as key.
+     *
+     * @parameter property="password"
      */
     protected String password;
 
     /**
      * The JDBC URL for the database to access, e.g. jdbc:db2:SAMPLE.
-     * 
-     * @parameter expression="${url}" 
+     *
+     * @parameter property="url"
      * @required
      */
     protected String url;
 
     /**
      * The schema name that tables can be found under.
-     * 
-     * @parameter expression="${schema}" 
+     *
+     * @parameter property="schema"
      */
     protected String schema;
 
     /**
-     * DB configuration child element to configure {@link DatabaseConfig} properties
-     * in a generic way. This makes the many attributes/properties in this class obsolete and
-     * sets the value directly where it should go into which is the {@link DatabaseConfig}.
-     * @parameter expression="${dbconfig}" 
+     * DB configuration child element to configure {@link DatabaseConfig}
+     * properties in a generic way. This makes the many attributes/properties in
+     * this class obsolete and sets the value directly where it should go into
+     * which is the {@link DatabaseConfig}.
+     *
+     * @parameter property="dbconfig"
      * @since 1.0
      */
     protected Properties dbconfig;
 
     /**
-     * Set the DataType factory to add support for non-standard database vendor data types.
-     * 
-     * @parameter expression="${dataTypeFactoryName}" default-value="org.dbunit.dataset.datatype.DefaultDataTypeFactory"
-     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
+     * Set the DataType factory to add support for non-standard database vendor
+     * data types.
+     *
+     * @parameter property="dataTypeFactoryName"
+     *            default-value="org.dbunit.dataset.datatype.DefaultDataTypeFactory"
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
+     *             nested elements for this
      */
-    protected String dataTypeFactoryName = "org.dbunit.dataset.datatype.DefaultDataTypeFactory";
+    @Deprecated
+    protected String dataTypeFactoryName =
+            "org.dbunit.dataset.datatype.DefaultDataTypeFactory";
 
     /**
-     * Enable or disable usage of JDBC batched statement by DbUnit
-     * @parameter expression="${supportBatchStatement}" default-value="false"
-     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
+     * Enable or disable usage of JDBC batched statement by DbUnit.
+     *
+     * @parameter property="supportBatchStatement" default-value="false"
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
+     *             nested elements for this
      */
+    @Deprecated
     protected boolean supportBatchStatement;
 
     /**
-     * Enable or disable multiple schemas support by prefixing table names with the schema name.
-     * 
-     * @parameter expression="${useQualifiedTableNames}" default-value="false"
-     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
+     * Enable or disable multiple schemas support by prefixing table names with
+     * the schema name.
+     *
+     * @parameter property="useQualifiedTableNames" default-value="false"
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
+     *             nested elements for this
      */
+    @Deprecated
     protected boolean useQualifiedTableNames;
 
     /**
-     * Enable or disable the warning message displayed when DbUnit encounter an unsupported data type.
-     * @parameter expression="${datatypeWarning}" default-value="false"
-     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
+     * Enable or disable the warning message displayed when DbUnit encounter an
+     * unsupported data type.
+     *
+     * @parameter property="datatypeWarning" default-value="false"
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
+     *             nested elements for this
      */
+    @Deprecated
     protected boolean datatypeWarning;
 
     /**
-     * escapePattern
-     * 
-     * @parameter expression="${escapePattern}" 
-     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
+     * escapePattern.
+     *
+     * @parameter property="escapePattern"
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
+     *             nested elements for this
      */
+    @Deprecated
     protected String escapePattern;
 
     /**
-     * skipOracleRecycleBinTables
-     * 
-     * @parameter expression="${escapePattern}" default-value="false"
+     * skipOracleRecycleBinTables.
+     *
+     * @parameter property="skipOracleRecycleBinTables" default-value="false"
      * @since 1.0-beta-2
-     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
+     *             nested elements for this
      */
+    @Deprecated
     protected boolean skipOracleRecycleBinTables;
-    
+
     /**
-     * Skip the execution when true, very handy when using together with maven.test.skip.
-     * 
-     * @parameter expression="${skip}" default-value="false"
+     * Skip the execution when true, very handy when using together with
+     * maven.test.skip.
+     *
+     * @parameter property="skip" default-value="false"
      */
     protected boolean skip;
-    
+
     /**
-     * Access to hidding username/password
-     * @parameter expression="${settings}"
+     * Access to hidding username/password.
+     *
+     * @parameter property="settings"
      * @readonly
      */
     private Settings settings;
 
     /**
-     * Server's id in settings.xml to look up username and password.
-     * Default to ${url} if not given.
-     * @parameter expression="${settingsKey}" 
+     * Server's id in settings.xml to look up username and password. Default to
+     * ${url} if not given.
+     *
+     * @parameter property="settingsKey"
      */
     private String settingsKey;
 
     /**
      * Class name of metadata handler.
-     * @parameter expression="${metadataHandlerName}" default-value="org.dbunit.database.DefaultMetadataHandler"
+     *
+     * @parameter property="metadataHandlerName"
+     *            default-value="org.dbunit.database.DefaultMetadataHandler"
      * @since 1.0-beta-3
-     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
+     *             nested elements for this
      */
+    @Deprecated
     protected String metadataHandlerName;
 
     /**
      * Be case sensitive when handling tables.
+     *
      * @see http://dbunit.sourceforge.net/properties.html#casesensitivetablenames
-     * 
+     *
      * @parameter default-value="false"
-     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the nested elements for this
+     * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
+     *             nested elements for this
      */
+    @Deprecated
     private boolean caseSensitiveTableNames;
-
 
     ////////////////////////////////////////////////////////////////////
 
-
-    public void execute()
-        throws MojoExecutionException, MojoFailureException
-    {
+    @Override
+    public void execute() throws MojoExecutionException, MojoFailureException {
         loadUserInfoFromSettings();
     }
 
-    IDatabaseConnection createConnection()
-        throws Exception
-    {
+    IDatabaseConnection createConnection() throws Exception {
 
         // Instantiate JDBC driver
-        Class dc = Class.forName( driver );
-        Driver driverInstance = (Driver) dc.newInstance();
-        Properties info = new Properties();
-        info.put( "user", username );
+        final Class dc = Class.forName(driver);
+        final Driver driverInstance = (Driver) dc.newInstance();
+        final Properties info = new Properties();
+        info.put("user", username);
 
-        if ( password != null )
-        {
-            info.put( "password", password );
+        if (password != null) {
+            info.put("password", password);
         }
 
-        Connection conn = driverInstance.connect( url, info );
+        final Connection conn = driverInstance.connect(url, info);
 
-        if ( conn == null )
-        {
+        if (conn == null) {
             // Driver doesn't understand the URL
-            throw new SQLException( "No suitable Driver for " + url );
+            throw new SQLException("No suitable Driver for " + url);
         }
-        conn.setAutoCommit( true );
+        conn.setAutoCommit(true);
 
-        IDatabaseConnection connection = new DatabaseConnection( conn, schema );
-        DatabaseConfig config = connection.getConfig();
-        
-        //TODO this method is only here for backwards compatibility and should not be used anymore. Should be removed in the next major release.
+        final IDatabaseConnection connection =
+                new DatabaseConnection(conn, schema);
+        final DatabaseConfig config = connection.getConfig();
+
+        // TODO this method is only here for backwards compatibility and should
+        // not be used anymore. Should be removed in the next major release.
         initializeDbConfigWithOldProps(config);
-        
-        if(this.dbconfig != null){
-            getLog().debug("Setting dbconfig properties on the database config. " + dbconfig);
+
+        if (this.dbconfig != null) {
+            getLog().debug(
+                    "Setting dbconfig properties on the database config. "
+                            + dbconfig);
             try {
                 config.setPropertiesByString(this.dbconfig);
+            } catch (final DatabaseUnitException e) {
+                throw new MojoExecutionException(
+                        "Could not populate dbunit config object", e);
             }
-            catch(DatabaseUnitException e)
-            {
-                throw new MojoExecutionException("Could not populate dbunit config object", e);
-            }
-        }
-        else {
+        } else {
             getLog().debug("No dbconfig element specified");
         }
-        
+
         return connection;
     }
 
     /**
-     * Initializes the given {@link DatabaseConfig} instance using field values of this mojo.
-     * TODO this method is only here for backwards compatibility and should not be used anymore. Should be removed in the next major release. 
+     * Initializes the given {@link DatabaseConfig} instance using field values
+     * of this mojo. TODO this method is only here for backwards compatibility
+     * and should not be used anymore. Should be removed in the next major
+     * release.
+     *
      * @param config
      * @throws InstantiationException
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
      * @deprecated since 1.0 - prefer the generic {@link #dbconfig} properties
      */
-    private void initializeDbConfigWithOldProps(DatabaseConfig config) 
-    throws InstantiationException, IllegalAccessException, ClassNotFoundException 
-    {
-        config.setFeature( DatabaseConfig.FEATURE_BATCHED_STATEMENTS, supportBatchStatement );
-        config.setFeature( DatabaseConfig.FEATURE_QUALIFIED_TABLE_NAMES, useQualifiedTableNames );
-        config.setFeature( DatabaseConfig.FEATURE_DATATYPE_WARNING, datatypeWarning );
-        config.setFeature( DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, this.skipOracleRecycleBinTables );
-        config.setFeature( DatabaseConfig.FEATURE_CASE_SENSITIVE_TABLE_NAMES, caseSensitiveTableNames );
-        
-        config.setProperty( DatabaseConfig.PROPERTY_ESCAPE_PATTERN, escapePattern );
-        config.setProperty( DatabaseConfig.PROPERTY_RESULTSET_TABLE_FACTORY, new ForwardOnlyResultSetTableFactory() );
+    @Deprecated
+    private void initializeDbConfigWithOldProps(final DatabaseConfig config)
+            throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException {
+        config.setFeature(DatabaseConfig.FEATURE_BATCHED_STATEMENTS,
+                supportBatchStatement);
+        config.setFeature(DatabaseConfig.FEATURE_QUALIFIED_TABLE_NAMES,
+                useQualifiedTableNames);
+        config.setFeature(DatabaseConfig.FEATURE_DATATYPE_WARNING,
+                datatypeWarning);
+        config.setFeature(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES,
+                this.skipOracleRecycleBinTables);
+        config.setFeature(DatabaseConfig.FEATURE_CASE_SENSITIVE_TABLE_NAMES,
+                caseSensitiveTableNames);
+
+        config.setProperty(DatabaseConfig.PROPERTY_ESCAPE_PATTERN,
+                escapePattern);
+        config.setProperty(DatabaseConfig.PROPERTY_RESULTSET_TABLE_FACTORY,
+                new ForwardOnlyResultSetTableFactory());
 
         // Setup data type factory
-        IDataTypeFactory dataTypeFactory = (IDataTypeFactory) Class.forName( dataTypeFactoryName ).newInstance();
-        config.setProperty( DatabaseConfig.PROPERTY_DATATYPE_FACTORY, dataTypeFactory );
+        final IDataTypeFactory dataTypeFactory = (IDataTypeFactory) Class
+                .forName(dataTypeFactoryName).newInstance();
+        config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                dataTypeFactory);
 
         // Setup metadata handler
-        IMetadataHandler metadataHandler = (IMetadataHandler) Class.forName( metadataHandlerName ).newInstance();
-        config.setProperty( DatabaseConfig.PROPERTY_METADATA_HANDLER, metadataHandler );
+        final IMetadataHandler metadataHandler = (IMetadataHandler) Class
+                .forName(metadataHandlerName).newInstance();
+        config.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER,
+                metadataHandler);
     }
 
     /**
-     * Load username password from settings if user has not set them in JVM properties
+     * Load username password from settings if user has not set them in JVM
+     * properties
      */
-    private void loadUserInfoFromSettings()
-        throws MojoExecutionException
-    {
-        if ( this.settingsKey == null )
-        {
+    private void loadUserInfoFromSettings() throws MojoExecutionException {
+        if (this.settingsKey == null) {
             this.settingsKey = url;
         }
 
-        if ( ( username == null || password == null ) && ( settings != null ) )
-        {
-            Server server = this.settings.getServer( this.settingsKey );
+        if ((username == null || password == null) && (settings != null)) {
+            final Server server = this.settings.getServer(this.settingsKey);
 
-            if ( server != null )
-            {
-                if ( username == null )
-                {
+            if (server != null) {
+                if (username == null) {
                     username = server.getUsername();
                 }
 
-                if ( password == null )
-                {
+                if (password == null) {
                     password = server.getPassword();
                 }
             }
         }
 
-        if ( username == null )
-        {
-            //allow emtpy username
-            username =  "" ;
+        if (username == null) {
+            // allow emtpy username
+            username = "";
         }
 
-        if ( password == null )
-        {
-            //allow emtpy password
-            password = "" ;
+        if (password == null) {
+            // allow emtpy password
+            password = "";
         }
     }
-
-
 }

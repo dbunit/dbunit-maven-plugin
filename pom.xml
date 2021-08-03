@@ -3,9 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>mojo-parent</artifactId>
-    <version>22</version>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
     <relativePath />
   </parent>
 
@@ -26,6 +26,11 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+
+  <properties>
+    <compilerPluginVersion>3.7.0</compilerPluginVersion>
+  </properties>
+
   <scm>
     <connection>scm:git:http://git.code.sf.net/p/dbunit/code.git</connection>
     <developerConnection>scm:git:https://git.code.sf.net/p/dbunit/code.git</developerConnection>
@@ -98,6 +103,23 @@
     </developer>
   </developers>
 
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-plugin-api</artifactId>
+        <version>2.0</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.2</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -153,6 +175,37 @@
 
   <build>
     <defaultGoal>install</defaultGoal>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${javadocPluginVersion}</version>
+          <!--
+            FIXME remove -Xdoclint:none after JavaDoc cleanup.
+          -->
+          <configuration>
+            <additionalparam>-Xdoclint:none</additionalparam>
+            <doclint>none</doclint>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-plugin-plugin</artifactId>
+          <version>2.5</version>
+          <executions>
+            <execution>
+              <id>help-mojo</id>
+              <goals>
+                <goal>helpmojo</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
       <!--
       <plugin>
@@ -170,9 +223,13 @@
 
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>${compilerPluginVersion}</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <source>${project.build.java.target}</source>
+          <target>${project.build.java.target}</target>
         </configuration>
       </plugin>
       <plugin>
@@ -230,22 +287,4 @@
       </plugin>
     </plugins>
   </reporting>
-
-  <distributionManagement>
-    <snapshotRepository>
-      <id>sourceforge</id>
-      <name>SourceForge Snapshots Repo</name>
-      <url>scp://shell.sourceforge.net/home/groups/d/db/dbunit/htdocs/repo/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>sourceforge</id>
-      <name>SourceForge Releases Repo</name>
-      <url>scp://shell.sourceforge.net/home/groups/d/db/dbunit/htdocs/repo/official</url>
-    </repository>
-    <site>
-      <id>sourceforge</id>
-      <url>scp://shell.sourceforge.net/home/groups/d/db/dbunit/htdocs/dbunit-maven-plugin</url>
-    </site>
-  </distributionManagement>
-
 </project>
