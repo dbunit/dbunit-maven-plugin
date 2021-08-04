@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<document>
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <properties>
     <title>Changes</title>
     <!-- Commented out as recent versions of maven-changes-plugin generate
@@ -10,7 +12,9 @@
   </properties>
 
   <body>
-    <release version="1.0-SNAPSHOT" date="TBD" description="(no description)">
+    <release version="1.1.0" date="Aug 4, 2021" description="Update POMs and make first release">
+    </release>
+    <release version="1.0-SNAPSHOT" date="(not released)" description="Migrate from CodeHaus to dbUnit">
       <action dev="gommma" type="add" issue="2215029" due-to="danttran">Move dbunit-maven-plugin from codehaus to DBUnit</action>
       <action dev="gommma" type="add" issue="2894096" due-to="gommma">maven plugin to support the generic dbConfig like for ant</action>
     </release>
