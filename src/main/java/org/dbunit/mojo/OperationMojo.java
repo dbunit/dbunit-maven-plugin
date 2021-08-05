@@ -41,7 +41,8 @@ import org.dbunit.database.IDatabaseConnection;
  * @version $Id$
  * @since 1.0
  */
-public class OperationMojo extends AbstractDbUnitMojo {
+public class OperationMojo extends AbstractDbUnitMojo
+{
     /**
      * Type of Database operation to perform. Supported types are UPDATE,
      * INSERT, DELETE, DELETE_ALL, REFRESH, CLEAN_INSERT, MSSQL_INSERT,
@@ -84,8 +85,10 @@ public class OperationMojo extends AbstractDbUnitMojo {
     protected String format;
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
-        if (skip) {
+    public void execute() throws MojoExecutionException, MojoFailureException
+    {
+        if (skip)
+        {
             this.getLog().info("Skip operation: " + type + " execution");
 
             return;
@@ -95,16 +98,20 @@ public class OperationMojo extends AbstractDbUnitMojo {
 
         final List concatenatedSources = new ArrayList();
         CollectionUtils.addIgnoreNull(concatenatedSources, src);
-        if (sources != null) {
+        if (sources != null)
+        {
             concatenatedSources.addAll(Arrays.asList(sources));
         }
 
-        try {
+        try
+        {
             final IDatabaseConnection connection = createConnection();
 
-            try {
+            try
+            {
                 for (final Iterator i = concatenatedSources.iterator(); i
-                        .hasNext();) {
+                        .hasNext();)
+                {
                     final File source = (File) i.next();
                     final Operation op = new Operation();
                     op.setFormat(format);
@@ -113,10 +120,12 @@ public class OperationMojo extends AbstractDbUnitMojo {
                     op.setType(type);
                     op.execute(connection);
                 }
-            } finally {
+            } finally
+            {
                 connection.close();
             }
-        } catch (final Exception e) {
+        } catch (final Exception e)
+        {
             throw new MojoExecutionException(
                     "Error executing database operation: " + type, e);
         }

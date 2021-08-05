@@ -37,7 +37,8 @@ import org.dbunit.database.IDatabaseConnection;
  * @version $Id$
  * @since 1.0
  */
-public class CompareMojo extends AbstractDbUnitMojo {
+public class CompareMojo extends AbstractDbUnitMojo
+{
     /**
      * DataSet file.
      *
@@ -77,34 +78,42 @@ public class CompareMojo extends AbstractDbUnitMojo {
     protected Query[] queries;
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
-        if (skip) {
+    public void execute() throws MojoExecutionException, MojoFailureException
+    {
+        if (skip)
+        {
             this.getLog().info("Skip DbUnit comparison");
             return;
         }
 
         super.execute();
 
-        try {
+        try
+        {
             final IDatabaseConnection connection = createConnection();
-            try {
+            try
+            {
                 final Compare dbUnitCompare = new Compare();
                 dbUnitCompare.setSrc(src);
                 dbUnitCompare.setFormat(format);
                 dbUnitCompare.setSort(sort);
 
-                for (int i = 0; queries != null && i < queries.length; ++i) {
+                for (int i = 0; queries != null && i < queries.length; ++i)
+                {
                     dbUnitCompare.addQuery((Query) queries[i]);
                 }
-                for (int i = 0; tables != null && i < tables.length; ++i) {
+                for (int i = 0; tables != null && i < tables.length; ++i)
+                {
                     dbUnitCompare.addTable((Table) tables[i]);
                 }
 
                 dbUnitCompare.execute(connection);
-            } finally {
+            } finally
+            {
                 connection.close();
             }
-        } catch (final Exception e) {
+        } catch (final Exception e)
+        {
             throw new MojoExecutionException(
                     "Error executing DbUnit comparison.", e);
         }

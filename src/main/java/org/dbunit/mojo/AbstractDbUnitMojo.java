@@ -47,7 +47,8 @@ import org.dbunit.dataset.datatype.IDataTypeFactory;
  * @requiresDependencyResolution compile
  * @since 1.0
  */
-public abstract class AbstractDbUnitMojo extends AbstractMojo {
+public abstract class AbstractDbUnitMojo extends AbstractMojo
+{
 
     /**
      * The class name of the JDBC driver to be used.
@@ -216,11 +217,13 @@ public abstract class AbstractDbUnitMojo extends AbstractMojo {
     ////////////////////////////////////////////////////////////////////
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() throws MojoExecutionException, MojoFailureException
+    {
         loadUserInfoFromSettings();
     }
 
-    IDatabaseConnection createConnection() throws Exception {
+    IDatabaseConnection createConnection() throws Exception
+    {
 
         // Instantiate JDBC driver
         final Class dc = Class.forName(driver);
@@ -228,13 +231,15 @@ public abstract class AbstractDbUnitMojo extends AbstractMojo {
         final Properties info = new Properties();
         info.put("user", username);
 
-        if (password != null) {
+        if (password != null)
+        {
             info.put("password", password);
         }
 
         final Connection conn = driverInstance.connect(url, info);
 
-        if (conn == null) {
+        if (conn == null)
+        {
             // Driver doesn't understand the URL
             throw new SQLException("No suitable Driver for " + url);
         }
@@ -248,17 +253,21 @@ public abstract class AbstractDbUnitMojo extends AbstractMojo {
         // not be used anymore. Should be removed in the next major release.
         initializeDbConfigWithOldProps(config);
 
-        if (this.dbconfig != null) {
+        if (this.dbconfig != null)
+        {
             getLog().debug(
                     "Setting dbconfig properties on the database config. "
                             + dbconfig);
-            try {
+            try
+            {
                 config.setPropertiesByString(this.dbconfig);
-            } catch (final DatabaseUnitException e) {
+            } catch (final DatabaseUnitException e)
+            {
                 throw new MojoExecutionException(
                         "Could not populate dbunit config object", e);
             }
-        } else {
+        } else
+        {
             getLog().debug("No dbconfig element specified");
         }
 
@@ -280,7 +289,8 @@ public abstract class AbstractDbUnitMojo extends AbstractMojo {
     @Deprecated
     private void initializeDbConfigWithOldProps(final DatabaseConfig config)
             throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
+            ClassNotFoundException
+    {
         config.setFeature(DatabaseConfig.FEATURE_BATCHED_STATEMENTS,
                 supportBatchStatement);
         config.setFeature(DatabaseConfig.FEATURE_QUALIFIED_TABLE_NAMES,
@@ -314,31 +324,39 @@ public abstract class AbstractDbUnitMojo extends AbstractMojo {
      * Load username password from settings if user has not set them in JVM
      * properties
      */
-    private void loadUserInfoFromSettings() throws MojoExecutionException {
-        if (this.settingsKey == null) {
+    private void loadUserInfoFromSettings() throws MojoExecutionException
+    {
+        if (this.settingsKey == null)
+        {
             this.settingsKey = url;
         }
 
-        if ((username == null || password == null) && (settings != null)) {
+        if ((username == null || password == null) && (settings != null))
+        {
             final Server server = this.settings.getServer(this.settingsKey);
 
-            if (server != null) {
-                if (username == null) {
+            if (server != null)
+            {
+                if (username == null)
+                {
                     username = server.getUsername();
                 }
 
-                if (password == null) {
+                if (password == null)
+                {
                     password = server.getPassword();
                 }
             }
         }
 
-        if (username == null) {
+        if (username == null)
+        {
             // allow emtpy username
             username = "";
         }
 
-        if (password == null) {
+        if (password == null)
+        {
             // allow emtpy password
             password = "";
         }

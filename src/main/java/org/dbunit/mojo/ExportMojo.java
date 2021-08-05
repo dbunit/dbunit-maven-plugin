@@ -39,7 +39,8 @@ import org.dbunit.database.IDatabaseConnection;
  * @version $Id$
  * @since 1.0
  */
-public class ExportMojo extends AbstractDbUnitMojo {
+public class ExportMojo extends AbstractDbUnitMojo
+{
     /**
      * Location of exported DataSet file.
      *
@@ -93,26 +94,32 @@ public class ExportMojo extends AbstractDbUnitMojo {
     protected String encoding;
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
-        if (skip) {
+    public void execute() throws MojoExecutionException, MojoFailureException
+    {
+        if (skip)
+        {
             this.getLog().info("Skip export execution");
             return;
         }
 
         super.execute();
 
-        try {
+        try
+        {
             // dbunit require dest directory is ready
             dest.getParentFile().mkdirs();
 
             final IDatabaseConnection connection = createConnection();
-            try {
+            try
+            {
                 final Export export = new Export();
                 export.setOrdered(ordered);
-                for (int i = 0; queries != null && i < queries.length; ++i) {
+                for (int i = 0; queries != null && i < queries.length; ++i)
+                {
                     export.addQuery((Query) queries[i]);
                 }
-                for (int i = 0; tables != null && i < tables.length; ++i) {
+                for (int i = 0; tables != null && i < tables.length; ++i)
+                {
                     export.addTable((Table) tables[i]);
                 }
 
@@ -122,10 +129,12 @@ public class ExportMojo extends AbstractDbUnitMojo {
                 export.setEncoding(encoding);
 
                 export.execute(connection);
-            } finally {
+            } finally
+            {
                 connection.close();
             }
-        } catch (final Exception e) {
+        } catch (final Exception e)
+        {
             throw new MojoExecutionException("Error executing export", e);
         }
     }
