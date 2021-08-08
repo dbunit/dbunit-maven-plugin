@@ -13,12 +13,14 @@
   <artifactId>dbunit-maven-plugin</artifactId>
   <version>1.1.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
+
   <name>DbUnit Maven Plugin</name>
   <url>http://dbunit.sourceforge.net/dbunit-maven-plugin/</url>
   <inceptionYear>2006</inceptionYear>
   <description>
-     Use this plugin to invoke DbUnit utilities.
+    Use this plugin to invoke DbUnit utilities.
   </description>
+
   <licenses>
     <license>
       <name>GNU Lesser General Public License, Version 2.1</name>
@@ -28,12 +30,39 @@
   </licenses>
 
   <properties>
+    <!-- Maven configuration -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <project.scm.id>sourceforge</project.scm.id>
+
+    <!-- General values -->
+    <compileSource>1.8</compileSource>
+    <mavenVersion>3.0.4</mavenVersion>
+
+    <!-- Framework versions -->
+    <antVersion>1.6.5</antVersion>
+    <!-- TODO this needed for plugin? -->
+    <commonsCollectionsVersion>3.2.2</commonsCollectionsVersion>
+    <dbunitVersion>2.7.2</dbunitVersion>
+    <junitVersion>4.12</junitVersion>
+    <mavenPluginApiVersion>3.3.9</mavenPluginApiVersion>
+    <mavenSettingsVersion>3.3.9</mavenSettingsVersion>
+    <slf4jVersion>1.7.25</slf4jVersion>
+
+    <!-- Database driver versions -->
+    <hsqldbDriverVersion>1.8.0.7</hsqldbDriverVersion>
+
+    <!-- Maven plugin versions -->
+    <mavenChangesPluginVersion>2.12</mavenChangesPluginVersion>
     <compilerPluginVersion>3.7.0</compilerPluginVersion>
+    <javadocPluginVersion>3.0.0</javadocPluginVersion>
+    <mavenInvokerPluginVersion>2.0.0</mavenInvokerPluginVersion>
+    <mavenPluginPluginVersion>2.5</mavenPluginPluginVersion>
   </properties>
 
   <scm>
-    <connection>scm:git:http://git.code.sf.net/p/dbunit/code.git</connection>
-    <developerConnection>scm:git:https://git.code.sf.net/p/dbunit/code.git</developerConnection>
+    <connection>scm:git:http://git.code.sf.net/p/dbunit/dbunit-maven-plugin.git</connection>
+    <developerConnection>scm:git:https://git.code.sf.net/p/dbunit/dbunit-maven-plugin.git</developerConnection>
     <url>https://sourceforge.net/p/dbunit/code.git/ci/master/tree/dbunit-maven-plugin/</url>
     <tag>HEAD</tag>
   </scm>
@@ -48,19 +77,19 @@
 
   <mailingLists>
     <mailingList>
-      <name>DbUnit User List</name>
+      <name>dbUnit User List</name>
       <subscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-user</subscribe>
       <unsubscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-user</unsubscribe>
       <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=dbunit-user</archive>
     </mailingList>
     <mailingList>
-      <name>DbUnit Developer List</name>
+      <name>dbUnit Developer List</name>
       <subscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-developer</subscribe>
       <unsubscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-developer</unsubscribe>
       <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=dbunit-developer</archive>
     </mailingList>
     <mailingList>
-      <name>DbUnit Commit List</name>
+      <name>dbUnit Commit List</name>
       <subscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-commit</subscribe>
       <unsubscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-commit</unsubscribe>
       <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=dbunit-commit</archive>
@@ -72,6 +101,14 @@
   </prerequisites>
 
   <developers>
+    <developer>
+      <name>Jeff Jensen</name>
+      <id>jeffjensen</id>
+      <email>jeffjensen@users.sourceforge.net</email>
+      <roles>
+        <role>Java Developer (active)</role>
+      </roles>
+    </developer>
     <developer>
       <id>topping</id>
       <name>Brian Topping</name>
@@ -103,73 +140,56 @@
     </developer>
   </developers>
 
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.apache.maven</groupId>
-        <artifactId>maven-plugin-api</artifactId>
-        <version>2.0</version>
-      </dependency>
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>3.8.2</version>
-        <scope>test</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <version>${junitVersion}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
-      <version>1.8.0.7</version>
+      <version>${hsqldbDriverVersion}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.dbunit</groupId>
       <artifactId>dbunit</artifactId>
-      <version>2.7.2</version>
+      <version>${dbunitVersion}</version>
     </dependency>
     <!-- dbunit depends on slf4j -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.21</version>
+      <version>${slf4jVersion}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>1.7.21</version>
+      <version>${slf4jVersion}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>ant</groupId>
       <artifactId>ant</artifactId>
-      <version>1.6.5</version>
+      <version>${antVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
-      <version>3.3.9</version>
+      <version>${mavenPluginApiVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-settings</artifactId>
-      <version>3.3.9</version>
+      <version>${mavenSettingsVersion}</version>
     </dependency>
     <dependency>
       <groupId>commons-collections</groupId>
       <artifactId>commons-collections</artifactId>
-      <version>3.2.2</version>
+      <version>${commonsCollectionsVersion}</version>
     </dependency>
   </dependencies>
 
@@ -193,7 +213,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-plugin-plugin</artifactId>
-          <version>2.5</version>
+          <version>${mavenPluginPluginVersion}</version>
           <executions>
             <execution>
               <id>help-mojo</id>
@@ -225,8 +245,9 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${compilerPluginVersion}</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>${compileSource}</source>
+          <target>${compileSource}</target>
+          <compilerVersion>${compileSource}</compilerVersion>
           <encoding>${project.build.sourceEncoding}</encoding>
           <source>${project.build.java.target}</source>
           <target>${project.build.java.target}</target>
@@ -234,7 +255,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-invoker-plugin</artifactId>
-        <version>2.0.0</version>
+        <version>${mavenInvokerPluginVersion}</version>
         <configuration>
           <debug>true</debug>
           <projectsDirectory>src/example</projectsDirectory>
@@ -256,12 +277,13 @@
       </plugin>
     </plugins>
   </build>
+
   <reporting>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changes-plugin</artifactId>
-        <version>2.12</version>
+        <version>${mavenChangesPluginVersion}</version>
         <configuration>
           <smtpHost>localhost</smtpHost>
           <smtpPort implementation="java.lang.Integer">25</smtpPort>
