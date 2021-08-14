@@ -1,0 +1,12 @@
+target
+.settings
+.classpath
+.project
+*.jar
+dbunit.properties
+
+# Ignoring IntelliJ IDEA project files and directories.  These are personal.
+.idea
+*.iml
+*.ipr
+*.iws
