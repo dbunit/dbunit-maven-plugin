@@ -1,0 +1,11 @@
+language: java
+jdk:
+  - openjdk8
+cache:
+  directories:
+    - $HOME/.m2/repository
+jobs:
+  include:
+    - stage: "Build"
+      name: "Plugin"
+      script: mvn -B -e clean verify
