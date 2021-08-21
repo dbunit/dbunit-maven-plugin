@@ -13,11 +13,11 @@ DbUnit Maven Plugin
 
 * Goals Overview
 
-  * {{{operation-mojo.html}dbunit:operation}}: Execute a database operation using an external dataset file.
+  * {{{./operation-mojo.html}dbunit:operation}}: Execute a database operation using an external dataset file.
 
-  * {{{export-mojo.html}dbunit:export}}: Export database tables into a dataset file.
+  * {{{./export-mojo.html}dbunit:export}}: Export database tables into a dataset file.
 
-  * {{{compare-mojo.html}dbunit:compare}}: Compare a dataset with database.
+  * {{{./compare-mojo.html}dbunit:compare}}: Compare a dataset with database.
   
   
   []
@@ -25,20 +25,20 @@ DbUnit Maven Plugin
 
 * Usage
   
-  Instructions on how to use the DbUnit Maven Plugin can be found on the {{{usage.html}usage page}}.
+  Instructions on how to use the DbUnit Maven Plugin can be found on the {{{./usage.html}usage page}}.
  
    
 * Examples
 
   For the full list of examples refer to the menu bar on the left top.
 
-  * {{{examples/clean-insert.html}Clear database and insert a dataset before test phase.}}
+  * {{{./examples/clean-insert.html}Clear database and insert a dataset before test phase.}}
 
-  * {{{examples/export-full.html}Export entire database to a dataset file after test.}}
+  * {{{./examples/export-full.html}Export entire database to a dataset file after test.}}
   
-  * {{{examples/export-custom-query.html}Export a database using a custom query.}}
+  * {{{./examples/export-custom-query.html}Export a database using a custom query.}}
 
-  * {{{examples/settings.html}Hide username/password in settings.xml.}}
+  * {{{./examples/settings.html}Hide username/password in settings.xml.}}
 
   []
   

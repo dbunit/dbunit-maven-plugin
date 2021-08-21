@@ -58,6 +58,7 @@
     <javadocPluginVersion>3.0.0</javadocPluginVersion>
     <mavenInvokerPluginVersion>2.0.0</mavenInvokerPluginVersion>
     <mavenPluginPluginVersion>2.5</mavenPluginPluginVersion>
+    <projectInfoReportsPluginVersion>2.9</projectInfoReportsPluginVersion>
   </properties>
 
   <scm>
@@ -302,11 +303,28 @@
           <reportSet>
             <reports>
               <report>changes-report</report>
-              <report>license</report>
             </reports>
           </reportSet>
         </reportSets>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>${mavenPluginPluginVersion}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>${projectInfoReportsPluginVersion}</version>
+      </plugin>
     </plugins>
   </reporting>
+
+  <distributionManagement>
+    <!-- distribution repos specified in parent -->
+    <site>
+      <id>sourceforge</id>
+      <url>scp://shell.sourceforge.net/home/project-web/dbunit/htdocs/dbunit-maven-plugin/</url>
+    </site>
+  </distributionManagement>
 </project>

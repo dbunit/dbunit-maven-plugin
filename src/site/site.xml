@@ -9,7 +9,7 @@
    </bannerLeft>
 
    <bannerRight>
-      <name>DbUnit.org</name>
+      <name>DbUnit</name>
       <src>http://sourceforge.net/sflogo.php?group_id=47439&amp;type=5</src>
       <href>http://www.sourceforge.net/projects/dbunit</href>
    </bannerRight>
@@ -44,4 +44,3 @@
       </menu>
    </body>
 </project>
-
