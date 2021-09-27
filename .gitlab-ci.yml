@@ -1,0 +1,33 @@
+# https://hub.docker.com/_/maven/
+image: maven:3.8.2-jdk-8
+
+variables:
+  MAVEN_CLI_COMMON: "-e -B"
+
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+
+stages:
+  - compile
+  - unit-test
+
+.unit-test-base:
+  stage: unit-test
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - target/surefire-reports/TEST-*.xml
+
+compile-job:
+  stage: compile
+  script:
+    - mvn $MAVEN_CLI_COMMON clean compile
+
+# it's an integration test with the database, but runs with Surefire
+unit-test-job:
+  extends: .unit-test-base
+  script:
+    - mvn $MAVEN_CLI_COMMON test

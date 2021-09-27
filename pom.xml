@@ -72,8 +72,8 @@
     <url>http://sourceforge.net/p/dbunit/bugs/</url>
   </issueManagement>
   <ciManagement>
-    <system>travisci</system>
-    <url>https://travis-ci.com/dbunit/dbunit-mirror</url>
+    <system>gitlab</system>
+    <url>https://gitlab.com/dbUnit/dbunit-maven-plugin/-/pipelines</url>
   </ciManagement>
 
   <mailingLists>
