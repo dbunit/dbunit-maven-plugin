@@ -8,7 +8,7 @@
 
 DbUnit Maven Plugin
 
-  Use this plugin to execute {{{http://dbunit.sourceforge.net}DbUnit}}'s utilities.
+  Use this plugin to execute {{{/dbunit}DbUnit}}'s utilities.
   
 
 * Goals Overview

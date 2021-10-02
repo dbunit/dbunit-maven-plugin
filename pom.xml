@@ -14,11 +14,11 @@
   <version>1.1.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
 
-  <name>DbUnit Maven Plugin</name>
+  <name>dbUnit Maven Plugin</name>
   <url>http://dbunit.sourceforge.net/dbunit-maven-plugin/</url>
   <inceptionYear>2006</inceptionYear>
   <description>
-    Use this plugin to invoke DbUnit utilities.
+    Use this plugin to invoke dbUnit utilities.
   </description>
 
   <licenses>
@@ -59,6 +59,10 @@
     <mavenInvokerPluginVersion>2.0.0</mavenInvokerPluginVersion>
     <mavenPluginPluginVersion>2.5</mavenPluginPluginVersion>
     <projectInfoReportsPluginVersion>2.9</projectInfoReportsPluginVersion>
+    <sitePluginVersion>3.7.1</sitePluginVersion>
+
+    <!-- Other versions -->
+    <wagonSshVersion>2.10</wagonSshVersion>
   </properties>
 
   <scm>
@@ -223,6 +227,18 @@
               </goals>
             </execution>
           </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>${sitePluginVersion}</version>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.maven.wagon</groupId>
+              <artifactId>wagon-ssh</artifactId>
+              <version>${wagonSshVersion}</version>
+            </dependency>
+          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
