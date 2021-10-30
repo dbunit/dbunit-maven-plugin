@@ -68,7 +68,7 @@
   <scm>
     <connection>scm:git:http://git.code.sf.net/p/dbunit/dbunit-maven-plugin.git</connection>
     <developerConnection>scm:git:https://git.code.sf.net/p/dbunit/dbunit-maven-plugin.git</developerConnection>
-    <url>https://sourceforge.net/p/dbunit/code.git/ci/master/tree/dbunit-maven-plugin/</url>
+    <url>https://sourceforge.net/p/dbunit/dbunit-maven-plugin/ci/master/tree/</url>
     <tag>HEAD</tag>
   </scm>
   <issueManagement>
