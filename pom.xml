@@ -73,7 +73,7 @@
   </scm>
   <issueManagement>
     <system>SourceForge2</system>
-    <url>http://sourceforge.net/p/dbunit/bugs/</url>
+    <url>http://sourceforge.net/p/dbunit/plugintickets/</url>
   </issueManagement>
   <ciManagement>
     <system>gitlab</system>
@@ -308,12 +308,12 @@
           <toAddresses>
             <toAddress implementation="java.lang.String">dbunit-developer@lists.sourceforge.net</toAddress>
             <toAddress implementation="java.lang.String">dbunit-user@lists.sourceforge.net</toAddress>
-            <toAddress>dev@mojo.codehaus.org</toAddress>
-            <toAddress>user@mojo.codehaus.org</toAddress>
-            <toAddress>users@maven.apache.org</toAddress>
           </toAddresses>
-          <urlDownload>http://sourceforge.net/project/showfiles.php?group_id=47439</urlDownload>
-          <issueLinkTemplate><![CDATA[http://sourceforge.net/support/tracker.php?aid=%ISSUE%]]></issueLinkTemplate>
+          <urlDownload>http://dbunit.sourceforge.net/repos.html</urlDownload>
+          <issueLinkTemplatePerSystem>
+            <sftickets><![CDATA[https://sourceforge.net/p/dbunit/plugintickets/%ISSUE%]]></sftickets>
+            <sfmerges><![CDATA[https://sourceforge.net/p/dbunit/dbunit-maven-plugin/merge-requests/%ISSUE%]]></sfmerges>
+          </issueLinkTemplatePerSystem>
         </configuration>
         <reportSets>
           <reportSet>

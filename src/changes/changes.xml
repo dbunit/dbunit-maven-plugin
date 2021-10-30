@@ -15,10 +15,14 @@
     <release version="1.1.1-SNAPSHOT" date="TBD" description="">
     </release>
     <release version="1.1.0" date="Aug 4, 2021" description="Update POMs and make first release">
+      <action dev="jeffjensen" type="add" issue="7" system="sftickets" due-to="jeffjensen">Migrate to Sonatype oss-parent</action>
+      <action dev="ajohnson" type="add" issue="6" system="sftickets" due-to="ajohnson">Update POMs to make current for release</action>
     </release>
     <release version="1.0-SNAPSHOT" date="(not released)" description="Migrate from CodeHaus to dbUnit">
-      <action dev="gommma" type="add" issue="2215029" due-to="danttran">Move dbunit-maven-plugin from codehaus to DBUnit</action>
-      <action dev="gommma" type="add" issue="2894096" due-to="gommma">maven plugin to support the generic dbConfig like for ant</action>
+      <action dev="quantas" type="add" issue="4" system="sftickets" due-to="viczi">Upgrate Java version to 8</action>
+      <action dev="gommma" type="add" issue="3" system="sftickets" due-to="sellerjd">Provide example for use of queries in maven plugin</action>
+      <action dev="gommma" type="add" issue="2" system="sftickets" due-to="gommma">maven plugin to support the generic dbConfig like for ant</action>
+      <action dev="gommma" type="add" issue="1" system="sftickets" due-to="danttran">Move dbunit-maven-plugin from codehaus to DBUnit</action>
     </release>
   </body>
 </document>
