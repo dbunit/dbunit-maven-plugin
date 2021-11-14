@@ -29,6 +29,7 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.logging.Log;
 import org.dbunit.ant.Operation;
 import org.dbunit.database.IDatabaseConnection;
 
@@ -130,6 +131,7 @@ public class OperationMojo extends AbstractDbUnitMojo
         try
         {
             final IDatabaseConnection connection = createConnection();
+            final Log log = getLog();
 
             try
             {
@@ -144,6 +146,8 @@ public class OperationMojo extends AbstractDbUnitMojo
                     op.setCombine(combine);
                     op.setTransaction(transaction);
                     op.setType(type);
+
+                    log.info("Executing operation=" + op);
                     op.execute(connection);
                 } else
                 {
@@ -157,6 +161,8 @@ public class OperationMojo extends AbstractDbUnitMojo
                         op.setOrdered(ordered);
                         op.setTransaction(transaction);
                         op.setType(type);
+
+                        log.info("Executing operation=" + op);
                         op.execute(connection);
                     }
                 }
