@@ -12,6 +12,7 @@ cache:
 stages:
   - compile
   - unit-test
+  - integration-test
 
 .unit-test-base:
   stage: unit-test
@@ -20,6 +21,14 @@ stages:
     reports:
       junit:
         - target/surefire-reports/TEST-*.xml
+
+.integration-test-base:
+  stage: integration-test
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - target/failsafe-reports/TEST-*.xml
 
 compile-job:
   stage: compile
@@ -31,3 +40,9 @@ unit-test-job:
   extends: .unit-test-base
   script:
     - mvn $MAVEN_CLI_COMMON test
+
+# run examples w/maven-invoker-plugin in IT phase
+integration-test-job:
+  extends: .integration-test-base
+  script:
+    - mvn $MAVEN_CLI_COMMON verify

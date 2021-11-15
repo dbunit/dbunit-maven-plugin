@@ -301,6 +301,7 @@
         <configuration>
           <debug>true</debug>
           <projectsDirectory>src/example</projectsDirectory>
+          <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
           <pomIncludes>
             <pomInclude>**/pom.xml</pomInclude>
           </pomIncludes>
