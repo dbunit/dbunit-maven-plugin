@@ -62,6 +62,7 @@
     <projectInfoReportsPluginVersion>2.9</projectInfoReportsPluginVersion>
     <sitePluginVersion>3.7.1</sitePluginVersion>
     <sourcePluginVersion>3.0.1</sourcePluginVersion>
+    <versionsMavenPluginVersion>2.8.1</versionsMavenPluginVersion>
 
     <!-- Other versions -->
     <wagonSshVersion>2.10</wagonSshVersion>
@@ -255,6 +256,14 @@
               </goals>
             </execution>
           </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>${versionsMavenPluginVersion}</version>
+          <configuration>
+            <rulesUri>file:///${project.basedir}/versions-maven-plugin-rules.xml</rulesUri>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>

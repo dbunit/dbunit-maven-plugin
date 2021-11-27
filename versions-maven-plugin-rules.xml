@@ -1,0 +1,8 @@
+<!-- Version checking rules for versions-maven-plugin -->
+<!-- For updates, typically only want releases; ignore alpha, beta, rc, ea, etc. -->
+
+<ruleset comparisonMethod="maven" xmlns="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0 https://www.mojohaus.org/versions-maven-plugin/xsd/rule-2.0.0.xsd">
+  <ignoreVersions>
+    <ignoreVersion type="regex">(?i).*[-_\.](alpha|b|beta|rc|m|ea|preview)[-_\.]?[0-9]*</ignoreVersion>
+  </ignoreVersions>
+</ruleset>
