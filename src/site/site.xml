@@ -55,6 +55,15 @@
       <item name="Export with custom query" href="examples/export-custom-query.html" />
       <item name="settings" href="examples/settings.html" />
     </menu>
+    <menu name="Developing DbUnit Maven Plugin">
+<!--
+    TODO create these similar to dbUnit Extension site
+      <item name="Building"             href="/building.html"/>
+      <item name="Developers Guide"     href="/devguide.html"/>
+      <item name="Integration Tests"    href="/integrationtests.html"/>
+-->
+      <item name="Releasing"            href="/releasing.html"/>
+    </menu>
     <menu ref="reports"/>
   </body>
 </project>
