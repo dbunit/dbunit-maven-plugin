@@ -12,7 +12,7 @@
   </properties>
 
   <body>
-    <release version="1.2.0-SNAPSHOT" date="TBD" description="Composite dataset">
+    <release version="1.2.0" date="Feb 13, 2022" description="Composite dataset, dbUnit 2.7.3">
       <action dev="jeffjensen" type="add" issue="5" system="sftickets" due-to="bjornbeskow">Create composite dataset from multiple source files.</action>
       <action dev="jeffjensen" type="update" due-to="jeffjensen">Update dbUnit version to 2.7.3.</action>
     </release>
