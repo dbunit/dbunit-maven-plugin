@@ -291,8 +291,6 @@
           <target>${compileSource}</target>
           <compilerVersion>${compileSource}</compilerVersion>
           <encoding>${project.build.sourceEncoding}</encoding>
-          <source>${project.build.java.target}</source>
-          <target>${project.build.java.target}</target>
         </configuration>
       </plugin>
       <plugin>
