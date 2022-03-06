@@ -261,6 +261,8 @@ public abstract class AbstractDbUnitMojo extends AbstractMojo
             try
             {
                 config.setPropertiesByString(this.dbconfig);
+                getLog().debug("DatabaseConfig updated from <dbconfig> element="
+                        + config);
             } catch (final DatabaseUnitException e)
             {
                 throw new MojoExecutionException(
@@ -268,7 +270,7 @@ public abstract class AbstractDbUnitMojo extends AbstractMojo
             }
         } else
         {
-            getLog().debug("No dbconfig element specified");
+            getLog().debug("No <dbconfig> element specified, skipping");
         }
 
         return connection;
@@ -318,6 +320,8 @@ public abstract class AbstractDbUnitMojo extends AbstractMojo
                 .forName(metadataHandlerName).newInstance();
         config.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER,
                 metadataHandler);
+
+        getLog().debug("DatabaseConfig initialized from properties=" + config);
     }
 
     /**

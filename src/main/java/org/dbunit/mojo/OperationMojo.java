@@ -27,6 +27,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
@@ -55,14 +57,14 @@ public class OperationMojo extends AbstractDbUnitMojo
     protected String type;
 
     /**
-     * When true, place the entired operation in one transaction.
+     * When true, place the entire operation in one transaction.
      *
      * @parameter property="transaction" default-value="false"
      */
     protected boolean transaction;
 
     /**
-     * DataSet file Please use sources instead.
+     * DataSet file; please use sources instead.
      *
      * @parameter property="src"
      * @deprecated 1.0
@@ -112,14 +114,18 @@ public class OperationMojo extends AbstractDbUnitMojo
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException
     {
+        final Log log = getLog();
+
         if (skip)
         {
-            this.getLog().info("Skip operation: " + type + " execution");
+            log.info("Skip operation: " + type + " execution");
 
             return;
         }
 
         super.execute();
+
+        log.debug("Configuration=" + toString());
 
         final List concatenatedSources = new ArrayList();
         CollectionUtils.addIgnoreNull(concatenatedSources, src);
@@ -128,13 +134,17 @@ public class OperationMojo extends AbstractDbUnitMojo
             concatenatedSources.addAll(Arrays.asList(sources));
         }
 
+        log.info("Configured source files: count=" + concatenatedSources.size()
+                + ", files=" + concatenatedSources);
+
         try
         {
             final IDatabaseConnection connection = createConnection();
-            final Log log = getLog();
 
             try
             {
+                log.debug("composite set to " + composite);
+
                 if (composite)
                 {
                     final Operation op = new Operation();
@@ -155,6 +165,8 @@ public class OperationMojo extends AbstractDbUnitMojo
                             .hasNext();)
                     {
                         final File source = (File) i.next();
+                        log.debug("processing file=" + source);
+
                         final Operation op = new Operation();
                         op.setFormat(format);
                         op.setSrc(source);
@@ -175,5 +187,12 @@ public class OperationMojo extends AbstractDbUnitMojo
             throw new MojoExecutionException(
                     "Error executing database operation: " + type, e);
         }
+    }
+
+    @Override
+    public String toString()
+    {
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.DEFAULT_STYLE, true, AbstractDbUnitMojo.class);
     }
 }
