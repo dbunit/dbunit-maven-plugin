@@ -77,4 +77,8 @@ mvn changes:announcement-generate -Dchanges.version=theNewVersion
 
      [[i]] Update to SNAPSHOT version
 
+   [[i]] Update src/example/pom.xml
+
+     [[i]] Update to match new plugin (SNAPSHOT) version
+
    [[i]] Update changes.xml with new SNAPSHOT entry
