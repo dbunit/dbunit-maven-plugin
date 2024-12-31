@@ -1,0 +1,5 @@
+[bugtraq "Plugin"]
+	projects = B,F
+	url=https://sourceforge.net/p/dbunit/plugintickets/%BUGID%
+	loglinkregex = %PROJECT%\\d+
+	logregex=\\d+
