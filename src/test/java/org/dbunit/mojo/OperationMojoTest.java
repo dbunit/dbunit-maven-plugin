@@ -20,12 +20,17 @@
  */
 package org.dbunit.mojo;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
@@ -33,7 +38,7 @@ import org.apache.maven.plugin.MojoExecutionException;
  */
 public class OperationMojoTest extends AbstractDbUnitMojoTest
 {
-
+    @Test
     public void testCleanInsertOperation() throws Exception
     {
         // init database with fixed data
@@ -79,6 +84,7 @@ public class OperationMojoTest extends AbstractDbUnitMojoTest
         compare.execute();
     }
 
+    @Test
     public void testCleanInsertOperationCompositeDataset() throws Exception
     {
         // Insert some pre-existing data, to force integrity checks
@@ -108,6 +114,7 @@ public class OperationMojoTest extends AbstractDbUnitMojoTest
         compare.execute();
     }
 
+    @Test
     public void testCleanInsertOperationCompositeCombineDataset()
             throws Exception
     {
@@ -139,6 +146,7 @@ public class OperationMojoTest extends AbstractDbUnitMojoTest
         assertEquals(3, rs.getInt(1));
     }
 
+    @Test
     public void testCleanInsertOperationMultipleDatasetsCauseIntegrityConstraintViolation()
             throws Exception
     {
@@ -165,13 +173,16 @@ public class OperationMojoTest extends AbstractDbUnitMojoTest
         } catch (final MojoExecutionException expected)
         {
             final Throwable rootCause = expected.getCause().getCause();
-            assertTrue("SQLException expected",
-                    rootCause instanceof SQLException);
-            assertTrue("Integrity constraint violation expected", rootCause
-                    .getMessage().contains("Integrity constraint violation"));
+            assertTrue(rootCause instanceof SQLException,
+                    "SQLException expected");
+            assertTrue(
+                    rootCause.getMessage()
+                            .contains("Integrity constraint violation"),
+                    "Integrity constraint violation expected");
         }
     }
 
+    @Test
     public void testSkip() throws Exception
     {
         // init database with fixed data

@@ -38,7 +38,7 @@
     <commonsCollectionsVersion>3.2.2</commonsCollectionsVersion>
     <!-- always set to minimum version this plugin needs for its features -->
     <dbunitVersion>2.7.3</dbunitVersion>
-    <junitVersion>4.12</junitVersion>
+    <junitVersion>5.10.1</junitVersion>
     <mavenPluginApiVersion>3.3.9</mavenPluginApiVersion>
     <mavenSettingsVersion>3.3.9</mavenSettingsVersion>
     <slf4jVersion>1.7.25</slf4jVersion>
@@ -145,8 +145,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
       <version>${junitVersion}</version>
       <scope>test</scope>
     </dependency>

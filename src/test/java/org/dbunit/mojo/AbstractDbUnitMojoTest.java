@@ -27,37 +27,34 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @version $Id$
  */
-public abstract class AbstractDbUnitMojoTest extends TestCase
+public abstract class AbstractDbUnitMojoTest
 {
     protected Properties p;
 
     protected Connection c;
 
-    @Override
+    @BeforeEach
     protected void setUp() throws Exception
     {
-        super.setUp();
-
         loadTestProperties();
         loadDriver();
         initDB();
-
     }
 
-    @Override
+    @AfterEach
     protected void tearDown() throws Exception
     {
         if (c != null)
         {
             c.close();
         }
-        super.tearDown();
     }
 
     private void loadTestProperties() throws Exception
