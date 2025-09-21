@@ -47,6 +47,7 @@
     <hsqldbDriverVersion>1.8.0.7</hsqldbDriverVersion>
 
     <!-- Maven plugin versions -->
+    <centralPublishingMavenPluginVersion>0.8.0</centralPublishingMavenPluginVersion>
     <mavenChangesPluginVersion>2.12</mavenChangesPluginVersion>
     <compilerPluginVersion>3.7.0</compilerPluginVersion>
     <gpgPluginVersion>1.6</gpgPluginVersion>
@@ -201,6 +202,18 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.sonatype.central</groupId>
+          <artifactId>central-publishing-maven-plugin</artifactId>
+          <version>${centralPublishingMavenPluginVersion}</version>
+          <extensions>true</extensions>
+          <configuration>
+            <publishingServerId>central-publish</publishingServerId>
+            <autoPublish>true</autoPublish>
+            <waitUntil>published</waitUntil>
+            <deploymentName>dbunit-core</deploymentName>
+          </configuration>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-gpg-plugin</artifactId>
           <version>${gpgPluginVersion}</version>
@@ -335,6 +348,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
