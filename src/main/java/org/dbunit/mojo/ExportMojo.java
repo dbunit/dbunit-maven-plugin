@@ -126,7 +126,9 @@ public class ExportMojo extends AbstractDbUnitMojo
                 export.setDest(dest);
                 export.setDoctype(doctype);
                 export.setFormat(format);
-                export.setEncoding(encoding);
+                if(encoding != null) {
+                    export.setEncoding(encoding);
+                }
 
                 export.execute(connection);
             } finally
