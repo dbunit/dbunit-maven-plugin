@@ -24,6 +24,7 @@
 
   <properties>
     <!-- Maven configuration -->
+    <project.build.outputTimestamp>2025-10-01T00:00:00Z</project.build.outputTimestamp>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.scm.id>sourceforge</project.scm.id>
@@ -51,12 +52,13 @@
     <mavenChangesPluginVersion>2.12</mavenChangesPluginVersion>
     <compilerPluginVersion>3.7.0</compilerPluginVersion>
     <gpgPluginVersion>1.6</gpgPluginVersion>
+    <jarPluginVersion>3.4.2</jarPluginVersion>
     <javadocPluginVersion>3.0.0</javadocPluginVersion>
     <mavenInvokerPluginVersion>2.0.0</mavenInvokerPluginVersion>
-    <mavenPluginPluginVersion>2.5</mavenPluginPluginVersion>
+    <mavenPluginPluginVersion>3.13.1</mavenPluginPluginVersion>
     <projectInfoReportsPluginVersion>2.9</projectInfoReportsPluginVersion>
     <sitePluginVersion>3.7.1</sitePluginVersion>
-    <sourcePluginVersion>3.0.1</sourcePluginVersion>
+    <sourcePluginVersion>3.3.1</sourcePluginVersion>
     <versionsMavenPluginVersion>2.8.1</versionsMavenPluginVersion>
 
     <!-- Other versions -->
@@ -226,6 +228,17 @@
               </goals>
             </execution>
           </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${jarPluginVersion}</version>
+          <configuration>
+            <includes>
+              <include>/LICENSE.txt</include>
+              <include>**</include>
+            </includes>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>

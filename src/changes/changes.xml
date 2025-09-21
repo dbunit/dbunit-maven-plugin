@@ -12,8 +12,9 @@
   </properties>
 
   <body>
-    <release version="1.2.1-SNAPSHOT" date="TBD" description="Change to Central Portal publishing">
+    <release version="1.2.1-SNAPSHOT" date="TBD" description="Change to Central Portal publishing, reproducible builds">
       <action dev="jeffjensen" type="update" issue="11" due-to="jeffjensen">Change Central artifact publishing from OSSRH to new Portal.</action>
+      <action dev="jeffjensen" type="update" issue="10" due-to="jeffjensen">Setup reproducible builds.</action>
     </release>
     <release version="1.2.0" date="Feb 13, 2022" description="Composite dataset, dbUnit 2.7.3">
       <action dev="jeffjensen" type="add" issue="5" system="sftickets" due-to="bjornbeskow">Create composite dataset from multiple source files.</action>

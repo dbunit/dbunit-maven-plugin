@@ -6,11 +6,11 @@ Releasing
 
 * Overview
 
- The following steps describe how to release the dbUnit Maven Plugin.  
+ The following steps describe how to release the dbUnit Maven Plugin.
  While the Maven release plugin automates steps such as version change, commit, and deploy,
  the dbUnit Maven Plugin has manual file information update steps that are outside of its scope.
- 
- While the below steps do not use the Maven release plugin, 
+
+ While the below steps do not use the Maven release plugin,
  you can use it by performing the manual file edits first then running the release plugin steps.
 
 * Release Steps
@@ -18,7 +18,9 @@ Releasing
  [[1]] Update pom.xml
 
    [[a]] Set version to release version
-  
+
+   [[a]] Set <project.build.outputTimestamp> property to the release timestamp, typically today's date with midnight time
+
  [[1]] Update changes.xml
 
    [[a]] Update release version
@@ -47,9 +49,9 @@ mvnw site
 ---
 
    [[i]] Review site results for issues and correct as necessary
-   
+
    [[i]] Deploy to SourceForge;
-   reference how-to: 
+   reference how-to:
    {{{http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html}Deploying to sourceforge.net}}
 
 ---
