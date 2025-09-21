@@ -2,13 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
-    <relativePath />
-  </parent>
-
   <groupId>org.dbunit</groupId>
   <artifactId>dbunit-maven-plugin</artifactId>
   <version>1.2.1-SNAPSHOT</version>
@@ -56,6 +49,7 @@
     <!-- Maven plugin versions -->
     <mavenChangesPluginVersion>2.12</mavenChangesPluginVersion>
     <compilerPluginVersion>3.7.0</compilerPluginVersion>
+    <gpgPluginVersion>1.6</gpgPluginVersion>
     <javadocPluginVersion>3.0.0</javadocPluginVersion>
     <mavenInvokerPluginVersion>2.0.0</mavenInvokerPluginVersion>
     <mavenPluginPluginVersion>2.5</mavenPluginPluginVersion>
@@ -79,8 +73,8 @@
     <url>http://sourceforge.net/p/dbunit/plugintickets/</url>
   </issueManagement>
   <ciManagement>
-    <system>gitlab</system>
-    <url>https://gitlab.com/dbUnit/dbunit-maven-plugin/-/pipelines</url>
+    <system>github</system>
+    <url>https://github.com/dbunit/dbunit-extension/actions</url>
   </ciManagement>
 
   <mailingLists>
@@ -208,6 +202,20 @@
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>${gpgPluginVersion}</version>
+          <executions>
+            <execution>
+              <id>sign-artifacts</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>sign</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>${javadocPluginVersion}</version>
           <!--
@@ -217,6 +225,14 @@
             <additionalparam>-Xdoclint:none</additionalparam>
             <doclint>none</doclint>
           </configuration>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -364,8 +380,29 @@
     </plugins>
   </reporting>
 
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
   <distributionManagement>
-    <!-- distribution repos specified in parent -->
     <site>
       <id>sourceforge</id>
       <url>scp://shell.sourceforge.net/home/project-web/dbunit/htdocs/dbunit-maven-plugin/</url>
