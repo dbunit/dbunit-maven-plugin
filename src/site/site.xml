@@ -38,7 +38,7 @@
 
     <links>
       <item name="DBUnit" href="http://dbunit.sourceforge.net" />
-      <item name="" href="https://gitlab.com/dbUnit/dbunit-maven-plugin/-/pipelines" img="https://gitlab.com/dbUnit/dbunit-maven-plugin/badges/master/pipeline.svg"/>
+      <item name="" href="https://github.com/dbunit/dbunit-maven-plugin/actions/workflows/build-any-branch.yml" img="https://github.com/dbunit/dbunit-maven-plugin/actions/workflows/build-any-branch.yml/badge.svg"/>
     </links>
 
     <menu name="Overview">

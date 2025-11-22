@@ -79,7 +79,7 @@
   </issueManagement>
   <ciManagement>
     <system>github</system>
-    <url>https://github.com/dbunit/dbunit-extension/actions</url>
+    <url>https://github.com/dbunit/dbunit-maven-plugin/actions</url>
   </ciManagement>
 
   <mailingLists>
