@@ -1,0 +1,80 @@
+= Releasing
+
+== Overview
+
+The following steps describe how to release the dbUnit Maven Plugin.
+While the Maven release plugin automates steps such as version change, commit, and deploy,
+the dbUnit Maven Plugin has manual file information update steps that are outside of its scope.
+
+While the below steps do not use the Maven release plugin,
+you can use it by performing the manual file edits first then running the release plugin steps.
+
+== Release Steps
+
+. Update pom.xml
+
+.. Set version to release version
+
+.. Set `<project.build.outputTimestamp>` property to the release timestamp, typically today's date with midnight time
+
+. Update changes.xml
+
+.. Update release version
+
+.. Set release date to today
+
+. Commit files "Prep release x.y.z"
+
+. Tag the commit; prefix release number with "plugin-"
+
+. Push the commit
+
+. Build and deploy the release
++
+----
+mvnw clean
+mvnw deploy -Prelease
+----
+
+. Build and deploy the site
+
+.. Build site:
++
+----
+mvnw site
+----
+
+.. Review site results for issues and correct as necessary
+
+.. Deploy to SourceForge;
+reference how-to:
+link:http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html[Deploying to sourceforge.net]
++
+----
+ssh -t sf-username,dbunit@shell.sourceforge.net create
+mvnw site:deploy
+----
+
+. Generate Announcement Email
++
+----
+mvnw changes:announcement-generate -Dchanges.version=theNewVersion
+----
++
+Review and adjust the text as desired before using.
+
+. Email Users List
+
+. Post News on SourceForge
+
+. Prepare next release in SCM
+
+.. Update pom.xml
+
+... Update to SNAPSHOT version
+
+.. Update src/example/pom.xml
+
+... Update to match new plugin (SNAPSHOT) version
+
+.. Update changes.xml with new SNAPSHOT entry
