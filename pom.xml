@@ -54,6 +54,7 @@
     <hsqldbDriverVersion>1.8.0.7</hsqldbDriverVersion>
 
     <!-- Maven plugin versions -->
+    <asciidoctorMavenPluginVersion>3.2.0</asciidoctorMavenPluginVersion>
     <centralPublishingMavenPluginVersion>0.8.0</centralPublishingMavenPluginVersion>
     <mavenChangesPluginVersion>2.12</mavenChangesPluginVersion>
     <compilerPluginVersion>3.7.0</compilerPluginVersion>
@@ -336,6 +337,13 @@
           <version>${mavenPluginPluginVersion}</version>
           <executions>
             <execution>
+              <id>default-descriptor</id>
+              <goals>
+                <goal>descriptor</goal>
+              </goals>
+              <phase>process-classes</phase>
+            </execution>
+            <execution>
               <id>help-mojo</id>
               <goals>
                 <goal>helpmojo</goal>
@@ -352,6 +360,11 @@
               <groupId>org.apache.maven.wagon</groupId>
               <artifactId>wagon-ssh</artifactId>
               <version>${wagonSshVersion}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.asciidoctor</groupId>
+              <artifactId>asciidoctor-parser-doxia-module</artifactId>
+              <version>${asciidoctorMavenPluginVersion}</version>
             </dependency>
           </dependencies>
         </plugin>
