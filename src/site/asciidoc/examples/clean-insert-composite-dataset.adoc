@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<document>
-  <properties>
-    <title>DbUnit Maven2 Integration</title>
-  </properties>
-  <body>
-  <section>
-    <h4><a name="cleanInsertCompositeDataset">CLEAN_INSERT with multiple source files in composite dataset</a></h4>
-    <source>
-      <![CDATA[
+= CLEAN_INSERT with multiple source files in composite dataset
+
+[[cleanInsertCompositeDataset]]
+
+[source,xml]
+----
 <executions>
   <execution>
     <phase>test-compile</phase>
@@ -25,8 +21,4 @@
   </execution>
   [...]
 </executions>
-]]>
-    </source>
-  </section>
-  </body>
-</document>
+----
