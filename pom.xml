@@ -39,11 +39,15 @@
     <commonsCollectionsVersion>3.2.2</commonsCollectionsVersion>
     <!-- always set to minimum version this plugin needs for its features -->
     <dbunitVersion>3.0.0</dbunitVersion>
+    <hsqldbVersion>1.8.0.7</hsqldbVersion>
+    <junitJupiterVersion>5.10.1</junitJupiterVersion>
     <junitVersion>5.10.1</junitVersion>
     <mavenArtifactVersion>3.3.9</mavenArtifactVersion>
     <mavenModelVersion>3.3.9</mavenModelVersion>
     <mavenPluginApiVersion>3.3.9</mavenPluginApiVersion>
     <mavenSettingsVersion>3.3.9</mavenSettingsVersion>
+    <slf4jApiVersion>1.7.25</slf4jApiVersion>
+    <slf4jSimpleVersion>1.7.25</slf4jSimpleVersion>
     <slf4jVersion>1.7.25</slf4jVersion>
 
     <!-- Database driver versions -->
@@ -147,71 +151,120 @@
     </developer>
   </developers>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>${junitJupiterVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>hsqldb</groupId>
+        <artifactId>hsqldb</artifactId>
+        <version>${hsqldbVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.dbunit</groupId>
+        <artifactId>dbunit</artifactId>
+        <version>${dbunitVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4jApiVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>${slf4jSimpleVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>ant</groupId>
+        <artifactId>ant</artifactId>
+        <version>${antVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-artifact</artifactId>
+        <version>${mavenArtifactVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-model</artifactId>
+        <version>${mavenModelVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-plugin-api</artifactId>
+        <version>${mavenPluginApiVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-settings</artifactId>
+        <version>${mavenSettingsVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-collections</groupId>
+        <artifactId>commons-collections</artifactId>
+        <version>${commonsCollectionsVersion}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>${junitVersion}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
-      <version>${hsqldbDriverVersion}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.dbunit</groupId>
       <artifactId>dbunit</artifactId>
-      <version>${dbunitVersion}</version>
     </dependency>
     <!-- dbunit depends on slf4j -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>${slf4jVersion}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>${slf4jVersion}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>ant</groupId>
       <artifactId>ant</artifactId>
-      <version>${antVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-artifact</artifactId>
-      <version>${mavenArtifactVersion}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-model</artifactId>
-      <version>${mavenModelVersion}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
-      <version>${mavenPluginApiVersion}</version>
       <!-- FIXME resolve other updates and then enable this to resolve build warning -->
 <!--      <scope>provided</scope>-->
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-settings</artifactId>
-      <version>${mavenSettingsVersion}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>commons-collections</groupId>
       <artifactId>commons-collections</artifactId>
-      <version>${commonsCollectionsVersion}</version>
     </dependency>
   </dependencies>
 
