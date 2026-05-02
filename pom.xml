@@ -45,7 +45,7 @@
     <mavenArtifactVersion>3.3.9</mavenArtifactVersion>
     <mavenModelVersion>3.3.9</mavenModelVersion>
     <mavenPluginApiVersion>3.3.9</mavenPluginApiVersion>
-    <mavenSettingsVersion>3.3.9</mavenSettingsVersion>
+    <mavenSettingsVersion>3.9.15</mavenSettingsVersion>
     <slf4jApiVersion>1.7.25</slf4jApiVersion>
     <slf4jSimpleVersion>1.7.25</slf4jSimpleVersion>
     <slf4jVersion>1.7.25</slf4jVersion>
