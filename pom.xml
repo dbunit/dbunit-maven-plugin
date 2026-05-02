@@ -47,7 +47,7 @@
     <mavenPluginApiVersion>3.3.9</mavenPluginApiVersion>
     <mavenSettingsVersion>3.3.9</mavenSettingsVersion>
     <slf4jApiVersion>1.7.25</slf4jApiVersion>
-    <slf4jSimpleVersion>1.7.25</slf4jSimpleVersion>
+    <slf4jSimpleVersion>2.0.17</slf4jSimpleVersion>
     <slf4jVersion>1.7.25</slf4jVersion>
 
     <!-- Database driver versions -->
