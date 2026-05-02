@@ -401,6 +401,7 @@
         <configuration>
           <source>${compileSource}</source>
           <target>${compileSource}</target>
+          <release>8</release>
           <compilerVersion>${compileSource}</compilerVersion>
           <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
