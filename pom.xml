@@ -42,7 +42,7 @@
     <hsqldbVersion>1.8.0.7</hsqldbVersion>
     <junitJupiterVersion>5.10.1</junitJupiterVersion>
     <junitVersion>5.10.1</junitVersion>
-    <mavenArtifactVersion>3.3.9</mavenArtifactVersion>
+    <mavenArtifactVersion>3.9.15</mavenArtifactVersion>
     <mavenModelVersion>3.3.9</mavenModelVersion>
     <mavenPluginApiVersion>3.3.9</mavenPluginApiVersion>
     <mavenSettingsVersion>3.3.9</mavenSettingsVersion>
