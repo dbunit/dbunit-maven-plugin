@@ -46,7 +46,10 @@ mvnw site
 
 .. Review site results for issues and correct as necessary
 
-.. Deploy to SourceForge;
+.. Publish: 
+Commits to master automatically build the site and publish to GitHub pages.
+
+*** Historical: Deploy to SourceForge;
 reference how-to:
 link:http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html[Deploying to sourceforge.net]
 +
