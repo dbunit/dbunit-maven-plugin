@@ -55,7 +55,7 @@
 
     <!-- Maven plugin versions -->
     <asciidoctorMavenPluginVersion>3.2.0</asciidoctorMavenPluginVersion>
-    <centralPublishingMavenPluginVersion>0.8.0</centralPublishingMavenPluginVersion>
+    <centralPublishingMavenPluginVersion>0.10.0</centralPublishingMavenPluginVersion>
     <mavenChangesPluginVersion>2.12</mavenChangesPluginVersion>
     <compilerPluginVersion>3.7.0</compilerPluginVersion>
     <gpgPluginVersion>1.6</gpgPluginVersion>
