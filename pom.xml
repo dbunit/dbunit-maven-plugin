@@ -43,7 +43,7 @@
     <junitJupiterVersion>5.10.1</junitJupiterVersion>
     <junitVersion>5.10.1</junitVersion>
     <mavenArtifactVersion>3.3.9</mavenArtifactVersion>
-    <mavenModelVersion>3.3.9</mavenModelVersion>
+    <mavenModelVersion>3.9.15</mavenModelVersion>
     <mavenPluginApiVersion>3.3.9</mavenPluginApiVersion>
     <mavenSettingsVersion>3.3.9</mavenSettingsVersion>
     <slf4jApiVersion>1.7.25</slf4jApiVersion>
