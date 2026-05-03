@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<document xmlns="http://maven.apache.org/changes/1.0.0"
+<document xmlns="http://maven.apache.org/changes/2.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+          xsi:schemaLocation="http://maven.apache.org/changes/2.0.0 https://maven.apache.org/xsd/changes-2.0.0.xsd">
   <properties>
     <title>Changes</title>
     <!-- Commented out as recent versions of maven-changes-plugin generate
@@ -19,6 +19,7 @@
       <action dev="jeffjensen" type="add" issue="13" system="sftickets" due-to="jeffjensen">Configure GitHub CI.</action>
       <action dev="jeffjensen" type="add" issue="14" system="sftickets" due-to="jeffjensen">Convert APT and XDoc doc files to Asciidoc.</action>
       <action dev="jeffjensen" type="add" issue="15" system="sftickets" due-to="jeffjensen">Generate and publish Maven site to GitHub pages.</action>
+      <action dev="jeffjensen" type="update" due-to="jeffjensen">Bump multiple plugin and lib versions.</action>
     </release>
     <release version="1.2.0" date="Feb 13, 2022" description="Composite dataset, dbUnit 2.7.3">
       <action dev="jeffjensen" type="add" issue="5" system="sftickets" due-to="bjornbeskow">Create composite dataset from multiple source files.</action>

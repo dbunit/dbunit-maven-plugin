@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <faqs title="FAQ">
-  <part id="">
+  <part id="dbunit">
     <title>DbUnit</title>
-    <faq id="DbUnit">
+    <faq id="exportoracle">
       <question>
       	I get an error when trying to export an oracle database.
       </question>

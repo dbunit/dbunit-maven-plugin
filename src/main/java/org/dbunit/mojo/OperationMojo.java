@@ -23,12 +23,9 @@ package org.dbunit.mojo;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
@@ -161,10 +158,9 @@ public class OperationMojo extends AbstractDbUnitMojo
                     op.execute(connection);
                 } else
                 {
-                    for (final Iterator i = concatenatedSources.iterator(); i
-                            .hasNext();)
+                    for (final Object element : concatenatedSources)
                     {
-                        final File source = (File) i.next();
+                        final File source = (File) element;
                         log.debug("processing file=" + source);
 
                         final Operation op = new Operation();
@@ -192,7 +188,10 @@ public class OperationMojo extends AbstractDbUnitMojo
     @Override
     public String toString()
     {
-        return ToStringBuilder.reflectionToString(this,
-                ToStringStyle.DEFAULT_STYLE, true, AbstractDbUnitMojo.class);
+        return "OperationMojo[" + "type=" + type + ", transaction="
+                + transaction + ", src=" + src + ", sources="
+                + Arrays.toString(sources) + ", composite=" + composite
+                + ", combine=" + combine + ", ordered=" + ordered + ", format="
+                + format + "]";
     }
 }
