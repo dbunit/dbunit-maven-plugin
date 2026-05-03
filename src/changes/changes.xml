@@ -20,6 +20,12 @@
       <action dev="jeffjensen" type="add" issue="14" system="sftickets" due-to="jeffjensen">Convert APT and XDoc doc files to Asciidoc.</action>
       <action dev="jeffjensen" type="add" issue="15" system="sftickets" due-to="jeffjensen">Generate and publish Maven site to GitHub pages.</action>
       <action dev="jeffjensen" type="update" due-to="jeffjensen">Bump multiple plugin and lib versions.</action>
+      <!-- dependabot:dep=dependabot/fetch-metadata:new=3:pr=2 -->
+      <action dev="dependabot" type="update" due-to="Dependabot">Update github_actions dependency dependabot/fetch-metadata from 2 to 3 (#2).</action>
+      <!-- dependabot:dep=actions/upload-pages-artifact:new=5:pr=2 -->
+      <action dev="dependabot" type="update" due-to="Dependabot">Update github_actions dependency actions/upload-pages-artifact from 3 to 5 (#2).</action>
+      <!-- dependabot:dep=actions/deploy-pages:new=5:pr=2 -->
+      <action dev="dependabot" type="update" due-to="Dependabot">Update github_actions dependency actions/deploy-pages from 4 to 5 (#2).</action>
     </release>
     <release version="1.2.0" date="Feb 13, 2022" description="Composite dataset, dbUnit 2.7.3">
       <action dev="jeffjensen" type="add" issue="5" system="sftickets" due-to="bjornbeskow">Create composite dataset from multiple source files.</action>
