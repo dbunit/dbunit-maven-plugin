@@ -12,7 +12,7 @@
   </properties>
 
   <body>
-    <release version="1.2.1-SNAPSHOT" date="TBD" description="Change to Central Portal publishing, reproducible builds, dbUnit 3.0.0">
+    <release version="1.2.1-SNAPSHOT" date="TBD" description="Change to Central Portal publishing, reproducible builds, dbUnit 3.0.0, GitHub config, convert docs to Asciidoc, version bumps">
       <action dev="jeffjensen" type="update" issue="10" system="sftickets" due-to="jeffjensen">Setup reproducible builds.</action>
       <action dev="jeffjensen" type="update" issue="11" system="sftickets" due-to="jeffjensen">Change Central artifact publishing from OSSRH to new Portal.</action>
       <action dev="ajohnson" type="update" issue="12" system="sftickets" due-to="ajohnson">Update dbUnit version to 3.0.0.</action>
