@@ -28,16 +28,16 @@
       ]]>
     </head>
 
-    <breadcrumbs>
-      <item name="DBUnit" href="http://dbunit.sourceforge.net/"/>
-    </breadcrumbs>
-
     <links>
       <item name="DBUnit" href="http://dbunit.sourceforge.net" />
       <item name="" href="https://github.com/dbunit/dbunit-maven-plugin/actions/workflows/build-any-branch.yml">
         <image src="https://github.com/dbunit/dbunit-maven-plugin/actions/workflows/build-any-branch.yml/badge.svg"/>
       </item>
     </links>
+
+    <breadcrumbs>
+      <item name="DBUnit" href="http://dbunit.sourceforge.net/"/>
+    </breadcrumbs>
 
     <menu name="Overview">
       <item name="Introduction" href="index.html" />
