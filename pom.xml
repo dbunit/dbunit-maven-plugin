@@ -40,33 +40,30 @@
     <!-- always set to minimum version this plugin needs for its features -->
     <dbunitVersion>3.0.0</dbunitVersion>
     <hsqldbVersion>1.8.0.7</hsqldbVersion>
-    <junitJupiterVersion>5.10.1</junitJupiterVersion>
-    <junitVersion>5.10.1</junitVersion>
-    <mavenArtifactVersion>3.3.9</mavenArtifactVersion>
-    <mavenModelVersion>3.3.9</mavenModelVersion>
-    <mavenPluginApiVersion>3.3.9</mavenPluginApiVersion>
-    <mavenSettingsVersion>3.3.9</mavenSettingsVersion>
-    <slf4jApiVersion>1.7.25</slf4jApiVersion>
-    <slf4jSimpleVersion>1.7.25</slf4jSimpleVersion>
-    <slf4jVersion>1.7.25</slf4jVersion>
+    <junitVersion>6.0.3</junitVersion>
+    <mavenArtifactVersion>3.9.15</mavenArtifactVersion>
+    <mavenModelVersion>3.9.15</mavenModelVersion>
+    <mavenPluginApiVersion>3.9.15</mavenPluginApiVersion>
+    <mavenSettingsVersion>3.9.15</mavenSettingsVersion>
+    <slf4jVersion>2.0.17</slf4jVersion>
 
     <!-- Database driver versions -->
     <hsqldbDriverVersion>1.8.0.7</hsqldbDriverVersion>
 
     <!-- Maven plugin versions -->
     <asciidoctorMavenPluginVersion>3.2.0</asciidoctorMavenPluginVersion>
-    <centralPublishingMavenPluginVersion>0.8.0</centralPublishingMavenPluginVersion>
-    <mavenChangesPluginVersion>2.12</mavenChangesPluginVersion>
-    <compilerPluginVersion>3.7.0</compilerPluginVersion>
-    <gpgPluginVersion>1.6</gpgPluginVersion>
-    <jarPluginVersion>3.4.2</jarPluginVersion>
-    <javadocPluginVersion>3.0.0</javadocPluginVersion>
-    <mavenInvokerPluginVersion>2.0.0</mavenInvokerPluginVersion>
-    <mavenPluginPluginVersion>3.13.1</mavenPluginPluginVersion>
-    <projectInfoReportsPluginVersion>2.9</projectInfoReportsPluginVersion>
-    <sitePluginVersion>3.12.1</sitePluginVersion>
-    <sourcePluginVersion>3.3.1</sourcePluginVersion>
-    <versionsMavenPluginVersion>2.8.1</versionsMavenPluginVersion>
+    <centralPublishingMavenPluginVersion>0.10.0</centralPublishingMavenPluginVersion>
+    <mavenChangesPluginVersion>2.12.1</mavenChangesPluginVersion>
+    <compilerPluginVersion>3.15.0</compilerPluginVersion>
+    <gpgPluginVersion>3.2.8</gpgPluginVersion>
+    <jarPluginVersion>3.5.0</jarPluginVersion>
+    <javadocPluginVersion>3.12.0</javadocPluginVersion>
+    <mavenInvokerPluginVersion>3.10.0</mavenInvokerPluginVersion>
+    <mavenPluginPluginVersion>3.15.2</mavenPluginPluginVersion>
+    <projectInfoReportsPluginVersion>3.9.0</projectInfoReportsPluginVersion>
+    <sitePluginVersion>3.21.0</sitePluginVersion>
+    <sourcePluginVersion>3.4.0</sourcePluginVersion>
+    <versionsMavenPluginVersion>2.21.0</versionsMavenPluginVersion>
 
     <!-- Other versions -->
     <wagonSshVersion>3.5.3</wagonSshVersion>
@@ -157,7 +154,17 @@
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter</artifactId>
-        <version>${junitJupiterVersion}</version>
+        <version>${junitVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-launcher</artifactId>
+        <version>${junitVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-suite-engine</artifactId>
+        <version>${junitVersion}</version>
       </dependency>
       <dependency>
         <groupId>hsqldb</groupId>
@@ -172,12 +179,12 @@
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <version>${slf4jApiVersion}</version>
+        <version>${slf4jVersion}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-simple</artifactId>
-        <version>${slf4jSimpleVersion}</version>
+        <version>${slf4jVersion}</version>
       </dependency>
       <dependency>
         <groupId>ant</groupId>
