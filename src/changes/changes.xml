@@ -12,7 +12,7 @@
   </properties>
 
   <body>
-    <release version="1.2.1-SNAPSHOT" date="TBD" description="Change to Central Portal publishing, reproducible builds, dbUnit 3.0.0, GitHub config, convert docs to Asciidoc, version bumps">
+    <release version="1.2.1-SNAPSHOT" date="TBD" description="Change to Central Portal publishing, reproducible builds, dbUnit 3.0.0, GitHub config, convert docs to Asciidoc, version bumps, auto-publish SNAPSHOTS">
       <action dev="jeffjensen" type="update" issue="10" system="sftickets" due-to="jeffjensen">Setup reproducible builds.</action>
       <action dev="jeffjensen" type="update" issue="11" system="sftickets" due-to="jeffjensen">Change Central artifact publishing from OSSRH to new Portal.</action>
       <action dev="ajohnson" type="update" issue="12" system="sftickets" due-to="ajohnson">Update dbUnit version to 3.0.0.</action>
@@ -26,6 +26,7 @@
       <action dev="dependabot" type="update" due-to="Dependabot">Update github_actions dependency actions/upload-pages-artifact from 3 to 5 (#2).</action>
       <!-- dependabot:dep=actions/deploy-pages:new=5:pr=2 -->
       <action dev="dependabot" type="update" due-to="Dependabot">Update github_actions dependency actions/deploy-pages from 4 to 5 (#2).</action>
+      <action dev="jeffjensen" type="add" due-to="jeffjensen">Auto-publish SNAPSHOTs to Maven Central on master commits.</action>
     </release>
     <release version="1.2.0" date="Feb 13, 2022" description="Composite dataset, dbUnit 2.7.3">
       <action dev="jeffjensen" type="add" issue="5" system="sftickets" due-to="bjornbeskow">Create composite dataset from multiple source files.</action>
