@@ -29,4 +29,4 @@ For the full list of examples refer to the menu bar on the left top.
 * link:./examples/settings.html[Hide username/password in settings.xml.]
 
 A comprehensive and runnable example is available
-in link:https://sourceforge.net/p/dbunit/dbunit-maven-plugin/ci/master/tree/src/example/[Git]
+in link:https://github.com/dbunit/dbunit-maven-plugin/tree/master/src/example/[Git]
