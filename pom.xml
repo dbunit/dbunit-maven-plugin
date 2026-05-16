@@ -45,7 +45,7 @@
     <mavenModelVersion>3.9.15</mavenModelVersion>
     <mavenPluginApiVersion>3.9.15</mavenPluginApiVersion>
     <mavenSettingsVersion>3.9.15</mavenSettingsVersion>
-    <slf4jVersion>2.0.17</slf4jVersion>
+    <slf4jVersion>2.0.18</slf4jVersion>
 
     <!-- Database driver versions -->
     <hsqldbDriverVersion>1.8.0.7</hsqldbDriverVersion>
