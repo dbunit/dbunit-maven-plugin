@@ -43,7 +43,6 @@
       <item name="Usage" href="usage.html" />
       <item name="FAQ" href="faq.html" />
       <item name="Changes" href="/changes.html" />
-      <item name="Sponsors" href="/sponsors.html"/>
     </menu>
     <menu name="Examples">
       <item name="Clean insert" href="examples/clean-insert.html" />
