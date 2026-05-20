@@ -58,26 +58,19 @@ ssh -t sf-username,dbunit@shell.sourceforge.net create
 mvnw site:deploy
 ----
 
-. Generate Announcement Email
+. Post Announcement Discussion https://github.com/dbunit/dbunit-extension/discussions/categories/announcements
+.. Consider using the changes plugin's announcement-generate goal 
 +
+[source,bash]
 ----
 mvnw changes:announcement-generate -Dchanges.version=theNewVersion
 ----
 +
 Review and adjust the text as desired before using.
 
-. Email Users List
-
-. Post News on SourceForge
-
 . Prepare next release in SCM
-
 .. Update pom.xml
-
 ... Update to SNAPSHOT version
-
 .. Update src/example/pom.xml
-
 ... Update to match new plugin (SNAPSHOT) version
-
 .. Update changes.xml with new SNAPSHOT entry

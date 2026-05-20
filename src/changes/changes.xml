@@ -13,34 +13,34 @@
 
   <body>
     <release version="1.2.1-SNAPSHOT" date="TBD" description="Change to Central Portal publishing, reproducible builds, dbUnit 3.0.0, GitHub config, convert docs to Asciidoc, version bumps, auto-publish SNAPSHOTS">
-      <action dev="jeffjensen" type="update" issue="10" system="sftickets" due-to="jeffjensen">Setup reproducible builds.</action>
-      <action dev="jeffjensen" type="update" issue="11" system="sftickets" due-to="jeffjensen">Change Central artifact publishing from OSSRH to new Portal.</action>
-      <action dev="ajohnson" type="update" issue="12" system="sftickets" due-to="ajohnson">Update dbUnit version to 3.0.0.</action>
-      <action dev="jeffjensen" type="add" issue="13" system="sftickets" due-to="jeffjensen">Configure GitHub CI.</action>
-      <action dev="jeffjensen" type="add" issue="14" system="sftickets" due-to="jeffjensen">Convert APT and XDoc doc files to Asciidoc.</action>
-      <action dev="jeffjensen" type="add" issue="15" system="sftickets" due-to="jeffjensen">Generate and publish Maven site to GitHub pages.</action>
+      <action dev="jeffjensen" type="update" issue="26" system="github" due-to="jeffjensen">Setup reproducible builds.</action>
+      <action dev="jeffjensen" type="update" issue="27" system="github" due-to="jeffjensen">Change Central artifact publishing from OSSRH to new Portal.</action>
+      <action dev="andrewhj" type="update" issue="28" system="github" due-to="andrewhj">Update dbUnit version to 3.0.0.</action>
+      <action dev="jeffjensen" type="add" issue="29" system="github" due-to="jeffjensen">Configure GitHub CI.</action>
+      <action dev="jeffjensen" type="add" issue="30" system="github" due-to="jeffjensen">Convert APT and XDoc doc files to Asciidoc.</action>
+      <action dev="jeffjensen" type="add" issue="31" system="github" due-to="jeffjensen">Generate and publish Maven site to GitHub pages.</action>
       <action dev="jeffjensen" type="update" due-to="jeffjensen">Bump multiple plugin and lib versions.</action>
       <!-- dependabot:dep=dependabot/fetch-metadata:new=3:pr=2 -->
-      <action dev="dependabot" type="update" due-to="Dependabot">Update github_actions dependency dependabot/fetch-metadata from 2 to 3 (#2).</action>
+      <action dev="dependabot" type="update" due-to="dependabot">Update github_actions dependency dependabot/fetch-metadata from 2 to 3 (#2).</action>
       <!-- dependabot:dep=actions/upload-pages-artifact:new=5:pr=2 -->
-      <action dev="dependabot" type="update" due-to="Dependabot">Update github_actions dependency actions/upload-pages-artifact from 3 to 5 (#2).</action>
+      <action dev="dependabot" type="update" due-to="dependabot">Update github_actions dependency actions/upload-pages-artifact from 3 to 5 (#2).</action>
       <!-- dependabot:dep=actions/deploy-pages:new=5:pr=2 -->
-      <action dev="dependabot" type="update" due-to="Dependabot">Update github_actions dependency actions/deploy-pages from 4 to 5 (#2).</action>
+      <action dev="dependabot" type="update" due-to="dependabot">Update github_actions dependency actions/deploy-pages from 4 to 5 (#2).</action>
       <action dev="jeffjensen" type="add" due-to="jeffjensen">Auto-publish SNAPSHOTs to Maven Central on master commits.</action>
     </release>
     <release version="1.2.0" date="Feb 13, 2022" description="Composite dataset, dbUnit 2.7.3">
-      <action dev="jeffjensen" type="add" issue="5" system="sftickets" due-to="bjornbeskow">Create composite dataset from multiple source files.</action>
+      <action dev="jeffjensen" type="add" issue="21" system="github" due-to="beskow">Create composite dataset from multiple source files.</action>
       <action dev="jeffjensen" type="update" due-to="jeffjensen">Update dbUnit version to 2.7.3.</action>
     </release>
     <release version="1.1.0" date="Aug 4, 2021" description="Update POMs and make first release">
-      <action dev="jeffjensen" type="add" issue="7" system="sftickets" due-to="jeffjensen">Migrate to Sonatype oss-parent.</action>
-      <action dev="ajohnson" type="add" issue="6" system="sftickets" due-to="ajohnson">Update POMs to make current for release.</action>
+      <action dev="jeffjensen" type="add" issue="23" system="github" due-to="jeffjensen">Migrate to Sonatype oss-parent.</action>
+      <action dev="andrewhj" type="add" issue="22" system="github" due-to="andrewhj">Update POMs to make current for release.</action>
     </release>
     <release version="1.0-SNAPSHOT" date="(not released)" description="Migrate from CodeHaus to dbUnit">
-      <action dev="quantas" type="add" issue="4" system="sftickets" due-to="viczi">Upgrate Java version to 8.</action>
-      <action dev="gommma" type="add" issue="3" system="sftickets" due-to="sellerjd">Provide example for use of queries in maven plugin.</action>
-      <action dev="gommma" type="add" issue="2" system="sftickets" due-to="gommma">Support the generic dbConfig like for ant.</action>
-      <action dev="gommma" type="add" issue="1" system="sftickets" due-to="danttran">Move dbunit-maven-plugin from codehaus to DBUnit.</action>
+      <action dev="Quantas" type="add" issue="20" system="github" due-to="vicziani">Upgrate Java version to 8.</action>
+      <action dev="gommma" type="add" issue="19" system="github" due-to="sellerjd">Provide example for use of queries in maven plugin.</action>
+      <action dev="gommma" type="add" issue="18" system="github" due-to="gommma">Support the generic dbConfig like for ant.</action>
+      <action dev="gommma" type="add" issue="17" system="github" due-to="danttran">Move dbunit-maven-plugin from codehaus to DBUnit.</action>
     </release>
   </body>
 </document>

@@ -27,7 +27,7 @@
     <project.build.outputTimestamp>2025-10-01T00:00:00Z</project.build.outputTimestamp>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <project.scm.id>sourceforge</project.scm.id>
+    <project.scm.id>github</project.scm.id>
 
     <!-- General values -->
     <compileSource>1.8</compileSource>
@@ -70,40 +70,19 @@
   </properties>
 
   <scm>
-    <connection>scm:git:http://git.code.sf.net/p/dbunit/dbunit-maven-plugin.git</connection>
-    <developerConnection>scm:git:https://git.code.sf.net/p/dbunit/dbunit-maven-plugin.git</developerConnection>
-    <url>https://sourceforge.net/p/dbunit/dbunit-maven-plugin/ci/master/tree/</url>
+    <connection>scm:git:https://github.com/dbunit/dbunit-maven-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:dbunit/dbunit-maven-plugin.git</developerConnection>
+    <url>https://github.com/dbunit/dbunit-maven-plugin.git</url>
     <tag>HEAD</tag>
   </scm>
   <issueManagement>
-    <system>SourceForge2</system>
-    <url>http://sourceforge.net/p/dbunit/plugintickets/</url>
+    <system>github</system>
+    <url>https://github.com/dbunit/dbunit-maven-plugin/issues</url>
   </issueManagement>
   <ciManagement>
-    <system>github</system>
+    <system>GitHub Actions</system>
     <url>https://github.com/dbunit/dbunit-maven-plugin/actions</url>
   </ciManagement>
-
-  <mailingLists>
-    <mailingList>
-      <name>dbUnit User List</name>
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-user</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-user</unsubscribe>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=dbunit-user</archive>
-    </mailingList>
-    <mailingList>
-      <name>dbUnit Developer List</name>
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-developer</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-developer</unsubscribe>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=dbunit-developer</archive>
-    </mailingList>
-    <mailingList>
-      <name>dbUnit Commit List</name>
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-commit</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-commit</unsubscribe>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=dbunit-commit</archive>
-    </mailingList>
-  </mailingLists>
 
   <prerequisites>
     <maven>2.0</maven>
@@ -362,6 +341,9 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
           <version>${sitePluginVersion}</version>
+          <configuration>
+            <relativizeSiteLinks>false</relativizeSiteLinks>
+          </configuration>
           <dependencies>
             <dependency>
               <groupId>org.apache.maven.wagon</groupId>
@@ -527,11 +509,4 @@
       </build>
     </profile>
   </profiles>
-
-  <distributionManagement>
-    <site>
-      <id>sourceforge</id>
-      <url>scp://shell.sourceforge.net/home/project-web/dbunit/htdocs/dbunit-maven-plugin/</url>
-    </site>
-  </distributionManagement>
 </project>
