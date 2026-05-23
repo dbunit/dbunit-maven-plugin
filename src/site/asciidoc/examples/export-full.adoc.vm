@@ -81,3 +81,28 @@ database-specific; use `(?i)` for case-insensitive matching).
   </excludes>
 </configuration>
 ----
+
+=== Exclude empty tables
+
+[source,xml]
+----
+<configuration>
+  <format>xml</format>
+  <dest>target/dbunit/export.xml</dest>
+  <excludeEmptyTables>true</excludeEmptyTables>
+</configuration>
+----
+
+=== Combine both filters
+
+[source,xml]
+----
+<configuration>
+  <format>xml</format>
+  <dest>target/dbunit/export.xml</dest>
+  <excludes>
+    <exclude>(?i)flyway_.*</exclude>
+  </excludes>
+  <excludeEmptyTables>true</excludeEmptyTables>
+</configuration>
+----

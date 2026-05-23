@@ -155,6 +155,28 @@ public class ExportMojoTest extends AbstractDbUnitMojoTest
     }
 
     /**
+     * Tests that excludeEmptyTables=true prevents tables with no rows from appearing in the export.
+     */
+    @Test
+    public void testExecute_withExcludeEmptyTables_emptyTableAbsentFromExport() throws Exception
+    {
+        // person gets data; address stays empty
+        insertPersonData();
+
+        final File exportFile = new File(getBasedir(), "target/test-export-exclude-empty.xml");
+        final ExportMojo mojo = new ExportMojo();
+        populateMojoCommonConfiguration(mojo);
+        mojo.dest = exportFile;
+        mojo.format = "xml";
+        mojo.excludeEmptyTables = true;
+        mojo.execute();
+
+        final String content = new String(Files.readAllBytes(exportFile.toPath()), StandardCharsets.UTF_8);
+        assertThat(content).as("Export with excludeEmptyTables should contain non-empty person table.").containsIgnoringCase("person");
+        assertThat(content).as("Export with excludeEmptyTables should not contain empty address table.").doesNotContainIgnoringCase("address");
+    }
+
+    /**
      * Tests that the mojo auto-creates missing parent directories for the dest file.
      */
     @Test

@@ -138,8 +138,9 @@ mvn dbunit:operation -Ddbunit.replacementDataSetClass=com.example.NullReplacemen
 == Filtering Tables in the Export Goal
 
 When no explicit `<tables>` or `<queries>` are configured, the export goal
-auto-discovers all tables via JDBC metadata. The `<excludes>` parameter filters
-which tables are included. It is ignored when `<tables>` or `<queries>` are set.
+auto-discovers all tables via JDBC metadata. Use `<excludes>` and/or
+`<excludeEmptyTables>` to filter which tables are included.
+Both parameters are ignored when `<tables>` or `<queries>` are set.
 
 === Excluding tables by name pattern (`excludes`)
 
@@ -155,6 +156,31 @@ Use the `(?i)` prefix for case-insensitive matching.
     <exclude>(?i)flyway_.*</exclude>
     <exclude>(?i)quartz_.*</exclude>
   </excludes>
+</configuration>
+----
+
+=== Excluding empty tables (`excludeEmptyTables`)
+
+Set `<excludeEmptyTables>true</excludeEmptyTables>` to omit tables that contain no
+rows. Useful for producing a clean snapshot that skips unpopulated reference or
+staging tables.
+
+[source,xml]
+----
+<configuration>
+  <excludeEmptyTables>true</excludeEmptyTables>
+</configuration>
+----
+
+Both parameters can be combined:
+
+[source,xml]
+----
+<configuration>
+  <excludes>
+    <exclude>(?i)flyway_.*</exclude>
+  </excludes>
+  <excludeEmptyTables>true</excludeEmptyTables>
 </configuration>
 ----
 

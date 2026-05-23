@@ -117,6 +117,16 @@ public class ExportMojo extends AbstractDbUnitMojo
     @Parameter(property = "dbunit.excludes")
     protected String[] excludes;
 
+    /**
+     * When {@code true}, tables with no rows are excluded from the export.
+     * Only applied when no explicit {@code tables} or {@code queries} are
+     * configured.
+     *
+     * @since 1.2.2
+     */
+    @Parameter(property = "dbunit.excludeEmptyTables", defaultValue = "false")
+    protected boolean excludeEmptyTables;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException
     {
@@ -143,7 +153,7 @@ public class ExportMojo extends AbstractDbUnitMojo
                         (tables != null && tables.length > 0) || (queries != null && queries.length > 0);
                 final boolean hasExcludes = excludes != null && excludes.length > 0;
 
-                if (!hasExplicitFilter && hasExcludes)
+                if (!hasExplicitFilter && (hasExcludes || excludeEmptyTables))
                 {
                     addFilteredTables(export, connection.getConnection());
                 }
@@ -189,6 +199,10 @@ public class ExportMojo extends AbstractDbUnitMojo
                 {
                     continue;
                 }
+                if (excludeEmptyTables && isTableEmpty(con, tableName))
+                {
+                    continue;
+                }
                 final Table table = new Table();
                 table.setName(tableName);
                 export.addTable(table);
@@ -210,5 +224,15 @@ public class ExportMojo extends AbstractDbUnitMojo
             }
         }
         return false;
+    }
+
+    private boolean isTableEmpty(final Connection con, final String tableName) throws SQLException
+    {
+        try (final ResultSet rs = con.createStatement().executeQuery(
+                "SELECT COUNT(*) FROM " + tableName))
+        {
+            rs.next();
+            return rs.getInt(1) == 0;
+        }
     }
 }
