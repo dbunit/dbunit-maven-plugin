@@ -11,3 +11,6 @@ dbunit.properties
 *.iml
 *.ipr
 *.iws
+
+# AI related dirs
+.jackknife
