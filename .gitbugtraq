@@ -3,3 +3,8 @@
 	url=https://sourceforge.net/p/dbunit/plugintickets/%BUGID%
 	loglinkregex = %PROJECT%\\d+
 	logregex=\\d+
+
+[bugtraq "GitHub Issues"]
+	url = https://github.com/dbunit/dbunit-maven-plugin/issues/%BUGID%
+	loglinkregex = Refs: \\d+
+	logregex = \\d+
