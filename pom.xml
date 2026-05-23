@@ -171,6 +171,7 @@
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-simple</artifactId>
         <version>${slf4jVersion}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>ant</groupId>
@@ -231,16 +232,10 @@
       <groupId>org.dbunit</groupId>
       <artifactId>dbunit</artifactId>
     </dependency>
-    <!-- dbunit depends on slf4j -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <scope>runtime</scope>
-    </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <scope>runtime</scope>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ant</groupId>
