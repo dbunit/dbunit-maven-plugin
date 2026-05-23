@@ -29,6 +29,8 @@
       <action dev="jeffjensen" type="add" due-to="jeffjensen">Auto-publish SNAPSHOTs to Maven Central on master commits.</action>
       <!-- dependabot:dep=actions/setup-java:new=5:pr=14 -->
       <action dev="dependabot" type="update" due-to="Dependabot">Update github_actions dependency actions/setup-java from 4 to 5 (#14).</action>
+      <!-- dependabot:dep=org.apache.maven.plugins:maven-invoker-plugin:new=3.10.1:pr=13 -->
+      <action dev="dependabot" type="update" due-to="Dependabot">Update maven dependency org.apache.maven.plugins:maven-invoker-plugin from 3.10.0 to 3.10.1 (#13).</action>
     </release>
     <release version="1.2.0" date="Feb 13, 2022" description="Composite dataset, dbUnit 2.7.3">
       <action dev="jeffjensen" type="add" issue="21" system="github" due-to="beskow">Create composite dataset from multiple source files.</action>
