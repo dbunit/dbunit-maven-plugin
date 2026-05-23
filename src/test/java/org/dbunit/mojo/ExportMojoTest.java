@@ -132,6 +132,29 @@ public class ExportMojoTest extends AbstractDbUnitMojoTest
     }
 
     /**
+     * Tests that the excludes patterns prevent matching tables from appearing in the export.
+     * Patterns are matched against the JDBC metadata table name (uppercase on HSQLDB).
+     */
+    @Test
+    public void testExecute_withExcludes_excludedTableAbsentFromExport() throws Exception
+    {
+        insertPersonData();
+        c.createStatement().executeUpdate("insert into address (id, street) values (1, 'Main St')");
+
+        final File exportFile = new File(getBasedir(), "target/test-export-excludes.xml");
+        final ExportMojo mojo = new ExportMojo();
+        populateMojoCommonConfiguration(mojo);
+        mojo.dest = exportFile;
+        mojo.format = "xml";
+        mojo.excludes = new String[]{"(?i)address"};
+        mojo.execute();
+
+        final String content = new String(Files.readAllBytes(exportFile.toPath()), StandardCharsets.UTF_8);
+        assertThat(content).as("Export with excludes should contain person table.").containsIgnoringCase("person");
+        assertThat(content).as("Export with excludes should not contain excluded address table.").doesNotContainIgnoringCase("address");
+    }
+
+    /**
      * Tests that the mojo auto-creates missing parent directories for the dest file.
      */
     @Test

@@ -135,6 +135,29 @@ Or from the command line:
 mvn dbunit:operation -Ddbunit.replacementDataSetClass=com.example.NullReplacementDataSet ...
 ----
 
+== Filtering Tables in the Export Goal
+
+When no explicit `<tables>` or `<queries>` are configured, the export goal
+auto-discovers all tables via JDBC metadata. The `<excludes>` parameter filters
+which tables are included. It is ignored when `<tables>` or `<queries>` are set.
+
+=== Excluding tables by name pattern (`excludes`)
+
+The `<excludes>` parameter accepts a list of Java regular expression patterns matched
+against the table name as returned by JDBC metadata.
+Table name case is database-specific (e.g. HSQLDB and many others return uppercase names).
+Use the `(?i)` prefix for case-insensitive matching.
+
+[source,xml]
+----
+<configuration>
+  <excludes>
+    <exclude>(?i)flyway_.*</exclude>
+    <exclude>(?i)quartz_.*</exclude>
+  </excludes>
+</configuration>
+----
+
 == Command-Line Usage
 
 All plugin parameters can be set from the command line using the `dbunit.` property prefix,

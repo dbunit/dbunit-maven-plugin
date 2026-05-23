@@ -1,6 +1,7 @@
 = Export Full Database Example
 
 The following example exports all tables to a dataset file after test phase.
+See also <<_excluding_tables>> below for filtering options.
 
 [source,xml]
 ----
@@ -56,4 +57,27 @@ The following example exports all tables to a dataset file after test phase.
   </build>
   [...]
 </project>
+----
+
+== Excluding Tables
+
+When no explicit `<tables>` or `<queries>` are configured, use `<excludes>` to
+filter which tables are included by regex pattern.
+
+=== Exclude tables by name pattern
+
+Patterns are matched against the table name as returned by JDBC metadata (case is
+database-specific; use `(?i)` for case-insensitive matching).
+
+[source,xml]
+----
+<configuration>
+  <format>xml</format>
+  <dest>target/dbunit/export.xml</dest>
+  <excludes>
+    <exclude>(?i)flyway_.*</exclude>
+    <exclude>(?i)quartz_.*</exclude>
+    <exclude>(?i)batch_.*</exclude>
+  </excludes>
+</configuration>
 ----

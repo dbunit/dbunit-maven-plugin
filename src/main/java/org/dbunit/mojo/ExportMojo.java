@@ -21,6 +21,10 @@
 package org.dbunit.mojo;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -101,6 +105,18 @@ public class ExportMojo extends AbstractDbUnitMojo
     @Parameter(property = "dbunit.encoding", defaultValue = "${project.build.sourceEncoding}")
     protected String encoding;
 
+    /**
+     * List of table name regex patterns to exclude from the export. Patterns
+     * are matched against the table name as returned by JDBC metadata (case
+     * depends on the database, e.g. uppercase on HSQLDB). Use {@code (?i)}
+     * prefix for case-insensitive matching. Only applied when no explicit
+     * {@code tables} or {@code queries} are configured.
+     *
+     * @since 1.2.2
+     */
+    @Parameter(property = "dbunit.excludes")
+    protected String[] excludes;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException
     {
@@ -122,13 +138,25 @@ public class ExportMojo extends AbstractDbUnitMojo
             {
                 final Export export = new Export();
                 export.setOrdered(ordered);
-                for (int i = 0; queries != null && i < queries.length; ++i)
+
+                final boolean hasExplicitFilter =
+                        (tables != null && tables.length > 0) || (queries != null && queries.length > 0);
+                final boolean hasExcludes = excludes != null && excludes.length > 0;
+
+                if (!hasExplicitFilter && hasExcludes)
                 {
-                    export.addQuery((Query) queries[i]);
+                    addFilteredTables(export, connection.getConnection());
                 }
-                for (int i = 0; tables != null && i < tables.length; ++i)
+                else
                 {
-                    export.addTable((Table) tables[i]);
+                    for (int i = 0; queries != null && i < queries.length; ++i)
+                    {
+                        export.addQuery((Query) queries[i]);
+                    }
+                    for (int i = 0; tables != null && i < tables.length; ++i)
+                    {
+                        export.addTable((Table) tables[i]);
+                    }
                 }
 
                 export.setDest(dest);
@@ -147,5 +175,40 @@ public class ExportMojo extends AbstractDbUnitMojo
         {
             throw new MojoExecutionException("Error executing export", e);
         }
+    }
+
+    private void addFilteredTables(final Export export, final Connection con) throws SQLException
+    {
+        final DatabaseMetaData meta = con.getMetaData();
+        try (final ResultSet rs = meta.getTables(null, schema, "%", new String[]{"TABLE"}))
+        {
+            while (rs.next())
+            {
+                final String tableName = rs.getString("TABLE_NAME");
+                if (isExcluded(tableName))
+                {
+                    continue;
+                }
+                final Table table = new Table();
+                table.setName(tableName);
+                export.addTable(table);
+            }
+        }
+    }
+
+    private boolean isExcluded(final String tableName)
+    {
+        if (excludes == null)
+        {
+            return false;
+        }
+        for (final String pattern : excludes)
+        {
+            if (tableName.matches(pattern))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
