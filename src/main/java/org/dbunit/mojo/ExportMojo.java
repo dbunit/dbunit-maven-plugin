@@ -24,6 +24,9 @@ import java.io.File;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.dbunit.ant.Export;
 import org.dbunit.ant.Query;
 import org.dbunit.ant.Table;
@@ -32,65 +35,70 @@ import org.dbunit.database.IDatabaseConnection;
 /**
  * Execute DbUnit Export operation.
  *
- * @goal export
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @author <a href="mailto:topping@codehaus.org">Brian Topping</a>
  * @author <a href="mailto:david@codehaus.org">David J. M. Karlsen</a>
  * @version $Id$
  * @since 1.0
  */
+@Mojo(name = "export", requiresDependencyResolution = ResolutionScope.COMPILE)
 public class ExportMojo extends AbstractDbUnitMojo
 {
     /**
      * Location of exported DataSet file.
      *
-     * @parameter property="dest"
-     *            default-value="${project.build.directory}/dbunit/export.xml"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.dest", defaultValue = "${project.build.directory}/dbunit/export.xml")
     protected File dest;
 
     /**
      * DataSet file format.
      *
-     * @parameter property="format" default-value="xml"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.format", defaultValue = "xml")
     protected String format;
 
     /**
      * doctype.
      *
-     * @parameter property="doctype"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.doctype")
     protected String doctype;
 
     /**
      * List of DbUnit's Table. See DbUnit's JavaDoc for details.
      *
-     * @parameter
+     * @since 1.0
      */
+    @Parameter
     protected Table[] tables;
 
     /**
      * List of DbUnit's Query. See DbUnit's JavaDoc for details.
      *
-     * @parameter
+     * @since 1.0
      */
+    @Parameter
     protected Query[] queries;
 
     /**
      * Set to true to order exported data according to integrity constraints
      * defined in DB.
      *
-     * @parameter property="ordered"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.ordered")
     protected boolean ordered;
 
     /**
      * Encoding of exported data.
      *
-     * @parameter property="encoding"
-     *            default-value="${project.build.sourceEncoding}"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.encoding", defaultValue = "${project.build.sourceEncoding}")
     protected String encoding;
 
     @Override

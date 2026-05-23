@@ -29,18 +29,21 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.dbunit.ant.Operation;
 import org.dbunit.database.IDatabaseConnection;
 
 /**
  * Execute DbUnit's Database Operation with an external dataset file.
  *
- * @goal operation
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @author <a href="mailto:topping@codehaus.org">Brian Topping</a>
  * @version $Id$
  * @since 1.0
  */
+@Mojo(name = "operation", requiresDependencyResolution = ResolutionScope.COMPILE)
 public class OperationMojo extends AbstractDbUnitMojo
 {
     /**
@@ -48,39 +51,42 @@ public class OperationMojo extends AbstractDbUnitMojo
      * INSERT, DELETE, DELETE_ALL, REFRESH, CLEAN_INSERT, MSSQL_INSERT,
      * MSSQL_REFRESH, MSSQL_CLEAN_INSERT
      *
-     * @parameter property="type"
-     * @required
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.type", required = true)
     protected String type;
 
     /**
      * When true, place the entire operation in one transaction.
      *
-     * @parameter property="transaction" default-value="false"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.transaction", defaultValue = "false")
     protected boolean transaction;
 
     /**
      * DataSet file; please use sources instead.
      *
-     * @parameter property="src"
      * @deprecated 1.0
      */
     @Deprecated
+    @Parameter(property = "dbunit.src")
     protected File src;
 
     /**
      * DataSet files.
      *
-     * @parameter property="sources"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.sources")
     protected File[] sources;
 
     /**
      * When true, merge all source files into a single composite dataset.
      *
-     * @parameter property="composite" default-value="false"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.composite", defaultValue = "false")
     protected boolean composite;
 
     /**
@@ -88,24 +94,26 @@ public class OperationMojo extends AbstractDbUnitMojo
      * combined into one table.<br>
      * Only relevant when composite is true.
      *
-     * @parameter property="combine" default-value="false"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.combine", defaultValue = "false")
     protected boolean combine;
 
     /**
      * Set to true to order tables according to integrity constraints defined in
      * DB.
      *
-     * @parameter property="ordered" default-value="false"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.ordered", defaultValue = "false")
     protected boolean ordered;
 
     /**
      * Dataset file format type. Valid types are: flat, xml, csv, and dtd
      *
-     * @parameter property="format" default-value="xml";
-     * @required
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.format", defaultValue = "xml", required = true)
     protected String format;
 
     @Override
