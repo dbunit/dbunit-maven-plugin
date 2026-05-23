@@ -21,9 +21,7 @@
 package org.dbunit.mojo;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.io.File;
 import java.sql.ResultSet;
@@ -40,7 +38,8 @@ import org.junit.jupiter.api.Test;
 public class OperationMojoTest extends AbstractDbUnitMojoTest
 {
     @Test
-    public void testCleanInsertOperation() throws Exception
+    public void testExecute_cleanInsertExportReimportCompare_dataRoundtripsSuccessfully()
+            throws Exception
     {
         // init database with fixed data
         final OperationMojo operation = new OperationMojo();
@@ -50,11 +49,11 @@ public class OperationMojoTest extends AbstractDbUnitMojoTest
         operation.type = "CLEAN_INSERT";
         operation.execute();
 
-        // check to makesure we have 2 rows after inserts thru dataset
+        // check we have 2 rows after inserts through dataset
         Statement st = c.createStatement();
         ResultSet rs = st.executeQuery("select count(*) from person");
         rs.next();
-        assertEquals(2, rs.getInt(1));
+        assertThat(rs.getInt(1)).as("Person count after CLEAN_INSERT.").isEqualTo(2);
 
         // export database to another dataset file
         final File exportFile = new File(getBasedir(), "target/export.xml");
@@ -69,14 +68,13 @@ public class OperationMojoTest extends AbstractDbUnitMojoTest
         operation.src = exportFile;
         operation.execute();
 
-        // check to makesure we have 2 rows
+        // check we still have 2 rows after re-import
         st = c.createStatement();
         rs = st.executeQuery("select count(*) from person");
         rs.next();
-        assertEquals(2, rs.getInt(1));
+        assertThat(rs.getInt(1)).as("Person count after re-import of exported dataset.").isEqualTo(2);
 
-        // finally compare the current contents of the DB with the orginal
-        // dataset file
+        // finally compare the current DB contents with the original dataset file
         final CompareMojo compare = new CompareMojo();
         this.populateMojoCommonConfiguration(compare);
         compare.src = new File(p.getProperty("xmlDataSource"));
@@ -86,7 +84,7 @@ public class OperationMojoTest extends AbstractDbUnitMojoTest
     }
 
     @Test
-    public void testCleanInsertOperationCompositeDataset() throws Exception
+    public void testExecute_compositeCleanInsert_dataMatchesExpectedDataset() throws Exception
     {
         // Insert some pre-existing data, to force integrity checks
         final Statement st = c.createStatement();
@@ -116,7 +114,7 @@ public class OperationMojoTest extends AbstractDbUnitMojoTest
     }
 
     @Test
-    public void testCleanInsertOperationCompositeCombineDataset()
+    public void testExecute_compositeCombineCleanInsert_allRowsFromAllFilesInserted()
             throws Exception
     {
         // Insert some pre-existing data, to force integrity checks
@@ -127,8 +125,7 @@ public class OperationMojoTest extends AbstractDbUnitMojoTest
                 "insert into address ( id, street) values (1, 'Street')");
 
         // init database with single dataset from three separate files, where
-        // two of the files
-        // define rows for the same table 'Person'
+        // two of the files define rows for the same table 'Person'
         final OperationMojo operation = new OperationMojo();
         this.populateMojoCommonConfiguration(operation);
         operation.sources = new File[] {
@@ -141,14 +138,13 @@ public class OperationMojoTest extends AbstractDbUnitMojoTest
         operation.combine = true;
         operation.execute();
 
-        // check to make sure we have 3 rows
         final ResultSet rs = st.executeQuery("select count(*) from person");
         rs.next();
-        assertEquals(3, rs.getInt(1));
+        assertThat(rs.getInt(1)).as("Person count after composite combine CLEAN_INSERT.").isEqualTo(3);
     }
 
     @Test
-    public void testCleanInsertOperationMultipleDatasetsCauseIntegrityConstraintViolation()
+    public void testExecute_nonCompositeMultipleSources_throwsMojoExecutionException()
             throws Exception
     {
         // Insert some pre-existing data, to force integrity checks
@@ -167,26 +163,19 @@ public class OperationMojoTest extends AbstractDbUnitMojoTest
         operation.format = "xml";
         operation.type = "CLEAN_INSERT";
         operation.composite = false;
-        try
-        {
-            operation.execute();
-            fail("MojoExecutionException expected");
-        } catch (final MojoExecutionException expected)
-        {
-            final Throwable rootCause = expected.getCause().getCause();
-            assertTrue(rootCause instanceof SQLException,
-                    "SQLException expected");
-            assertTrue(
-                    rootCause.getMessage()
-                            .contains("Integrity constraint violation"),
-                    "Integrity constraint violation expected");
-        }
+
+        assertThatThrownBy(operation::execute)
+                .as("Non-composite CLEAN_INSERT on multiple sources with FK constraint should throw MojoExecutionException.")
+                .isInstanceOf(MojoExecutionException.class)
+                .cause()
+                .cause()
+                .isInstanceOf(SQLException.class)
+                .hasMessageContaining("Integrity constraint violation");
     }
 
     @Test
-    public void testSkip() throws Exception
+    public void testExecute_skipTrue_noRowsInserted() throws Exception
     {
-        // init database with fixed data
         final OperationMojo operation = new OperationMojo();
         this.populateMojoCommonConfiguration(operation);
         operation.src = new File(p.getProperty("xmlDataSource"));
@@ -195,12 +184,10 @@ public class OperationMojoTest extends AbstractDbUnitMojoTest
         operation.skip = true;
         operation.execute();
 
-        // check to makesure we have 0 rows
         final Statement st = c.createStatement();
         final ResultSet rs = st.executeQuery("select count(*) from person");
         rs.next();
-        // no data since skip is set
-        assertEquals(0, rs.getInt(1));
+        assertThat(rs.getInt(1)).as("Person count should be 0 when skip=true.").isEqualTo(0);
     }
 
     @Test
