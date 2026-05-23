@@ -35,6 +35,7 @@
 
     <!-- Framework versions -->
     <antVersion>1.6.5</antVersion>
+    <assertjVersion>3.27.3</assertjVersion>
     <!-- TODO this needed for plugin? -->
     <commonsCollectionsVersion>3.2.2</commonsCollectionsVersion>
     <!-- always set to minimum version this plugin needs for its features -->
