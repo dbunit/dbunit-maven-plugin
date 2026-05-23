@@ -28,6 +28,7 @@ import java.util.Properties;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.settings.Server;
 import org.apache.maven.settings.Settings;
 import org.dbunit.DatabaseUnitException;
@@ -44,7 +45,6 @@ import org.dbunit.dataset.datatype.IDataTypeFactory;
  * @author <a href="mailto:dantran@gmail.com">Dan Tran</a>
  * @author <a href="mailto:topping@codehaus.org">Brian Topping</a>
  * @version $Id$
- * @requiresDependencyResolution compile
  * @since 1.0
  */
 public abstract class AbstractDbUnitMojo extends AbstractMojo
@@ -53,40 +53,43 @@ public abstract class AbstractDbUnitMojo extends AbstractMojo
     /**
      * The class name of the JDBC driver to be used.
      *
-     * @parameter property="driver"
-     * @required
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.driver", required = true)
     protected String driver;
 
     /**
      * Database username. If not given, it will be looked up through
      * settings.xml's server with ${settingsKey} as key.
      *
-     * @parameter property="username"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.username")
     protected String username;
 
     /**
      * Database password. If not given, it will be looked up through
      * settings.xml's server with ${settingsKey} as key.
      *
-     * @parameter property="password"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.password")
     protected String password;
 
     /**
      * The JDBC URL for the database to access, e.g. jdbc:db2:SAMPLE.
      *
-     * @parameter property="url"
-     * @required
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.url", required = true)
     protected String url;
 
     /**
      * The schema name that tables can be found under.
      *
-     * @parameter property="schema"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.schema")
     protected String schema;
 
     /**
@@ -95,111 +98,109 @@ public abstract class AbstractDbUnitMojo extends AbstractMojo
      * this class obsolete and sets the value directly where it should go into
      * which is the {@link DatabaseConfig}.
      *
-     * @parameter property="dbconfig"
      * @since 1.0
      */
+    @Parameter(property = "dbunit.dbconfig")
     protected Properties dbconfig;
 
     /**
      * Set the DataType factory to add support for non-standard database vendor
      * data types.
      *
-     * @parameter property="dataTypeFactoryName"
-     *            default-value="org.dbunit.dataset.datatype.DefaultDataTypeFactory"
      * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
      *             nested elements for this
      */
     @Deprecated
+    @Parameter(property = "dbunit.dataTypeFactoryName", defaultValue = "org.dbunit.dataset.datatype.DefaultDataTypeFactory")
     protected String dataTypeFactoryName =
             "org.dbunit.dataset.datatype.DefaultDataTypeFactory";
 
     /**
      * Enable or disable usage of JDBC batched statement by DbUnit.
      *
-     * @parameter property="supportBatchStatement" default-value="false"
      * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
      *             nested elements for this
      */
     @Deprecated
+    @Parameter(property = "dbunit.supportBatchStatement", defaultValue = "false")
     protected boolean supportBatchStatement;
 
     /**
      * Enable or disable multiple schemas support by prefixing table names with
      * the schema name.
      *
-     * @parameter property="useQualifiedTableNames" default-value="false"
      * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
      *             nested elements for this
      */
     @Deprecated
+    @Parameter(property = "dbunit.useQualifiedTableNames", defaultValue = "false")
     protected boolean useQualifiedTableNames;
 
     /**
      * Enable or disable the warning message displayed when DbUnit encounter an
      * unsupported data type.
      *
-     * @parameter property="datatypeWarning" default-value="false"
      * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
      *             nested elements for this
      */
     @Deprecated
+    @Parameter(property = "dbunit.datatypeWarning", defaultValue = "false")
     protected boolean datatypeWarning;
 
     /**
      * escapePattern.
      *
-     * @parameter property="escapePattern"
      * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
      *             nested elements for this
      */
     @Deprecated
+    @Parameter(property = "dbunit.escapePattern")
     protected String escapePattern;
 
     /**
      * skipOracleRecycleBinTables.
      *
-     * @parameter property="skipOracleRecycleBinTables" default-value="false"
      * @since 1.0-beta-2
      * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
      *             nested elements for this
      */
     @Deprecated
+    @Parameter(property = "dbunit.skipOracleRecycleBinTables", defaultValue = "false")
     protected boolean skipOracleRecycleBinTables;
 
     /**
      * Skip the execution when true, very handy when using together with
      * maven.test.skip.
      *
-     * @parameter property="skip" default-value="false"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.skip", defaultValue = "false")
     protected boolean skip;
 
     /**
-     * Access to hidding username/password.
-     *
-     * @parameter property="settings"
-     * @readonly
+     * Access to hiding username/password.
      */
+    @Parameter(defaultValue = "${settings}", readonly = true)
     private Settings settings;
 
     /**
      * Server's id in settings.xml to look up username and password. Default to
      * ${url} if not given.
      *
-     * @parameter property="settingsKey"
+     * @since 1.0
      */
+    @Parameter(property = "dbunit.settingsKey")
     private String settingsKey;
 
     /**
      * Class name of metadata handler.
      *
-     * @parameter property="metadataHandlerName"
-     *            default-value="org.dbunit.database.DefaultMetadataHandler"
      * @since 1.0-beta-3
      * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
      *             nested elements for this
      */
     @Deprecated
+    @Parameter(property = "dbunit.metadataHandlerName", defaultValue = "org.dbunit.database.DefaultMetadataHandler")
     protected String metadataHandlerName;
 
     /**
@@ -207,11 +208,11 @@ public abstract class AbstractDbUnitMojo extends AbstractMojo
      *
      * @see http://dbunit.sourceforge.net/properties.html#casesensitivetablenames
      *
-     * @parameter default-value="false"
      * @deprecated since 1.0 - use the {@link #dbconfig} attribute and the
      *             nested elements for this
      */
     @Deprecated
+    @Parameter(property = "dbunit.caseSensitiveTableNames", defaultValue = "false")
     private boolean caseSensitiveTableNames;
 
     ////////////////////////////////////////////////////////////////////

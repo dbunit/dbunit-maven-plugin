@@ -97,3 +97,22 @@ NOTE: The `sort` option of the `compare` goal requires a result-set table factor
 random access. Set `resultSetTableFactory` to `org.dbunit.database.CachedResultSetTableFactory`
 in `<dbconfig>` when using `<sort>true</sort>`; the default `ForwardOnlyResultSetTableFactory`
 does not support the `getRowCount()` call that sorting requires.
+
+== Command-Line Usage
+
+All plugin parameters can be set from the command line using the `dbunit.` property prefix,
+which avoids conflicts with Maven's own built-in properties (`url`, `username`, `password`, etc.).
+
+[source,shell]
+----
+mvn dbunit:operation \
+  -Ddbunit.driver=org.hsqldb.jdbcDriver \
+  -Ddbunit.url=jdbc:hsqldb:mem:mydb \
+  -Ddbunit.username=sa \
+  -Ddbunit.password= \
+  -Ddbunit.type=CLEAN_INSERT \
+  -Ddbunit.src=src/test/data/insert.xml \
+  -Ddbunit.format=xml
+----
+
+POM-based `<configuration>` uses the bare field names unchanged (e.g. `<driver>`, `<url>`).

@@ -187,6 +187,12 @@
         <version>${mavenPluginApiVersion}</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.maven.plugin-tools</groupId>
+        <artifactId>maven-plugin-annotations</artifactId>
+        <version>${mavenPluginPluginVersion}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-settings</artifactId>
         <version>${mavenSettingsVersion}</version>
@@ -244,6 +250,11 @@
       <artifactId>maven-plugin-api</artifactId>
       <!-- FIXME resolve other updates and then enable this to resolve build warning -->
 <!--      <scope>provided</scope>-->
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.plugin-tools</groupId>
+      <artifactId>maven-plugin-annotations</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
