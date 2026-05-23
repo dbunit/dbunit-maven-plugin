@@ -98,6 +98,43 @@ random access. Set `resultSetTableFactory` to `org.dbunit.database.CachedResultS
 in `<dbconfig>` when using `<sort>true</sort>`; the default `ForwardOnlyResultSetTableFactory`
 does not support the `getRowCount()` call that sorting requires.
 
+== Token Replacement in Datasets
+
+The `operation` and `compare` goals both support a `<replacementDataSetClass>` parameter that
+accepts a fully-qualified class name of a `ReplacementDataSet` subclass
+(from `org.dbunit:dbunit-core`). The plugin instantiates the class via reflection, passing the
+loaded dataset to its single-`IDataSet`-argument constructor, and uses the resulting wrapped
+dataset for the operation or comparison. This lets you map placeholder tokens in your dataset
+files to actual Java objects (e.g. `null`, today's date) without any coupling to the plugin.
+
+Implement the subclass in your project (or test code):
+
+[source,java]
+----
+public class NullReplacementDataSet extends ReplacementDataSet {
+    public NullReplacementDataSet(final IDataSet wrapped) {
+        super(wrapped);
+        addReplacementObject("[NULL]", null);
+    }
+}
+----
+
+Then reference it in your POM configuration:
+
+[source,xml]
+----
+<configuration>
+  <replacementDataSetClass>com.example.NullReplacementDataSet</replacementDataSetClass>
+</configuration>
+----
+
+Or from the command line:
+
+[source,shell]
+----
+mvn dbunit:operation -Ddbunit.replacementDataSetClass=com.example.NullReplacementDataSet ...
+----
+
 == Command-Line Usage
 
 All plugin parameters can be set from the command line using the `dbunit.` property prefix,

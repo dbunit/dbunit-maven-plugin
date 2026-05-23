@@ -355,6 +355,41 @@ public class OperationMojoTest extends AbstractDbUnitMojoTest
     }
 
     @Test
+    public void testExecute_replacementDataSetClass_nullStoredInDb() throws Exception
+    {
+        final OperationMojo mojo = new OperationMojo();
+        populateMojoCommonConfiguration(mojo);
+        mojo.src = new File(p.getProperty("xmlDataSourceWithNullToken"));
+        mojo.format = "xml";
+        mojo.type = "INSERT";
+        mojo.replacementDataSetClass = NullReplacementDataSet.class.getName();
+        mojo.execute();
+
+        final ResultSet rs = c.createStatement().executeQuery(
+                "select last_name from person where id=1");
+        rs.next();
+        assertThat(rs.getString(1)).as("last_name should be stored as SQL NULL.").isNull();
+    }
+
+    @Test
+    public void testExecute_replacementDataSetClassComposite_nullStoredInDb() throws Exception
+    {
+        final OperationMojo mojo = new OperationMojo();
+        populateMojoCommonConfiguration(mojo);
+        mojo.sources = new File[]{new File(p.getProperty("xmlDataSourceWithNullToken"))};
+        mojo.format = "xml";
+        mojo.type = "INSERT";
+        mojo.composite = true;
+        mojo.replacementDataSetClass = NullReplacementDataSet.class.getName();
+        mojo.execute();
+
+        final ResultSet rs = c.createStatement().executeQuery(
+                "select last_name from person where id=1");
+        rs.next();
+        assertThat(rs.getString(1)).as("last_name should be stored as SQL NULL (composite).").isNull();
+    }
+
+    @Test
     public void testExecute_orderedCompositeCleanInsert_dataInserted() throws Exception
     {
         c.createStatement().executeUpdate(

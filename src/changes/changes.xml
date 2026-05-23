@@ -12,7 +12,7 @@
   </properties>
 
   <body>
-    <release version="1.2.1-SNAPSHOT" date="TBD" description="Change to Central Portal publishing, reproducible builds, dbUnit 3.0.0, GitHub config, convert docs to Asciidoc, version bumps, auto-publish SNAPSHOTS, fix CLI properties not working, fix mvn -X">
+    <release version="1.2.1-SNAPSHOT" date="TBD" description="Change to Central Portal publishing, reproducible builds, dbUnit 3.0.0, GitHub config, convert docs to Asciidoc, version bumps, auto-publish SNAPSHOTS, fix CLI properties not working, fix mvn -X, support replacement tokens">
       <action dev="jeffjensen" type="update" issue="26" system="github" due-to="jeffjensen">Setup reproducible builds.</action>
       <action dev="jeffjensen" type="update" issue="27" system="github" due-to="jeffjensen">Change Central artifact publishing from OSSRH to new Portal.</action>
       <action dev="andrewhj" type="update" issue="28" system="github" due-to="andrewhj">Update dbUnit version to 3.0.0.</action>
@@ -39,6 +39,7 @@
       <action dev="dependabot" type="update" due-to="Dependabot">Update maven dependency org.dbunit:dbunit from 3.0.0 to 3.1.0 (#16).</action>
       <action dev="jeffjensen" type="fix" issue="25" system="github" due-to="jeffjensen">Fix CLI properties not working: migrate from deprecated Javadoc annotations to Java annotations and add dbunit. property prefix to avoid conflicts with Maven's built-in properties.</action>
       <action dev="jeffjensen" type="fix" issue="35" system="github" due-to="jeffjensen">Fix mvn -X debug flag not activating dbunit logging: remove slf4j-simple from runtime scope so Maven's own SLF4J provider is used at plugin runtime.</action>
+      <action dev="jeffjensen" type="add" issue="24" system="github" due-to="jeffjensen">Support replacement tokens by adding replacementDataSetClass parameter to the operation and compare goals.</action>
     </release>
     <release version="1.2.0" date="Feb 13, 2022" description="Composite dataset, dbUnit 2.7.3">
       <action dev="jeffjensen" type="add" issue="21" system="github" due-to="beskow">Create composite dataset from multiple source files.</action>

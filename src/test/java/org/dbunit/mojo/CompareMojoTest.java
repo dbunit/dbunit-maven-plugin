@@ -142,6 +142,72 @@ public class CompareMojoTest extends AbstractDbUnitMojoTest
     }
 
     /**
+     * Tests that replacementDataSetClass substitutes tokens in the expected
+     * dataset so a [NULL] token matches an actual NULL in the database.
+     */
+    @Test
+    public void testExecute_replacementDataSetClass_nullInDbMatchesToken()
+            throws Exception
+    {
+        c.createStatement().executeUpdate(
+                "insert into person (id, first_name, last_name) values (1, 'Brian', null)");
+
+        final CompareMojo mojo = new CompareMojo();
+        populateMojoCommonConfiguration(mojo);
+        mojo.src = new File(p.getProperty("xmlDataSourceWithNullToken"));
+        mojo.format = "xml";
+        mojo.replacementDataSetClass = NullReplacementDataSet.class.getName();
+        mojo.execute();
+    }
+
+    /**
+     * Tests that replacementDataSetClass works correctly when tables filter is
+     * applied.
+     */
+    @Test
+    public void testExecute_replacementDataSetClassWithTablesFilter_nullInDbMatchesToken()
+            throws Exception
+    {
+        c.createStatement().executeUpdate(
+                "insert into person (id, first_name, last_name) values (1, 'Brian', null)");
+
+        final Table table = new Table();
+        table.setName("person");
+
+        final CompareMojo mojo = new CompareMojo();
+        populateMojoCommonConfiguration(mojo);
+        mojo.src = new File(p.getProperty("xmlDataSourceWithNullToken"));
+        mojo.format = "xml";
+        mojo.tables = new Table[]{table};
+        mojo.replacementDataSetClass = NullReplacementDataSet.class.getName();
+        mojo.execute();
+    }
+
+    /**
+     * Tests that replacementDataSetClass works correctly when queries filter
+     * is applied.
+     */
+    @Test
+    public void testExecute_replacementDataSetClassWithQueriesFilter_nullInDbMatchesToken()
+            throws Exception
+    {
+        c.createStatement().executeUpdate(
+                "insert into person (id, first_name, last_name) values (1, 'Brian', null)");
+
+        final Query query = new Query();
+        query.setName("person");
+        query.setSql("SELECT * FROM person WHERE id = 1");
+
+        final CompareMojo mojo = new CompareMojo();
+        populateMojoCommonConfiguration(mojo);
+        mojo.src = new File(p.getProperty("xmlDataSourceWithNullToken"));
+        mojo.format = "xml";
+        mojo.queries = new Query[]{query};
+        mojo.replacementDataSetClass = NullReplacementDataSet.class.getName();
+        mojo.execute();
+    }
+
+    /**
      * Tests comparison using the flat XML dataset format.
      */
     @Test
