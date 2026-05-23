@@ -20,6 +20,7 @@
  */
 package org.dbunit.mojo;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -200,5 +201,181 @@ public class OperationMojoTest extends AbstractDbUnitMojoTest
         rs.next();
         // no data since skip is set
         assertEquals(0, rs.getInt(1));
+    }
+
+    @Test
+    public void testExecute_insertType_insertsRows() throws Exception
+    {
+        final OperationMojo mojo = new OperationMojo();
+        populateMojoCommonConfiguration(mojo);
+        mojo.src = new File(p.getProperty("xmlDataSource"));
+        mojo.format = "xml";
+        mojo.type = "INSERT";
+        mojo.execute();
+
+        final ResultSet rs = c.createStatement().executeQuery("select count(*) from person");
+        rs.next();
+        assertThat(rs.getInt(1)).as("Person count after INSERT.").isEqualTo(2);
+    }
+
+    @Test
+    public void testExecute_updateTypeAfterInsert_lastNameUpdated() throws Exception
+    {
+        final OperationMojo insert = new OperationMojo();
+        populateMojoCommonConfiguration(insert);
+        insert.src = new File(p.getProperty("xmlDataSource"));
+        insert.format = "xml";
+        insert.type = "INSERT";
+        insert.execute();
+
+        final OperationMojo update = new OperationMojo();
+        populateMojoCommonConfiguration(update);
+        update.src = new File(p.getProperty("xmlDataSourcePersonUpdated"));
+        update.format = "xml";
+        update.type = "UPDATE";
+        update.execute();
+
+        final ResultSet rs = c.createStatement().executeQuery("select last_name from person where id=1");
+        rs.next();
+        assertThat(rs.getString(1)).as("Last name of person id=1 after UPDATE.").isEqualTo("Updated");
+    }
+
+    @Test
+    public void testExecute_deleteTypeAfterInsert_onePersonRemains() throws Exception
+    {
+        final OperationMojo insert = new OperationMojo();
+        populateMojoCommonConfiguration(insert);
+        insert.src = new File(p.getProperty("xmlDataSource"));
+        insert.format = "xml";
+        insert.type = "INSERT";
+        insert.execute();
+
+        final OperationMojo delete = new OperationMojo();
+        populateMojoCommonConfiguration(delete);
+        delete.src = new File(p.getProperty("xmlDataSourcePerson1"));
+        delete.format = "xml";
+        delete.type = "DELETE";
+        delete.execute();
+
+        final ResultSet rs = c.createStatement().executeQuery("select count(*) from person");
+        rs.next();
+        assertThat(rs.getInt(1)).as("Person count after DELETE of one row.").isEqualTo(1);
+    }
+
+    @Test
+    public void testExecute_deleteAllTypeAfterInsert_noPersonsInDb() throws Exception
+    {
+        final OperationMojo insert = new OperationMojo();
+        populateMojoCommonConfiguration(insert);
+        insert.src = new File(p.getProperty("xmlDataSource"));
+        insert.format = "xml";
+        insert.type = "INSERT";
+        insert.execute();
+
+        final OperationMojo deleteAll = new OperationMojo();
+        populateMojoCommonConfiguration(deleteAll);
+        deleteAll.src = new File(p.getProperty("xmlDataSource"));
+        deleteAll.format = "xml";
+        deleteAll.type = "DELETE_ALL";
+        deleteAll.execute();
+
+        final ResultSet rs = c.createStatement().executeQuery("select count(*) from person");
+        rs.next();
+        assertThat(rs.getInt(1)).as("Person count after DELETE_ALL.").isEqualTo(0);
+    }
+
+    @Test
+    public void testExecute_refreshTypeWithPreexistingRow_dataRefreshed() throws Exception
+    {
+        c.createStatement().executeUpdate(
+                "insert into person (id, first_name, last_name) values (1, 'Old', 'Name')");
+
+        final OperationMojo refresh = new OperationMojo();
+        populateMojoCommonConfiguration(refresh);
+        refresh.src = new File(p.getProperty("xmlDataSource"));
+        refresh.format = "xml";
+        refresh.type = "REFRESH";
+        refresh.execute();
+
+        final ResultSet countRs = c.createStatement().executeQuery("select count(*) from person");
+        countRs.next();
+        assertThat(countRs.getInt(1)).as("Person count after REFRESH.").isEqualTo(2);
+
+        final ResultSet nameRs = c.createStatement().executeQuery(
+                "select first_name from person where id=1");
+        nameRs.next();
+        assertThat(nameRs.getString(1)).as("First name of person id=1 after REFRESH.").isEqualTo("Brian");
+    }
+
+    @Test
+    public void testExecute_transactionTrue_dataInserted() throws Exception
+    {
+        final OperationMojo mojo = new OperationMojo();
+        populateMojoCommonConfiguration(mojo);
+        mojo.src = new File(p.getProperty("xmlDataSource"));
+        mojo.format = "xml";
+        mojo.type = "CLEAN_INSERT";
+        mojo.transaction = true;
+        mojo.execute();
+
+        final ResultSet rs = c.createStatement().executeQuery("select count(*) from person");
+        rs.next();
+        assertThat(rs.getInt(1)).as("Person count after transactional CLEAN_INSERT.").isEqualTo(2);
+    }
+
+    @Test
+    public void testExecute_flatFormat_dataInserted() throws Exception
+    {
+        final OperationMojo mojo = new OperationMojo();
+        populateMojoCommonConfiguration(mojo);
+        mojo.src = new File(p.getProperty("xmlDataSourceFlat"));
+        mojo.format = "flat";
+        mojo.type = "CLEAN_INSERT";
+        mojo.execute();
+
+        final ResultSet rs = c.createStatement().executeQuery("select count(*) from person");
+        rs.next();
+        assertThat(rs.getInt(1)).as("Person count after flat-format CLEAN_INSERT.").isEqualTo(2);
+    }
+
+    @Test
+    public void testExecute_srcAndSourcesCombined_threePersonsInDb() throws Exception
+    {
+        final OperationMojo mojo = new OperationMojo();
+        populateMojoCommonConfiguration(mojo);
+        mojo.src = new File(p.getProperty("xmlDataSourcePerson"));
+        mojo.sources = new File[]{new File(p.getProperty("xmlDataSourceAdditionalPerson"))};
+        mojo.format = "xml";
+        mojo.type = "INSERT";
+        mojo.execute();
+
+        final ResultSet rs = c.createStatement().executeQuery("select count(*) from person");
+        rs.next();
+        assertThat(rs.getInt(1)).as("Person count when src and sources are concatenated.").isEqualTo(3);
+    }
+
+    @Test
+    public void testExecute_orderedCompositeCleanInsert_dataInserted() throws Exception
+    {
+        c.createStatement().executeUpdate(
+                "insert into person (id, first_name, last_name) values (1, 'Old', 'Name')");
+        c.createStatement().executeUpdate(
+                "insert into address (id, street) values (1, 'Old Street')");
+
+        final OperationMojo mojo = new OperationMojo();
+        populateMojoCommonConfiguration(mojo);
+        mojo.sources = new File[]{
+            new File(p.getProperty("xmlDataSourcePerson")),
+            new File(p.getProperty("xmlDataSourceAddress"))
+        };
+        mojo.format = "xml";
+        mojo.type = "CLEAN_INSERT";
+        mojo.composite = true;
+        mojo.ordered = true;
+        mojo.execute();
+
+        final ResultSet rs = c.createStatement().executeQuery("select count(*) from person");
+        rs.next();
+        assertThat(rs.getInt(1)).as("Person count after ordered composite CLEAN_INSERT.").isEqualTo(2);
     }
 }
