@@ -31,11 +31,11 @@ JDBC driver.
           <driver></driver>
           <url></url>
           <username></username>
-          <password><password>
-          [....]
+          <password></password>
+          [...]
         </configuration>
 
-        </executions>
+        <executions>
           <execution>
             <phase></phase>
             <goals>
@@ -69,37 +69,31 @@ JDBC driver.
 </project>
 ----
 
-The `<configuration>` element can contain all properties and features that are known to the
-`DatabaseConfig` class (see link:https://dbunit.github.io/dbunit-extension/properties.html[]).
-It allows to specify the short name of the properties in the same way it works for the ant
-task: link:https://dbunit.github.io/dbunit-extension/anttask.html[]
-Note that there are still the old and deprecated configuration elements (not nested in the
-`<dbconfig>` element but specified explicitly beneath the configuration). If you specify
-your properties in both ways then the `<dbconfig>` value will always have precedence over the
-old ones.
+== Configuring DatabaseConfig via `<dbconfig>`
+
+The preferred way to configure `DatabaseConfig` properties is via the `<dbconfig>` element.
+Each child element's name is a DatabaseConfig property short name and its content is the value —
+the same short names used by the dbUnit Ant task (see
+link:https://dbunit.github.io/dbunit-extension/anttask.html[Ant task docs] and the full
+link:https://dbunit.github.io/dbunit-extension/properties.html[DatabaseConfig properties reference]).
+Note that explicit deprecated elements beneath `<configuration>` (outside `<dbconfig>`) are still
+accepted for backwards compatibility, but `<dbconfig>` values always take precedence.
 
 [source,xml]
 ----
 [...]
 <configuration>
   <dbconfig>
-      <property>
-        <name>datatypeFactory</name>
-        <value>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</value>
-      </property>
-      <property>
-        <name>tableType</name>
-        <value>TABLE,SYNONYM</value>
-      </property>
-      <property>
-        <name>batchedStatements</name>
-        <value>true</value>
-      </property>
-      <property>
-        <name>caseSensitiveTableNames</name>
-        <value>true</value>
-      </property>
+    <datatypeFactory>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</datatypeFactory>
+    <tableType>TABLE,SYNONYM</tableType>
+    <batchedStatements>true</batchedStatements>
+    <caseSensitiveTableNames>true</caseSensitiveTableNames>
   </dbconfig>
 </configuration>
 [...]
 ----
+
+NOTE: The `sort` option of the `compare` goal requires a result-set table factory that supports
+random access. Set `resultSetTableFactory` to `org.dbunit.database.CachedResultSetTableFactory`
+in `<dbconfig>` when using `<sort>true</sort>`; the default `ForwardOnlyResultSetTableFactory`
+does not support the `getRowCount()` call that sorting requires.

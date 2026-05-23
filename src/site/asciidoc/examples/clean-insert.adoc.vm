@@ -29,11 +29,11 @@ The following example cleans and populates database with an external DbUnit data
           <driver>com.vendor.jdbc.Driver</driver>
           <url>jdbc:vendor:mydatabase</url>
           <username>a.username</username>
-          <password>a.password<password>
-          [....]
+          <password>a.password</password>
+          [...]
         </configuration>
 
-        </executions>
+        <executions>
           <execution>
             <phase>test-compile</phase>
             <goals>
