@@ -41,11 +41,11 @@
     <!-- always set to minimum version this plugin needs for its features -->
     <dbunitVersion>3.1.0</dbunitVersion>
     <hsqldbVersion>1.8.0.10</hsqldbVersion>
-    <junitVersion>6.0.3</junitVersion>
-    <mavenArtifactVersion>3.9.15</mavenArtifactVersion>
-    <mavenModelVersion>3.9.15</mavenModelVersion>
-    <mavenPluginApiVersion>3.9.15</mavenPluginApiVersion>
-    <mavenSettingsVersion>3.9.15</mavenSettingsVersion>
+    <junitVersion>6.1.0</junitVersion>
+    <mavenArtifactVersion>3.9.16</mavenArtifactVersion>
+    <mavenModelVersion>3.9.16</mavenModelVersion>
+    <mavenPluginApiVersion>3.9.16</mavenPluginApiVersion>
+    <mavenSettingsVersion>3.9.16</mavenSettingsVersion>
     <slf4jVersion>2.0.18</slf4jVersion>
 
     <!-- Database driver versions -->
@@ -62,7 +62,7 @@
     <mavenInvokerPluginVersion>3.10.1</mavenInvokerPluginVersion>
     <mavenPluginPluginVersion>3.15.2</mavenPluginPluginVersion>
     <projectInfoReportsPluginVersion>3.9.0</projectInfoReportsPluginVersion>
-    <sitePluginVersion>3.21.0</sitePluginVersion>
+    <sitePluginVersion>3.22.0</sitePluginVersion>
     <sourcePluginVersion>3.4.0</sourcePluginVersion>
     <versionsMavenPluginVersion>2.21.0</versionsMavenPluginVersion>
 
