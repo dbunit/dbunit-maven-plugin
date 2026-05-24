@@ -12,6 +12,8 @@
   </properties>
 
   <body>
+    <release version="1.3.1-SNAPSHOT" date="TBD" description="">
+    </release>
     <release version="1.3.0" date="May 23, 2026" description="Change to Central Portal publishing, reproducible builds, dbUnit 3.0.0, GitHub config, convert docs to Asciidoc, version bumps, auto-publish SNAPSHOTS, fix CLI properties not working, fix mvn -X, support replacement tokens, excludes parameter, excludeEmptyTables parameter, export-dtd goal">
       <action dev="jeffjensen" type="update" issue="26" system="github" due-to="jeffjensen">Setup reproducible builds.</action>
       <action dev="jeffjensen" type="update" issue="27" system="github" due-to="jeffjensen">Change Central artifact publishing from OSSRH to new Portal.</action>
