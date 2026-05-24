@@ -49,6 +49,7 @@
       <item name="Composite dataset" href="examples/clean-insert-composite-dataset.html"/>
       <item name="Export full database" href="examples/export-full.html" />
       <item name="Export with custom query" href="examples/export-custom-query.html" />
+      <item name="Export DTD schema" href="examples/export-dtd.html" />
       <item name="settings" href="examples/settings.html" />
     </menu>
     <menu name="Developing DbUnit Maven Plugin">

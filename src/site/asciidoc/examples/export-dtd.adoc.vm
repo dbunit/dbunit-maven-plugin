@@ -1,0 +1,73 @@
+= Export DTD Example
+
+The following example exports a flat DTD schema from the database after the test phase.
+Tables are ordered by foreign key constraints so the DTD reflects the correct insertion order.
+
+[source,xml]
+----
+<project>
+  [...]
+  <build>
+    [...]
+    <plugins>
+      [...]
+      <plugin>
+        <groupId>org.dbunit</groupId>
+        <artifactId>dbunit-maven-plugin</artifactId>
+        <version>${project.version}</version>
+
+        <!--jar file that has the jdbc driver -->
+        <dependencies>
+          <dependency>
+            <groupId>your.vendor.group</groupId>
+            <artifactId>your.vendor.artifactId</artifactId>
+            <version>x.y</version>
+          </dependency>
+        </dependencies>
+
+        <!-- common configurations -->
+        <configuration>
+          <driver>com.vendor.jdbc.Driver</driver>
+          <url>jdbc:vendor:mydatabase</url>
+          <username>a.username</username>
+          <password>a.password</password>
+          [....]
+        </configuration>
+
+        <executions>
+          <execution>
+            <phase>test</phase>
+            <goals>
+              <goal>export-dtd</goal>
+            </goals>
+            <!-- specific configurations -->
+            <configuration>
+              <dest>src/test/resources/dataset.dtd</dest>
+            </configuration>
+          </execution>
+          [...]
+        </executions>
+
+        [...]
+      </plugin>
+      [...]
+    </plugins>
+    [...]
+  </build>
+  [...]
+</project>
+----
+
+== Using the DTD for Dataset Validation
+
+Reference the generated DTD from flat XML dataset files to enable IDE validation and
+auto-completion:
+
+[source,xml]
+----
+<!DOCTYPE dataset SYSTEM "dataset.dtd">
+<dataset>
+  <PERSON id="1" first_name="John" last_name="Doe" />
+  <ADDRESS id="1" street="123 Main St" />
+</dataset>
+----

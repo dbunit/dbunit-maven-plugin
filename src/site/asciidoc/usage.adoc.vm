@@ -184,6 +184,32 @@ Both parameters can be combined:
 </configuration>
 ----
 
+== Exporting a DTD Schema
+
+The `export-dtd` goal exports a flat DTD schema from the connected database.
+Tables are automatically ordered by foreign key constraints so the DTD reflects
+the correct insertion order. The generated DTD can be used to validate flat XML
+dataset files and enable IDE auto-completion.
+
+[source,xml]
+----
+<configuration>
+  <dest>src/test/resources/dataset.dtd</dest>
+</configuration>
+----
+
+Or from the command line:
+
+[source,shell]
+----
+mvn dbunit:export-dtd \
+  -Ddbunit.driver=org.hsqldb.jdbcDriver \
+  -Ddbunit.url=jdbc:hsqldb:mem:mydb \
+  -Ddbunit.username=sa \
+  -Ddbunit.password= \
+  -Ddbunit.dest=src/test/resources/dataset.dtd
+----
+
 == Command-Line Usage
 
 All plugin parameters can be set from the command line using the `dbunit.` property prefix,
