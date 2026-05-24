@@ -58,7 +58,7 @@ ssh -t sf-username,dbunit@shell.sourceforge.net create
 mvnw site:deploy
 ----
 
-. Post Announcement Discussion https://github.com/dbunit/dbunit-extension/discussions/categories/announcements
+. Post Announcement Discussion https://github.com/dbunit/dbunit-maven-plugin/discussions/categories/announcements
 .. Consider using the changes plugin's announcement-generate goal 
 +
 [source,bash]
