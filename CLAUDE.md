@@ -40,6 +40,7 @@ All Mojos live in `src/main/java/org/dbunit/mojo/`:
 - **`OperationMojo`** (`operation` goal) — Executes a dbUnit database operation (INSERT, CLEAN_INSERT, DELETE, DELETE_ALL, UPDATE, REFRESH, and MSSQL variants). Supports multiple source files, composite datasets (merge files into one dataset), and the `combine` flag to merge rows from same-named tables across files.
 - **`ExportMojo`** (`export` goal) — Exports database contents to an XML (or other format) dataset file. Supports table/query filtering and ordered export.
 - **`CompareMojo`** (`compare` goal) — Compares current database contents against a reference dataset file, optionally filtering by tables/queries. The `sort` option requires `resultSetTableFactory=org.dbunit.database.CachedResultSetTableFactory` in `<dbconfig>`; the default `ForwardOnlyResultSetTableFactory` throws `UnsupportedOperationException` when sort tries to call `getRowCount()`.
+- **`ExportDtdMojo`** (`export-dtd` goal) — Exports a flat DTD schema from the connected database, with tables ordered by foreign key constraints. Output goes to `dest` (default: `target/dbunit/export.dtd`). Useful for validating flat XML dataset files and enabling IDE auto-completion.
 
 ### Key Design Pattern
 
@@ -69,46 +70,74 @@ All Mojo parameters are bound to CLI properties with the `dbunit.` prefix to avo
 
 POM-based `<configuration>` still uses the bare field names unchanged.
 
+## Claude Directives
+
+- Make assumptions and proceed without asking for confirmation on routine changes. If an action is destructive (e.g., deleting files), pause and ask.
+
 ## Code Style
 
 - General:
   - Prefer writing clear code and use inline comments sparingly.
+  - Prefer single statements over compound statements as nested calls in one line are more confusing and more difficult to read and understand.
   - Prefer separate local variables over compound statements for readability.
+  - Favor immutability.  Try to not need setters.
+  - Prefer constructors with arguments over no args constructors and using setters.
+  - Prefer constructor injection
+  - Write positive if statements when paired with an else statement.
+  - Remove any blank line after opening curly braces.
+  - Do not create "utils" or "helper" packages or class names. Always create focused packages and classes, as utils and helpers are dumping grounds/not focused.
+  - When making changes, always work on a branch that is not main and if necessary, create and switch to a branch to isolate the work.
+  - When making changes, ensure tests cover it and add or update tests as needed, whether UTs, ITs, and/or ATs.
+- Tests:
+  - `<ClassName>Test` for unit test class (UT)
+  - `<ClassName>IT` for integration test class (IT)
+  - `<ClassName>AT` for acceptance test class (AT)
+  - `test<MethodName>_<StartingStateConditions>_<AssertedOutcome>` for test method names
+  - Prefer to assert the actual object to an expected object vs individual fields on the object to individual values.
 
 - Commits:
+  - Create atomic commits. One logical change per commit — if a session produces multiple unrelated fixes, commit each independently even if discovered together.
+  - Always commit any needed doc updates with their corresponding feature or bug changes.
+  - Consequence changes belong in the same commit as the change that caused them. Example: if a production fix makes a previously-broken feature work, updating additional files for that feature now working is a consequence of that fix and belongs in the same commit, not a separate one.
+  - When necessary to change a file for a prior commit that is not yet merged to main, target that commit for squashing the change into by using the git "fixup!" feature for its commit - prefix the commit message it is in with "fixup! ".
+  - Create multiple fixup! commits as needed to target the prior specific commits for each file.
+  - When renaming files, always use `git mv` instead of `git delete` followed by `git add`.
+
+- Commit Messages:
   - Adhere strictly to de facto standard Git commit message formatting.
   - Use Conventional Commits format.
   - **Commit Types:** `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `build:`, `ci:`
-  - **Scopes:** `pom`, `scripts`, `log`, `docker`, `database`, `site`
+  - **Scopes:** any of the database names, `assertion`, `pom`, `log`, `docker`, `database`, `dataset`, `metadata`, `resultset`, `scripts`, `site`, `statement`
   - Capitalize the first word after the type and scope.
   - You may suggest additional CC commit types and scopes when encountering situations where the changes do not fit into the approved lists above.
   - Reference GitHub issues in the commit footer with `Refs: <issue-number>` (e.g. `Refs: 123`).  Do not use a # before the number.
+  - Do not put the issue number in the message topic.
+  - Use * for bullets, not -.
 
 - Java:
   - Use Eclipse code formatter settings file `java-codestyle-formatter.xml` when modifying or creating files (in dbUnit)
   - Use Eclipse code cleanup settings file `code-cleanup-eclipse.xml` when modifying or creating files
-  - Remove any blank line after opening curly braces.
-  - Favor immutability.  Try to not need setters.
-  - Prefer single statements over compound statements as nested calls in one line are more confusing and more difficult to read and understand.
-  - Prefer constructors with arguments over no args constructors and using setters.
-  - Write positive if statements when paired with an else statement.
-  - Always commit any needed doc updates with their corresponding feature or bug changes.
   - If Lombok is available, use its annotations such as @AllArgsConstructor, @NoArgsConstructor, @Getter, @Setter.
   - If not using @Slf4j, then place the Logger variable first in the class.
-  - Use constructor injection
-  - Write JavaDoc comments on all public classes and methods
+  - Write JavaDoc comments on all public classes and methods.
+  - In JavaDoc, use complete sentences, start with a capital letter and end with a period, for the topic body, parameters, and return.
   - Tests:
-    - `<ClassName>Test` for unit test class
-    - `<ClassName>IT` for integration test class
-    - `<ClassName>AT` for acceptance test class
-    - `test<MethodName>_<StartingStateConditions>_<AssertedOutcome>` for test method names
     - Prefer assertJ.
     - Prefer to add ".as()" with a fail message ending with a period.
-    - Prefer to assert the actual object to an expected object vs individual fields on the object to individual values.
 
-- Java Project Specific
+- dbUnit Organization:
 
-  - Always create and commit changes.xml updates with the corresponding feature or bug changes.
+  - changes.xml file
+    - Always create and commit changes.xml updates with the corresponding feature or bug changes.
+    - Add changes.xml updates at the bottom of the list.
+    - Ensure each changes.xml entry has these attributes populated and ask when unknown: dev, type, issue, system="github", and due-to
+    - For the changes.xml entry, add a very brief description of the change to the description attribute on the release element.
+  - Tests that require a database to work are "integration tests", and therefore use the IT suffix.
+
+- dbUnit Maven Plugin Specific Items:
+
+  - Monitor a branch's coding work-in-progress CI pipeline build result at <https://github.com/dbunit/dbunit-maven-plugin/actions/workflows/build-any-branch.yml> for issues to correct.
+  - Monitor a branch's documentation site-publish work-in-progress CI pipeline build result at <https://github.com/dbunit/dbunit-maven-plugin/actions/workflows/publish-docs.yml> for issues to correct.
 
 ## Troubleshooting
 
