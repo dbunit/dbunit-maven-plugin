@@ -28,8 +28,8 @@
     </head>
 
     <links>
-      <item name="" href="https://github.com/dbunit/dbunit-maven-plugin/actions/workflows/build-any-branch.yml">
-        <image src="https://github.com/dbunit/dbunit-maven-plugin/actions/workflows/build-any-branch.yml/badge.svg"/>
+      <item name="main" href="https://github.com/dbunit/dbunit-maven-plugin/actions/workflows/build-any-branch.yml?query=branch%3Amain">
+        <image src="https://github.com/dbunit/dbunit-maven-plugin/actions/workflows/build-any-branch.yml/badge.svg?branch=main"/>
       </item>
       <item name="" href="https://github.com/jvm-repo-rebuild/reproducible-central/blob/master/content/org/dbunit/dbunit-maven-plugin/README.md">
         <image src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/jvm-repo-rebuild/reproducible-central/master/content/org/dbunit/dbunit-maven-plugin/badge.json"/>
