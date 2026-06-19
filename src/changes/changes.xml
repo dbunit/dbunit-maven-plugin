@@ -15,6 +15,8 @@
     <release version="1.3.1-SNAPSHOT" date="TBD" description="">
       <!-- dependabot:dep=org.dbunit:dbunit:new=3.2.0:pr=41 -->
       <action dev="dependabot" type="update" due-to="Dependabot">Update maven dependency org.dbunit:dbunit from 3.1.0 to 3.2.0 (#41).</action>
+      <!-- dependabot:dep=actions/checkout:new=7:pr=42 -->
+      <action dev="dependabot" type="update" due-to="Dependabot">Update github_actions dependency actions/checkout from 6 to 7 (#42).</action>
     </release>
     <release version="1.3.0" date="May 23, 2026" description="Change to Central Portal publishing, reproducible builds, dbUnit 3.0.0, GitHub config, convert docs to Asciidoc, version bumps, auto-publish SNAPSHOTS, fix CLI properties not working, fix mvn -X, support replacement tokens, excludes parameter, excludeEmptyTables parameter, export-dtd goal">
       <action dev="jeffjensen" type="update" issue="26" system="github" due-to="jeffjensen">Setup reproducible builds.</action>
