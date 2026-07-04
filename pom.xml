@@ -41,7 +41,7 @@
     <!-- always set to minimum version this plugin needs for its features -->
     <dbunitVersion>3.2.0</dbunitVersion>
     <hsqldbVersion>1.8.0.10</hsqldbVersion>
-    <junitVersion>6.1.0</junitVersion>
+    <junitVersion>6.1.1</junitVersion>
     <mavenArtifactVersion>3.9.16</mavenArtifactVersion>
     <mavenModelVersion>3.9.16</mavenModelVersion>
     <mavenPluginApiVersion>3.9.16</mavenPluginApiVersion>
