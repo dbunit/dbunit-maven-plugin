@@ -2,11 +2,11 @@
 <site xmlns="http://maven.apache.org/SITE/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/SITE/2.0.0 https://maven.apache.org/xsd/site-2.0.0.xsd">
 
-  <bannerLeft name="" href="https://github.com/dbunit">
+  <bannerLeft name="" href="https://dbunit.github.io">
     <image src="/images/dbunit-logo.jpg"/>
   </bannerLeft>
 
-  <bannerRight name="" href="https://github.com">
+  <bannerRight name="" href="https://github.com/dbunit-maven-plugin">
     <image src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="48px" height="48px"/>
   </bannerRight>
 
