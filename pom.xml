@@ -39,7 +39,7 @@
     <!-- TODO this needed for plugin? -->
     <commonsCollectionsVersion>3.2.2</commonsCollectionsVersion>
     <!-- always set to minimum version this plugin needs for its features -->
-    <dbunitVersion>3.2.0</dbunitVersion>
+    <dbunitVersion>3.3.0</dbunitVersion>
     <hsqldbVersion>1.8.0.10</hsqldbVersion>
     <junitVersion>6.1.1</junitVersion>
     <mavenArtifactVersion>3.9.16</mavenArtifactVersion>
