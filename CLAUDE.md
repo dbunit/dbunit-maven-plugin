@@ -113,6 +113,7 @@ POM-based `<configuration>` still uses the bare field names unchanged.
   - Reference GitHub issues in the commit footer with `Refs: <issue-number>` (e.g. `Refs: 123`).  Do not use a # before the number.
   - Do not put the issue number in the message topic.
   - Use * for bullets, not -.
+  - In commits, do not refer to files that are not committed.
 
 - Java:
   - Use Eclipse code formatter settings file `java-codestyle-formatter.xml` when modifying or creating files (in dbUnit)
@@ -125,13 +126,19 @@ POM-based `<configuration>` still uses the bare field names unchanged.
     - Prefer assertJ.
     - Prefer to add ".as()" with a fail message ending with a period.
 
+- GitHub
+  - When creating a github issue, set the applicable labels, assignee, and issue type, and milestone as best can determine.  ask if needed.
+  - Do not create GitHub issues for verification-type tasks, only create them for features, bugs, and file changing actions.
+  - In issues, do not refer to files that are not committed.
+
 - dbUnit Organization:
 
   - changes.xml file
     - Always create and commit changes.xml updates with the corresponding feature or bug changes.
     - Add changes.xml updates at the bottom of the list.
     - Ensure each changes.xml entry has these attributes populated and ask when unknown: dev, type, issue, system="github", and due-to
-    - For the changes.xml entry, add a very brief description of the change to the description attribute on the release element.
+    - Valid entries for the type field are: add, fix, update, remove
+    - Keep the release element's `description` attribute a short 1-2 sentence summary of the release's overall themes (e.g. "Test-suite hardening, connection-reuse caching, and assorted correctness fixes across export formats and timestamp handling"), not a per-entry concatenation. Update it only when a new theme is introduced, not on every `<action>` added — full detail belongs in each action's own text.
   - Tests that require a database to work are "integration tests", and therefore use the IT suffix.
 
 - dbUnit Maven Plugin Specific Items:
