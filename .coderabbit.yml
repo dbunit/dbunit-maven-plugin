@@ -1,0 +1,81 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: en-US
+
+tone_instructions: >-
+  Prioritize correctness and the CLAUDE.md conventions over style nits. The plugin targets
+  Java 8, so don't suggest newer-JDK APIs. "== not !=" with an else, non-final classes, and
+  delegating to dbUnit's Ant task API are deliberate.
+
+reviews:
+  profile: assertive
+  request_changes_workflow: false
+  poem: false
+  collapse_walkthrough: true
+  auto_review:
+    enabled: true
+    drafts: false
+    auto_incremental_review: true
+    base_branches:
+      - main
+      - "releases/.*"
+  path_filters:
+    - "!**/target/**"
+    - "!.jackknife/**"
+  path_instructions:
+    - path: "src/main/java/org/dbunit/mojo/**"
+      instructions: >-
+        Each Mojo configures an org.dbunit.ant.* task object and calls task.execute(connection),
+        so the Ant task classes are the real implementation - keep behavior aligned with the
+        dbunit-core version pinned in the POM. New configuration belongs in the generic
+        <dbconfig> element (DatabaseConfig.setPropertiesByString), not new individual fields;
+        the per-property fields that remain exist only for backwards compatibility. CLI
+        parameters bind under the "dbunit." property prefix to avoid clashing with Maven
+        built-ins. Follow CLAUDE.md: "==" not "!=" with an else, no "utils" or "helper" names,
+        favor immutability and constructor injection, and complete-sentence Javadoc ending
+        with a period on public classes and methods.
+    - path: "src/test/java/**/*Test.java"
+      instructions: >-
+        Unit tests (Surefire) instantiate a Mojo directly and populate it via
+        AbstractDbUnitMojoTest.populateMojoCommonConfiguration() against a fresh in-memory
+        HSQLDB created in @BeforeEach, with connection details from
+        src/test/resources/test.properties. Name methods
+        test<Method>_<StartingStateConditions>_<AssertedOutcome>. Prefer AssertJ, assert whole
+        objects, and add .as("...") ending with a period.
+    - path: "src/it/**"
+      instructions: >-
+        maven-invoker-plugin integration projects that run during verify. Keep each one
+        runnable with only the JDK, JUnit, and this plugin plus dbUnit on the classpath.
+    - path: "src/example/**"
+      instructions: >-
+        The example project that maven-invoker-plugin clones into target/it/ during verify. It
+        doubles as user-facing sample code - keep it minimal and correct rather than clever.
+    - path: "src/changes/changes.xml"
+      instructions: >-
+        The Maven Changes changelog. New <action> entries go at the bottom of the current
+        release as one plain-text line each (a multi-line body breaks the announcement script).
+        Populate dev, type (one of add, fix, update, remove), issue, system="github", and
+        due-to. Dependabot entries are appended automatically by a workflow and keep their
+        existing one-line shape.
+    - path: "src/site/**"
+      instructions: >-
+        AsciiDoc, an FML FAQ, and a Velocity-filtered usage.adoc.vm, all rendered by the Maven
+        site through the Doxia bridge. In .vm files treat $ and ${...} as Velocity, not shell.
+        Never propose deleting src/site/asciidoc/README.adoc.
+    - path: ".github/**"
+      instructions: >-
+        actionlint validates the workflows and Ruff the Python scripts under .github/scripts,
+        which have their own pytest suite. Flag a script change that arrives without a matching
+        test update.
+  tools:
+    gitleaks:
+      enabled: true
+    actionlint:
+      enabled: true
+
+knowledge_base:
+  code_guidelines:
+    enabled: true
+    filePatterns:
+      - "CLAUDE.md"
+  learnings:
+    scope: auto
