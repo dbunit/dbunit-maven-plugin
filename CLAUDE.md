@@ -80,10 +80,10 @@ POM-based `<configuration>` still uses the bare field names unchanged.
   - Prefer writing clear code and use inline comments sparingly.
   - Prefer single statements over compound statements as nested calls in one line are more confusing and more difficult to read and understand.
   - Prefer separate local variables over compound statements for readability.
-  - Favor immutability.  Try to not need setters.
+  - Favor immutable data - try to not need setters.
   - Prefer constructors with arguments over no args constructors and using setters.
   - Prefer constructor injection
-  - Write positive if statements when paired with an else statement.
+  - Use == instead of != in if statements when paired with an else statement.
   - Remove any blank line after opening curly braces.
   - Do not create "utils" or "helper" packages or class names. Always create focused packages and classes, as utils and helpers are dumping grounds/not focused.
   - When making changes, always work on a branch that is not main and if necessary, create and switch to a branch to isolate the work.
@@ -100,7 +100,7 @@ POM-based `<configuration>` still uses the bare field names unchanged.
   - Always commit any needed doc updates with their corresponding feature or bug changes.
   - Consequence changes belong in the same commit as the change that caused them. Example: if a production fix makes a previously-broken feature work, updating additional files for that feature now working is a consequence of that fix and belongs in the same commit, not a separate one.
   - When necessary to change a file for a prior commit that is not yet merged to main, target that commit for squashing the change into by using the git "fixup!" feature for its commit - prefix the commit message it is in with "fixup! ".
-  - Create multiple fixup! commits as needed to target the prior specific commits for each file.
+  - Create multiple fixup! commits as needed to target the prior specific commits for each file; when multiple files target the same original commit, can combine them into the same fixup! commit.
   - When renaming files, always use `git mv` instead of `git delete` followed by `git add`.
 
 - Commit Messages:
@@ -113,15 +113,16 @@ POM-based `<configuration>` still uses the bare field names unchanged.
   - Reference GitHub issues in the commit footer with `Refs: <issue-number>` (e.g. `Refs: 123`).  Do not use a # before the number.
   - Do not put the issue number in the message topic.
   - Use * for bullets, not -.
-  - In commits, do not refer to files that are not committed.
+  - Do not refer to files that are not committed.
+  - Commit messages must only describe the final code state within that specific commit. Never include references to intermediate fixes, internal feedback loops, or temporary issues introduced and resolved during development (e.g., do not write "fixed typo" or "fixed issue X from review" if the original mistake is not part of the permanent git history).
 
 - Java:
   - Use Eclipse code formatter settings file `java-codestyle-formatter.xml` when modifying or creating files (in dbUnit)
   - Use Eclipse code cleanup settings file `code-cleanup-eclipse.xml` when modifying or creating files
   - If Lombok is available, use its annotations such as @AllArgsConstructor, @NoArgsConstructor, @Getter, @Setter.
   - If not using @Slf4j, then place the Logger variable first in the class.
-  - Write JavaDoc comments on all public classes and methods.
-  - In JavaDoc, use complete sentences, start with a capital letter and end with a period, for the topic body, parameters, and return.
+  - Write JavaDoc comments on all public classes and methods in src/main.
+  - In JavaDoc, use complete sentences for all descriptions, start with a capital letter and end with a period, for everything - the topic body, parameters, and return, including all annotations such as @param and @throws.
   - Tests:
     - Prefer assertJ.
     - Prefer to add ".as()" with a fail message ending with a period.
@@ -130,6 +131,9 @@ POM-based `<configuration>` still uses the bare field names unchanged.
   - When creating a github issue, set the applicable labels, assignee, and issue type, and milestone as best can determine.  ask if needed.
   - Do not create GitHub issues for verification-type tasks, only create them for features, bugs, and file changing actions.
   - In issues, do not refer to files that are not committed.
+  - Do not push commits unless told to.
+  - Do not open pull requests unless told to, as it prematurely uses the very limited code review services; the user knows when it is ready for that.
+  - Do not reply to PR feedback until after the code is pushed.
 
 - dbUnit Organization:
 
