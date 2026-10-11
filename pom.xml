@@ -43,7 +43,7 @@
     <hsqldbVersion>1.8.0.10</hsqldbVersion>
     <junitVersion>6.1.3</junitVersion>
     <mavenArtifactVersion>3.9.16</mavenArtifactVersion>
-    <mavenModelVersion>3.9.16</mavenModelVersion>
+    <mavenModelVersion>3.10.0</mavenModelVersion>
     <mavenPluginApiVersion>3.9.16</mavenPluginApiVersion>
     <mavenSettingsVersion>3.9.16</mavenSettingsVersion>
     <slf4jVersion>2.0.19</slf4jVersion>
