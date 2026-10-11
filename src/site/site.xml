@@ -6,7 +6,7 @@
     <image src="/images/dbunit-logo.jpg"/>
   </bannerLeft>
 
-  <bannerRight name="" href="https://github.com/dbunit-maven-plugin">
+  <bannerRight name="" href="https://github.com/dbunit/dbunit-maven-plugin">
     <image src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="48px" height="48px"/>
   </bannerRight>
 
@@ -40,7 +40,7 @@
     </links>
 
     <breadcrumbs>
-      <item name="DBUnit" href="https://github.com/dbunit"/>
+      <item name="Docs Home" href="index.html"/>
     </breadcrumbs>
 
     <menu name="Overview">
@@ -50,6 +50,7 @@
       <item name="FAQ" href="faq.html" />
       <item name="Changes" href="/changes.html" />
     </menu>
+
     <menu name="Examples">
       <item name="Clean insert" href="examples/clean-insert.html" />
       <item name="Composite dataset" href="examples/clean-insert-composite-dataset.html"/>
@@ -58,6 +59,12 @@
       <item name="Export DTD schema" href="examples/export-dtd.html" />
       <item name="settings" href="examples/settings.html" />
     </menu>
+
+    <menu name="Getting Help">
+      <item name="Discussion Forum"  href="https://github.com/dbunit/dbunit-maven-plugin/discussions"/>
+      <item name="Issues"            href="https://github.com/dbunit/dbunit-maven-plugin/issues"/>
+    </menu>
+
     <menu name="Developing DbUnit Maven Plugin">
 <!--
     TODO create these similar to dbUnit Extension site
