@@ -64,7 +64,7 @@
     <projectInfoReportsPluginVersion>3.9.0</projectInfoReportsPluginVersion>
     <sitePluginVersion>3.22.0</sitePluginVersion>
     <sourcePluginVersion>3.4.0</sourcePluginVersion>
-    <versionsMavenPluginVersion>2.22.0</versionsMavenPluginVersion>
+    <versionsMavenPluginVersion>2.23.0</versionsMavenPluginVersion>
 
     <!-- Other versions -->
     <wagonSshVersion>3.5.3</wagonSshVersion>
